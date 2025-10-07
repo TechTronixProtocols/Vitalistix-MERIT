@@ -1,0 +1,2817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MERIT - Metabolic Epilepsy Remediation & Information Taskforce</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --neon-teal: #00ffff;
+            --deep-navy: #0a0e27;
+            --gold: #ffd700;
+            --dark-navy: #050814;
+            --light-navy: #1a1f3a;
+            --text-light: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --max-width: 1600px;
+            --content-padding: 3rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background-color: var(--deep-navy);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Circuit Background Pattern */
+        .circuit-bg {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0, 255, 255, 0.05) 0%, transparent 50%);
+            z-index: -2;
+        }
+
+        .circuit-lines {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100vw;
+            height: 100%;
+            background-image: 
+                linear-gradient(90deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%),
+                linear-gradient(0deg, transparent 98%, rgba(0, 255, 255, 0.1) 100%);
+            background-size: 50px 50px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 2px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .nav-container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--content-padding);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-teal);
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--neon-teal);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Language Selector */
+        .language-selector {
+            position: relative;
+            margin-left: 1rem;
+        }
+
+        .language-dropdown {
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            color: var(--text-light);
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            min-width: 120px;
+            justify-content: space-between;
+        }
+
+        .language-dropdown:hover {
+            border-color: var(--neon-teal);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .language-dropdown i {
+            transition: transform 0.3s ease;
+        }
+
+        .language-dropdown.open i {
+            transform: rotate(180deg);
+        }
+
+        .language-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(26, 31, 58, 0.95);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            min-width: 180px;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+        }
+
+        .language-options.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        /* Custom scrollbar for language options */
+        .language-options::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .language-options::-webkit-scrollbar-track {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .language-options::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+
+        .language-options::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 255, 0.5);
+        }
+
+        .language-option {
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .language-option:hover {
+            background: rgba(0, 255, 255, 0.1);
+            color: var(--neon-teal);
+        }
+
+        .language-option.active {
+            background: rgba(0, 255, 255, 0.2);
+            color: var(--neon-teal);
+        }
+
+        .language-flag {
+            width: 20px;
+            height: 15px;
+            border-radius: 2px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            max-height: 120vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem var(--content-padding);
+            overflow: hidden;
+        }
+
+        /* Hero Video Container */
+        .hero-video-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        /* Hero Background Video */
+        .hero-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: 100%;
+            height: 100%;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Hero Overlay */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 8, 20, 0.7);
+            z-index: 0;
+        }
+
+        /* Hero Content */
+        .hero-content {
+            text-align: center;
+            max-width: 1000px;
+            z-index: 1;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Logo */
+        .hero-logo {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            display: block;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5));
+            animation: logoFloat 3s ease-in-out infinite;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.5s ease-out 0.1s;
+        }
+
+        .hero-logo.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--neon-teal), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out 0.2s;
+        }
+
+        .hero h1.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.5)); }
+            to { filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.5)); }
+        }
+
+        .tagline {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out 0.3s;
+        }
+
+        .tagline.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(45deg, var(--neon-teal), var(--gold));
+            color: var(--deep-navy);
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out 0.4s;
+        }
+
+        .cta-button.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem var(--content-padding);
+            max-width: var(--max-width);
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--neon-teal);
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out 0.1s;
+        }
+
+        .section-title.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            width: 100%;
+        }
+
+        .about-text {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.5s ease-out 0.2s;
+        }
+
+        .about-text.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about-icons {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            justify-items: center;
+        }
+
+        .icon-box {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(26, 31, 58, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .icon-box.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .icon-box:nth-child(1) { transition-delay: 0.3s; }
+        .icon-box:nth-child(2) { transition-delay: 0.4s; }
+        .icon-box:nth-child(3) { transition-delay: 0.5s; }
+
+        .icon-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+            border-color: var(--neon-teal);
+        }
+
+        .icon-box i {
+            font-size: 3rem;
+            color: var(--neon-teal);
+            margin-bottom: 1rem;
+        }
+
+        /* Research Section */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+        }
+
+        .research-card {
+            background: rgba(26, 31, 58, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .research-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .research-card:nth-child(1) { transition-delay: 0.2s; }
+        .research-card:nth-child(2) { transition-delay: 0.3s; }
+        .research-card:nth-child(3) { transition-delay: 0.4s; }
+
+        .research-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--neon-teal), var(--gold));
+            border-radius: 15px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .research-card:hover::before {
+            opacity: 0.3;
+        }
+
+        .research-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .research-icon {
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .research-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--neon-teal);
+        }
+
+        /* Downloads Section */
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+        }
+
+        .product-card {
+            background: rgba(26, 31, 58, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .product-card.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .product-card:nth-child(1) { transition-delay: 0.1s; }
+        .product-card:nth-child(2) { transition-delay: 0.2s; }
+
+        .product-card:hover {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .product-card p {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        /* Download Dropdown Styles */
+        .download-dropdown {
+            position: relative;
+            margin-top: 1rem;
+        }
+
+        .dropdown-toggle {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .dropdown-toggle:hover {
+            background: var(--gold);
+            color: var(--deep-navy);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .dropdown-toggle i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-toggle.open i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(26, 31, 58, 0.95);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            margin-top: 0.5rem;
+            min-width: 250px;
+            max-width: 300px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(-50%) translateY(-10px);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu.scrollable {
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        /* Custom scrollbar for dropdown */
+        .dropdown-menu.scrollable::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .dropdown-menu.scrollable::-webkit-scrollbar-track {
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 3px;
+        }
+
+        .dropdown-menu.scrollable::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 3px;
+        }
+
+        .dropdown-menu.scrollable::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 215, 0, 0.5);
+        }
+
+        .dropdown-item {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: var(--text-light);
+            text-decoration: none;
+            font-family: 'Exo 2', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--gold);
+            padding-left: 1.5rem;
+        }
+
+        .dropdown-item i {
+            margin-right: 0.5rem;
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Questionnaire Section */
+        .questionnaire-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(26, 31, 58, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+        }
+
+        .questionnaire-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(10, 14, 39, 0.5);
+            border-radius: 10px;
+            border-left: 3px solid var(--neon-teal);
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease-out;
+        }
+
+        .question.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .question:nth-child(2) { transition-delay: 0.1s; }
+        .question:nth-child(3) { transition-delay: 0.2s; }
+        .question:nth-child(4) { transition-delay: 0.3s; }
+        .question:nth-child(5) { transition-delay: 0.4s; }
+        .question:nth-child(6) { transition-delay: 0.5s; }
+        .question:nth-child(7) { transition-delay: 0.6s; }
+        .question:nth-child(8) { transition-delay: 0.7s; }
+        .question:nth-child(9) { transition-delay: 0.8s; }
+        .question:nth-child(10) { transition-delay: 0.9s; }
+
+        .question h4 {
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+        }
+
+        .question-options {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .option-btn {
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--text-light);
+            border: 2px solid var(--text-dim);
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Exo 2', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--neon-teal);
+            color: var(--neon-teal);
+        }
+
+        .option-btn.selected {
+            background: var(--neon-teal);
+            color: var(--deep-navy);
+            border-color: var(--neon-teal);
+        }
+
+        .submit-questionnaire {
+            display: block;
+            margin: 2rem auto;
+            padding: 1rem 3rem;
+            background: linear-gradient(45deg, var(--neon-teal), var(--gold));
+            color: var(--deep-navy);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out 1s;
+        }
+
+        .submit-questionnaire.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .submit-questionnaire:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .results {
+            display: none;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid var(--neon-teal);
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.3s ease-out;
+        }
+
+        .results.show {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Donate Section */
+        .donate-container {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(26, 31, 58, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+        }
+
+        .donate-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .donate-box {
+            margin-top: 2rem;
+        }
+
+        .donation-message {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out 0.2s;
+        }
+
+        .donation-message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .donation-message p {
+            margin-bottom: 1rem;
+        }
+
+        .donation-message p:last-child {
+            margin-bottom: 0;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .donate-button {
+            padding: 1rem 3rem;
+            background: linear-gradient(45deg, var(--gold), var(--neon-teal));
+            color: var(--deep-navy);
+            border: none;
+            border-radius: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out 0.4s;
+        }
+
+        .donate-button.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .donate-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-navy);
+            padding: 3rem var(--content-padding) 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            width: 100%;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s ease-out;
+        }
+
+        footer.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        .social-links a.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .social-links a:nth-child(1) { transition-delay: 0.1s; }
+        .social-links a:nth-child(2) { transition-delay: 0.2s; }
+        .social-links a:nth-child(3) { transition-delay: 0.3s; }
+
+        .social-links a:hover {
+            color: var(--neon-teal);
+            transform: translateY(-3px);
+        }
+
+        .trust-statement {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            opacity: 0;
+            transition: all 0.5s ease-out 0.4s;
+        }
+
+        .trust-statement.visible {
+            opacity: 1;
+        }
+
+        .copyright {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: all 0.5s ease-out 0.5s;
+        }
+
+        .copyright.visible {
+            opacity: 1;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            :root {
+                --content-padding: 1.5rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .language-selector {
+                margin-left: 0;
+                margin-top: 0.5rem;
+                width: 100%;
+            }
+            
+            .language-dropdown {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-text {
+                transform: translateY(20px);
+            }
+
+            .about-text.visible {
+                transform: translateY(0);
+            }
+
+            .about-icons {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .question-options {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .donation-message {
+                font-size: 1rem;
+                padding: 1rem;
+            }
+            
+            .research-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .downloads-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .dropdown-menu {
+                min-width: 200px;
+                max-width: 250px;
+            }
+
+            .dropdown-menu.scrollable {
+                max-height: 200px;
+            }
+
+            .hero-logo {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .hero {
+                min-height: 90vh;
+                max-height: 100vh;
+            }
+        }
+
+        /* For very tall screens */
+        @media (min-height: 1200px) {
+            .hero {
+                min-height: 90vh;
+            }
+            
+            .hero-video {
+                object-fit: cover;
+                height: 90vh;
+            }
+        }
+
+        /* Additional adjustments for very large screens */
+        @media (min-width: 1800px) {
+            :root {
+                --content-padding: 4rem;
+            }
+            
+            section {
+                padding: 6rem var(--content-padding);
+            }
+        }
+
+        /* Smooth scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-teal), var(--gold));
+            transform-origin: left;
+            transform: scaleX(0);
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+
+        /* Payment Modal Styles */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 8, 20, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .payment-modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: rgba(10, 14, 39, 0.95);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            box-shadow: 0 20px 60px rgba(0, 255, 255, 0.3);
+        }
+
+        .payment-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: var(--neon-teal);
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .close-modal:hover {
+            color: var(--neon-teal);
+            background: rgba(0, 255, 255, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-method {
+            background: rgba(26, 31, 58, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .payment-method:hover {
+            border-color: var(--neon-teal);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .payment-method.selected {
+            border-color: var(--gold);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .payment-method i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--gold);
+        }
+
+        .payment-method h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .payment-method p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .payment-details {
+            display: none;
+            background: rgba(26, 31, 58, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .payment-details.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .crypto-addresses {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .crypto-address {
+            background: rgba(10, 14, 39, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .crypto-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .crypto-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 215, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .crypto-name {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .address-container {
+            background: rgba(5, 8, 20, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .address-text {
+            font-family: 'Exo 2', monospace;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            word-break: break-all;
+            padding-right: 3rem;
+        }
+
+        .copy-address {
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            background: var(--neon-teal);
+            color: var(--deep-navy);
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .copy-address:hover {
+            background: var(--gold);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .square-button {
+            display: block;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--neon-teal), var(--gold));
+            color: var(--deep-navy);
+            border: none;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+        }
+
+        .square-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 255, 255, 0.5);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--neon-teal);
+            border-radius: 10px;
+            padding: 1rem 2rem;
+            color: var(--neon-teal);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 3000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Custom scrollbar for modal */
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 4px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Elements -->
+    <div class="circuit-bg"></div>
+    <div class="circuit-lines"></div>
+    
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">MERIT</div>
+            <ul class="nav-links">
+                <li><a href="#hero" data-translate="nav_home">Home</a></li>
+                <li><a href="#about" data-translate="nav_about">About</a></li>
+                <li><a href="#research" data-translate="nav_research">Research</a></li>
+                <li><a href="#questionnaire" data-translate="nav_assessment">Metabolic Health Assessment</a></li>
+                <li><a href="#store" data-translate="nav_resources">Downloads</a></li>
+                <li><a href="#donate" data-translate="nav_donate">Donate</a></li>
+                <li class="language-selector">
+                    <div class="language-dropdown" id="languageDropdown">
+                        <span id="currentLanguage">English</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="language-options" id="languageOptions">
+                        <div class="language-option active" data-lang="en">
+                            <img src="https://flagcdn.com/w20/us.png" alt="English" class="language-flag">
+                            <span>English</span>
+                        </div>
+                        <div class="language-option" data-lang="es">
+                            <img src="https://flagcdn.com/w20/es.png" alt="Español" class="language-flag">
+                            <span>Español</span>
+                        </div>
+                        <div class="language-option" data-lang="fr">
+                            <img src="https://flagcdn.com/w20/fr.png" alt="Français" class="language-flag">
+                            <span>Français</span>
+                        </div>
+                        <div class="language-option" data-lang="de">
+                            <img src="https://flagcdn.com/w20/de.png" alt="Deutsch" class="language-flag">
+                            <span>Deutsch</span>
+                        </div>
+                        <div class="language-option" data-lang="it">
+                            <img src="https://flagcdn.com/w20/it.png" alt="Italiano" class="language-flag">
+                            <span>Italiano</span>
+                        </div>
+                        <div class="language-option" data-lang="pt">
+                            <img src="https://flagcdn.com/w20/br.png" alt="Português" class="language-flag">
+                            <span>Português</span>
+                        </div>
+                        <div class="language-option" data-lang="ru">
+                            <img src="https://flagcdn.com/w20/ru.png" alt="Русский" class="language-flag">
+                            <span>Русский</span>
+                        </div>
+                        <div class="language-option" data-lang="zh">
+                            <img src="https://flagcdn.com/w20/cn.png" alt="中文" class="language-flag">
+                            <span>中文</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero">
+        <!-- Hero Background Video Container -->
+        <div class="hero-video-container">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-grid-with-abstract-particles-39898-large.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- Dark overlay for better text readability -->
+        <div class="hero-overlay"></div>
+        
+        <div class="hero-content">
+            <!-- Hero Logo - Replace src with your logo URL -->
+            <img src="https://via.placeholder.com/200x200/00ffff/0a0e27?text=MERIT" alt="MERIT Logo" class="hero-logo" id="heroLogo">
+            
+            <h1>MERIT</h1>
+            <p class="tagline" data-translate="hero_tagline">Metabolic Epilepsy Remission Through Knowledge & Nutrition</p>
+            <a href="#about" class="cta-button" data-translate="hero_cta">Join the Mission</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title" data-translate="about_title">About MERIT</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p data-translate="about_paragraph1">MERIT is at the forefront of metabolic epilepsy research, combining cutting-edge science with nutritional interventions to help patients achieve remission. Our mission is to empower individuals with knowledge, provide evidence-based resources, and pioneer new approaches to metabolic health management.</p>
+                <p data-translate="about_paragraph2">Through rigorous research and community collaboration, we're building a future where metabolic epilepsy is manageable through targeted nutritional strategies and personalized care protocols.</p>
+            </div>
+            <div class="about-icons">
+                <div class="icon-box">
+                    <i class="fas fa-brain"></i>
+                    <h4 data-translate="about_neurology">Neurology</h4>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-dna"></i>
+                    <h4 data-translate="about_metabolism">Metabolism</h4>
+                </div>
+                <div class="icon-box">
+                    <i class="fas fa-bolt"></i>
+                    <h4 data-translate="about_energy">Energy Flow</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research & Evidence Section -->
+    <section id="research">
+        <h2 class="section-title" data-translate="research_title">Research & Evidence</h2>
+        <div class="research-grid">
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-apple-alt"></i>
+                </div>
+                <h3 data-translate="research_nutritional_title">Nutritional Interventions</h3>
+                <p data-translate="research_nutritional_text">EEAT-backed studies showing the impact of ketogenic diets and metabolic optimization on seizure reduction rates.</p>
+            </div>
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 data-translate="research_markers_title">Metabolic Markers</h3>
+                <p data-translate="research_markers_text">Research identifying key biomarkers that predict seizure susceptibility and response to nutritional therapies.</p>
+            </div>
+            <div class="research-card">
+                <div class="research-icon">
+                    <i class="fas fa-microscope"></i>
+                </div>
+                <h3 data-translate="research_neurological_title">Neurological Pathways</h3>
+                <p data-translate="research_neurological_text">Advanced imaging studies revealing how metabolic changes affect brain activity and seizure thresholds.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Metabolic Health Assessment Section -->
+    <section id="questionnaire">
+        <h2 class="section-title" data-translate="questionnaire_title">Metabolic Health Assessment</h2>
+        <div class="questionnaire-container">
+            <p style="text-align: center; margin-bottom: 2rem;" data-translate="questionnaire_intro">Answer these questions to assess your risk factors for metabolic epilepsy triggers.</p>
+            
+            <div class="question">
+                <h4 data-translate="question1">1. Do you experience fatigue or brain fog after meals?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="1" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="1" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question2">2. Do you have sensitivity to bright lights or loud sounds?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="2" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="2" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question3">3. Do you experience sudden mood swings or irritability?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="3" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="3" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question4">4. Do you have difficulty maintaining consistent energy levels?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="4" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="4" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question5">5. Do you experience unexplained muscle weakness or tremors?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="5" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="5" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question6">6. Do you have food sensitivities or digestive issues?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="6" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="6" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question7">7. Do you experience sleep disturbances or insomnia?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="7" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="7" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question8">8. Do you have difficulty concentrating or focusing?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="8" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="8" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question9">9. Do you experience headaches or migraines frequently?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="9" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="9" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <div class="question">
+                <h4 data-translate="question10">10. Do you have a family history of epilepsy or metabolic disorders?</h4>
+                <div class="question-options">
+                    <button class="option-btn" data-question="10" data-answer="yes" data-translate="yes">Yes</button>
+                    <button class="option-btn" data-question="10" data-answer="no" data-translate="no">No</button>
+                </div>
+            </div>
+
+            <button class="submit-questionnaire" onclick="calculateResults()" data-translate="questionnaire_submit">Get Your Results</button>
+
+            <div class="results" id="results">
+                <h3 style="color: var(--neon-teal); margin-bottom: 1rem;" data-translate="results_title">Your Assessment Results</h3>
+                <p id="result-text"></p>
+                <a href="#store" class="cta-button" style="margin-top: 1rem; font-size: 0.9rem; padding: 0.8rem 2rem;" data-translate="results_explore">Explore Resources</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="store">
+        <h2 class="section-title" data-translate="store_title">Downloads</h2>
+        <div class="downloads-grid">
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h3 data-translate="store_nutrition_title">Nutrition Guides</h3>
+                <p data-translate="store_nutrition_text">Comprehensive guide to metabolic nutrition for epilepsy management</p>
+                <div class="download-dropdown">
+                    <button class="dropdown-toggle" onclick="toggleDropdown('nutritionDropdown')">
+                        Select Language <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu scrollable" id="nutritionDropdown">
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-en.pdf')">
+                            <i class="fas fa-download"></i> English
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-es.pdf')">
+                            <i class="fas fa-download"></i> Español
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-fr.pdf')">
+                            <i class="fas fa-download"></i> Français
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-de.pdf')">
+                            <i class="fas fa-download"></i> Deutsch
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-it.pdf')">
+                            <i class="fas fa-download"></i> Italiano
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-pt.pdf')">
+                            <i class="fas fa-download"></i> Português
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-ru.pdf')">
+                            <i class="fas fa-download"></i> Русский
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('nutrition-guide-zh.pdf')">
+                            <i class="fas fa-download"></i> 中文
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-icon">
+                    <i class="fas fa-file-medical"></i>
+                </div>
+                <h3 data-translate="store_overview_title">Metabolic Epilepsy Overview</h3>
+                <p data-translate="store_overview_text">Comprehensive information covering metabolic epilepsy with EEAT compliance and official sources</p>
+                <div class="download-dropdown">
+                    <button class="dropdown-toggle" onclick="toggleDropdown('overviewDropdown')">
+                        Select Language <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu scrollable" id="overviewDropdown">
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-en.pdf')">
+                            <i class="fas fa-download"></i> English
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-es.pdf')">
+                            <i class="fas fa-download"></i> Español
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-fr.pdf')">
+                            <i class="fas fa-download"></i> Français
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-de.pdf')">
+                            <i class="fas fa-download"></i> Deutsch
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-it.pdf')">
+                            <i class="fas fa-download"></i> Italiano
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-pt.pdf')">
+                            <i class="fas fa-download"></i> Português
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-ru.pdf')">
+                            <i class="fas fa-download"></i> Русский
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="downloadFile('metabolic-epilepsy-overview-zh.pdf')">
+                            <i class="fas fa-download"></i> 中文
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Donate / Support Section -->
+    <section id="donate">
+        <h2 class="section-title" data-translate="donate_title">Support Our Mission</h2>
+        <div class="donate-container">
+            <div class="donate-box">
+                <div class="donation-message">
+                    <p>Your gift fuels research, awareness, and tools that bring hope to those living with metabolic epilepsy.</p>
+                    <p>Every contribution makes an impact — whether it's $1 or $5,000.</p>
+                    <p>Together, we turn knowledge into remission.</p>
+                </div>
+                <button class="donate-button" onclick="openPaymentModal()" data-translate="donate_button">Donate Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="social-links">
+            <a href="https://reddit.com" target="_blank"><i class="fab fa-reddit"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fas fa-globe"></i></a>
+        </div>
+        <p class="trust-statement" data-translate="footer_initiative">A Vitalistix Initiative</p>
+        <p class="copyright" data-translate="footer_copyright">&copy; 2024 MERIT. All rights reserved.</p>
+    </footer>
+
+    <!-- Payment Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" data-translate="modal_title">Choose Payment Method</h2>
+                <button class="close-modal" onclick="closePaymentModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="payment-methods">
+                <div class="payment-method" onclick="selectPaymentMethod('card')">
+                    <i class="fas fa-credit-card"></i>
+                    <h3 data-translate="modal_card_title">Credit/Debit Card</h3>
+                    <p data-translate="modal_card_text">Secure payment via Square</p>
+                </div>
+                
+                <div class="payment-method" onclick="selectPaymentMethod('crypto')">
+                    <i class="fab fa-bitcoin"></i>
+                    <h3 data-translate="modal_crypto_title">Cryptocurrency</h3>
+                    <p data-translate="modal_crypto_text">BTC, XMR</p>
+                </div>
+            </div>
+            
+            <div class="payment-details" id="cardDetails">
+                <p style="text-align: center; margin-bottom: 2rem; color: var(--text-dim);" data-translate="modal_card_info">
+                    You will be redirected to our secure payment processor to complete your donation.
+                </p>
+                <button class="square-button" onclick="processSquarePayment()" data-translate="modal_card_button">
+                    Proceed to Secure Payment
+                </button>
+            </div>
+            
+            <div class="payment-details" id="cryptoDetails">
+                <div class="crypto-addresses">
+                    <div class="crypto-address">
+                        <div class="crypto-header">
+                            <div class="crypto-icon">
+                                <i class="fab fa-bitcoin" style="color: #f7931a;"></i>
+                            </div>
+                            <span class="crypto-name">Bitcoin (BTC)</span>
+                        </div>
+                        <div class="address-container">
+                            <p class="address-text">bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh</p>
+                            <button class="copy-address" onclick="copyAddress('bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="crypto-address">
+                        <div class="crypto-header">
+                            <div class="crypto-icon">
+                                <i class="fas fa-user-secret" style="color: #ff6600;"></i>
+                            </div>
+                            <span class="crypto-name">Monero (XMR)</span>
+                        </div>
+                        <div class="address-container">
+                            <p class="address-text">47TGJhYg3zYJX4nQgG9hWqZ1e1V6v8wZ7b6c5d4f3a2b1</p>
+                            <button class="copy-address" onclick="copyAddress('47TGJhYg3zYJX4nQgG9hWqZ1e1V6v8wZ7b6c5d4f3a2b1')">
+                                <i class="fas fa-copy"></i> Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <script>
+        // Translation object containing all text content
+        const translations = {
+            en: {
+                nav_home: "Home",
+                nav_about: "About",
+                nav_research: "Research",
+                nav_assessment: "Metabolic Health Assessment",
+                nav_resources: "Downloads",
+                nav_donate: "Donate",
+                hero_tagline: "Metabolic Epilepsy Remission Through Knowledge & Nutrition",
+                hero_cta: "Join the Mission",
+                about_title: "About MERIT",
+                about_paragraph1: "MERIT is at the forefront of metabolic epilepsy research, combining cutting-edge science with nutritional interventions to help patients achieve remission. Our mission is to empower individuals with knowledge, provide evidence-based resources, and pioneer new approaches to metabolic health management.",
+                about_paragraph2: "Through rigorous research and community collaboration, we're building a future where metabolic epilepsy is manageable through targeted nutritional strategies and personalized care protocols.",
+                about_neurology: "Neurology",
+                about_metabolism: "Metabolism",
+                about_energy: "Energy Flow",
+                research_title: "Research & Evidence",
+                research_nutritional_title: "Nutritional Interventions",
+                research_nutrition_text: "EEAT-backed studies showing the impact of ketogenic diets and metabolic optimization on seizure reduction rates.",
+                research_markers_title: "Metabolic Markers",
+                research_markers_text: "Research identifying key biomarkers that predict seizure susceptibility and response to nutritional therapies.",
+                research_neurological_title: "Neurological Pathways",
+                research_neurological_text: "Advanced imaging studies revealing how metabolic changes affect brain activity and seizure thresholds.",
+                store_title: "Downloads",
+                store_nutrition_title: "Nutrition Guides",
+                store_nutrition_text: "Comprehensive guide to metabolic nutrition for epilepsy management",
+                store_overview_title: "Metabolic Epilepsy Overview",
+                store_overview_text: "Comprehensive information covering metabolic epilepsy with EEAT compliance and official sources",
+                questionnaire_title: "Metabolic Health Assessment",
+                questionnaire_intro: "Answer these questions to assess your risk factors for metabolic epilepsy triggers.",
+                questionnaire_submit: "Get Your Results",
+                question1: "1. Do you experience fatigue or brain fog after meals?",
+                question2: "2. Do you have sensitivity to bright lights or loud sounds?",
+                question3: "3. Do you experience sudden mood swings or irritability?",
+                question4: "4. Do you have difficulty maintaining consistent energy levels?",
+                question5: "5. Do you experience unexplained muscle weakness or tremors?",
+                question6: "6. Do you have food sensitivities or digestive issues?",
+                question7: "7. Do you experience sleep disturbances or insomnia?",
+                question8: "8. Do you have difficulty concentrating or focusing?",
+                question9: "9. Do you experience headaches or migraines frequently?",
+                question10: "10. Do you have a family history of epilepsy or metabolic disorders?",
+                results_title: "Your Assessment Results",
+                results_explore: "Explore Resources",
+                donate_title: "Support Our Mission",
+                donate_button: "Donate Now",
+                footer_initiative: "A Vitalistix Initiative",
+                footer_copyright: "&copy; 2024 MERIT. All rights reserved.",
+                yes: "Yes",
+                no: "No",
+                risk_low: "Low Risk",
+                risk_moderate: "Moderate Risk",
+                risk_high: "Higher Risk",
+                risk_low_text: "You show few indicators of metabolic epilepsy risk factors. Continue maintaining your healthy lifestyle and stay informed about metabolic health.",
+                risk_moderate_text: "You have several indicators that may suggest metabolic imbalances. We recommend exploring our nutritional guides and consulting with a healthcare professional.",
+                risk_high_text: "You show multiple indicators that may be associated with metabolic epilepsy risk factors. We strongly recommend consulting with a healthcare specialist and exploring our comprehensive resources.",
+                risk_based_on: "Based on",
+                risk_responses: "'Yes' responses out of 10 questions.",
+                questionnaire_alert: "Please answer all questions before submitting.",
+                modal_title: "Choose Payment Method",
+                modal_card_title: "Credit/Debit Card",
+                modal_card_text: "Secure payment via Square",
+                modal_crypto_title: "Cryptocurrency",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "You will be redirected to our secure payment processor to complete your donation.",
+                modal_card_button: "Proceed to Secure Payment",
+                notification_copied: "Address copied to clipboard!",
+                notification_redirect: "Redirecting to secure payment...",
+                notification_downloading: "Downloading file...",
+                dropdown_language: "Select Language"
+            },
+            es: {
+                nav_home: "Inicio",
+                nav_about: "Acerca de",
+                nav_research: "Investigación",
+                nav_assessment: "Evaluación de Salud Metabólica",
+                nav_resources: "Descargas",
+                nav_donate: "Donar",
+                hero_tagline: "Remisión de la Epilepsia Metabólica a Través del Conocimiento y Nutrición",
+                hero_cta: "Únete a la Misión",
+                about_title: "Acerca de MERIT",
+                about_paragraph1: "MERIT está a la vanguardia de la investigación de la epilepsia metabólica, combinando ciencia de vanguardia con intervenciones nutricionales para ayudar a los pacientes a lograr la remisión. Nuestra misión es empoderar a las personas con conocimiento, proporcionar recursos basados en evidencia y pionear nuevos enfoques para el manejo de la salud metabólica.",
+                about_paragraph2: "A través de una investigación rigurosa y la colaboración comunitaria, estamos construyendo un futuro donde la epilepsia metabólica sea manejable a través de estrategias nutricionales específicas y protocolos de atención personalizados.",
+                about_neurology: "Neurología",
+                about_metabolism: "Metabolismo",
+                about_energy: "Flujo de Energía",
+                research_title: "Investigación y Evidencia",
+                research_nutritional_title: "Intervenciones Nutricionales",
+                research_nutrition_text: "Estudios respaldados por EEAT que muestran el impacto de las dietas cetogénicas y la optimización metabólica en las tasas de reducción de convulsiones.",
+                research_markers_title: "Marcadores Metabólicos",
+                research_markers_text: "Investigación que identifica biomarcadores clave que predicen la susceptibilidad a las convulsiones y la respuesta a las terapias nutricionales.",
+                research_neurological_title: "Vías Neurológicas",
+                research_neurological_text: "Estudios de imágenes avanzadas que revelan cómo los cambios metabólicos afectan la actividad cerebral y los umbrales de convulsiones.",
+                store_title: "Descargas",
+                store_nutrition_title: "Guías de Nutrición",
+                store_nutrition_text: "Guía completa de nutrición metabólica para el manejo de la epilepsia",
+                store_overview_title: "Resumen de Epilepsia Metabólica",
+                store_overview_text: "Información completa que cubre la epilepsia metabólica con cumplimiento EEAT y fuentes oficiales",
+                questionnaire_title: "Evaluación de Salud Metabólica",
+                questionnaire_intro: "Responda estas preguntas para evaluar sus factores de riesgo de desencadenantes de epilepsia metabólica.",
+                questionnaire_submit: "Obtenga sus Resultados",
+                question1: "1. ¿Experimenta fatiga o niebla mental después de las comidas?",
+                question2: "2. ¿Tiene sensibilidad a las luces brillantes o sonidos fuertes?",
+                question3: "3. ¿Experimenta cambios de humor repentinos o irritabilidad?",
+                question4: "4. ¿Tiene dificultad para mantener niveles de energía consistentes?",
+                question5: "5. ¿Experimenta debilidad muscular inexplicable o temblores?",
+                question6: "6. ¿Tiene sensibilidades alimentarias o problemas digestivos?",
+                question7: "7. ¿Experimenta trastornos del sueño o insomnio?",
+                question8: "8. ¿Tiene dificultad para concentrarse o enfocarse?",
+                question9: "9. ¿Experimenta dolores de cabeza o migrañas frecuentes?",
+                question10: "10. ¿Tiene antecedentes familiares de epilepsia o trastornos metabólicos?",
+                results_title: "Sus Resultados de Evaluación",
+                results_explore: "Explorar Recursos",
+                donate_title: "Apoye Nuestra Misión",
+                donate_button: "Donar Ahora",
+                footer_initiative: "Una Iniciativa de Vitalistix",
+                footer_copyright: "&copy; 2024 MERIT. Todos los derechos reservados.",
+                yes: "Sí",
+                no: "No",
+                risk_low: "Riesgo Bajo",
+                risk_moderate: "Riesgo Moderado",
+                risk_high: "Riesgo Alto",
+                risk_low_text: "Muestra pocos indicadores de factores de riesgo de epilepsia metabólica. Continúe manteniendo su estilo de vida saludable y manténgase informado sobre la salud metabólica.",
+                risk_moderate_text: "Tiene varios indicadores que pueden sugerir desequilibrios metabólicos. Recomendamos explorar nuestras guías nutricionales y consultar con un profesional de la salud.",
+                risk_high_text: "Muestra múltiples indicadores que pueden estar asociados con factores de riesgo de epilepsia metabólica. Recomendamos encarecidamente consultar con un especialista en salud y explorar nuestros recursos integrales.",
+                risk_based_on: "Basado en",
+                risk_responses: "respuestas 'Sí' de 10 preguntas.",
+                questionnaire_alert: "Por favor responda todas las preguntas antes de enviar.",
+                modal_title: "Elija Método de Pago",
+                modal_card_title: "Tarjeta de Crédito/Débito",
+                modal_card_text: "Pago seguro a través de Square",
+                modal_crypto_title: "Criptomoneda",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "Será redirigido a nuestro procesador de pago seguro para completar su donación.",
+                modal_card_button: "Proceder al Pago Seguro",
+                notification_copied: "¡Dirección copiada al portapapeles!",
+                notification_redirect: "Redirigiendo al pago seguro...",
+                notification_downloading: "Descargando archivo...",
+                dropdown_language: "Seleccionar Idioma"
+            },
+            fr: {
+                nav_home: "Accueil",
+                nav_about: "À Propos",
+                nav_research: "Recherche",
+                nav_assessment: "Évaluation de la Santé Métabolique",
+                nav_resources: "Téléchargements",
+                nav_donate: "Faire un Don",
+                hero_tagline: "Rémission de l'Épilepsie Métabolique par la Connaissance et la Nutrition",
+                hero_cta: "Rejoignez la Mission",
+                about_title: "À Propos de MERIT",
+                about_paragraph1: "MERIT est à la pointe de la recherche sur l'épilepsie métabolique, combinant une science de pointe avec des interventions nutritionnelles pour aider les patients à atteindre la rémission. Notre mission est d'autonomiser les individus par la connaissance, de fournir des ressources fondées sur des preuves et de pionnier de nouvelles approches de gestion de la santé métabolique.",
+                about_paragraph2: "Grâce à une recherche rigoureuse et à la collaboration communautaire, nous construisons un avenir où l'épilepsie métabolique est gérable grâce à des stratégies nutritionnelles ciblées et des protocoles de soins personnalisés.",
+                about_neurology: "Neurologie",
+                about_metabolism: "Métabolisme",
+                about_energy: "Flux d'Énergie",
+                research_title: "Recherche et Preuves",
+                research_nutritional_title: "Interventions Nutritionnelles",
+                research_nutrition_text: "Études soutenues par EEAT montrant l'impact des régimes cétogènes et de l'optimisation métabolique sur les taux de réduction des crises.",
+                research_markers_title: "Marqueurs Métaboliques",
+                research_markers_text: "Recherche identifiant des biomarqueurs clés qui prédisent la susceptibilité aux crises et la réponse aux thérapies nutritionnelles.",
+                research_neurological_title: "Voies Neurologiques",
+                research_neurological_text: "Études d'imagerie avancées révélant comment les changements métaboliques affectent l'activité cérébrale et les seuils de crise.",
+                store_title: "Téléchargements",
+                store_nutrition_title: "Guides Nutritionnels",
+                store_nutrition_text: "Guide complet de nutrition métabolique pour la gestion de l'épilepsie",
+                store_overview_title: "Aperçu de l'Épilepsie Métabolique",
+                store_overview_text: "Informations complètes couvrant l'épilepsie métabolique avec conformité EEAT et sources officielles",
+                questionnaire_title: "Évaluation de la Santé Métabolique",
+                questionnaire_intro: "Répondez à ces questions pour évaluer vos facteurs de risque de déclencheurs d'épilepsie métabolique.",
+                questionnaire_submit: "Obtenez Vos Résultats",
+                question1: "1. Ressentez-vous de la fatigue ou du brouillard mental après les repas?",
+                question2: "2. Avez-vous une sensibilité aux lumières vives ou aux sons forts?",
+                question3: "3. Ressentez-vous des sautes d'humeur soudaines ou de l'irritabilité?",
+                question4: "4. Avez-vous du mal à maintenir des niveaux d'énergie constants?",
+                question5: "5. Ressentez-vous une faiblesse musculaire inexpliquée ou des tremblements?",
+                question6: "6. Avez-vous des sensibilités alimentaires ou des problèmes digestifs?",
+                question7: "7. Ressentez-vous des troubles du sommeil ou de l'insomnie?",
+                question8: "8. Avez-vous du mal à vous concentrer ou à vous focaliser?",
+                question9: "9. Ressentez-vous fréquemment des maux de tête ou des migraines?",
+                question10: "10. Avez-vous des antécédents familiaux d'épilepsie ou de troubles métaboliques?",
+                results_title: "Vos Résultats d'Évaluation",
+                results_explore: "Explorer les Ressources",
+                donate_title: "Soutenez Notre Mission",
+                donate_button: "Faire un Don",
+                footer_initiative: "Une Initiative de Vitalistix",
+                footer_copyright: "&copy; 2024 MERIT. Tous droits réservés.",
+                yes: "Oui",
+                no: "Non",
+                risk_low: "Risque Faible",
+                risk_moderate: "Risque Modéré",
+                risk_high: "Risque Élevé",
+                risk_low_text: "Vous montrez peu d'indicateurs de facteurs de risque d'épilepsie métabolique. Continuez à maintenir votre mode de vie sain et restez informé sur la santé métabolique.",
+                risk_moderate_text: "Vous avez plusieurs indicateurs qui peuvent suggérer des déséquilibres métaboliques. Nous recommandons d'explorer nos guides nutritionnels et de consulter un professionnel de la santé.",
+                risk_high_text: "Vous montrez de multiples indicateurs qui peuvent être associés à des facteurs de risque d'épilepsie métabolique. Nous recommandons vivement de consulter un spécialiste de la santé et d'explorer nos ressources complètes.",
+                risk_based_on: "Basé sur",
+                risk_responses: "réponses 'Oui' sur 10 questions.",
+                questionnaire_alert: "Veuillez répondre à toutes les questions avant de soumettre.",
+                modal_title: "Choisissez le Méthode de Paiement",
+                modal_card_title: "Carte de Crédit/Débito",
+                modal_card_text: "Paiement sécurisé via Square",
+                modal_crypto_title: "Cryptomonnaie",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "Vous serez redirigé vers notre processeur de paiement sécurisé pour compléter votre don.",
+                modal_card_button: "Procéder au Paiement Sécurisé",
+                notification_copied: "Adresse copiée dans le presse-papiers!",
+                notification_redirect: "Redirection vers le paiement sécurisé...",
+                notification_downloading: "Téléchargement du fichier...",
+                dropdown_language: "Sélectionner la Langue"
+            },
+            de: {
+                nav_home: "Startseite",
+                nav_about: "Über Uns",
+                nav_research: "Forschung",
+                nav_assessment: "Metabolische Gesundheitsbewertung",
+                nav_resources: "Downloads",
+                nav_donate: "Spenden",
+                hero_tagline: "Remission der Metabolischen Epilepsie durch Wissen und Ernährung",
+                hero_cta: "Machen Sie mit",
+                about_title: "Über MERIT",
+                about_paragraph1: "MERIT ist an der Spitze der Forschung zur metabolischen Epilepsie und kombiniert moderne Wissenschaft mit Ernährungsinterventionen, um Patienten zu helfen, eine Remission zu erreichen. Unsere Mission ist es, Menschen durch Wissen zu stärken, evidenzbasierte Ressourcen bereitzustellen und neue Ansätze für das Management der metabolischen Gesundheit zu entwickeln.",
+                about_paragraph2: "Durch strenge Forschung und Gemeinschaftsarbeit bauen wir eine Zukunft auf, in der metabolische Epilepsie durch gezielte Ernährungsstrategien und personalisierte Pflegeprotokolle behandelbar ist.",
+                about_neurology: "Neurologie",
+                about_metabolism: "Metabolismus",
+                about_energy: "Energiefluss",
+                research_title: "Forschung und Nachweise",
+                research_nutritional_title: "Ernährungsinterventionen",
+                research_nutrition_text: "EEAT-unterstützte Studien, die die Auswirkungen von ketogenen Diäten und metabolischer Optimierung auf die Reduktionsraten von Anfällen zeigen.",
+                research_markers_title: "Metabolische Marker",
+                research_markers_text: "Forschung, die Schlüsselbiomarker identifiziert, die die Anfälligkeit für Anfälle und die Reaktion auf Ernährungstherapien vorhersagen.",
+                research_neurological_title: "Neurologische Wege",
+                research_neurological_text: "Erweiterte Bildgebungsstudien, die zeigen, wie metabolische Veränderungen die Gehirnaktivität und Anfallschwellen beeinflussen.",
+                store_title: "Downloads",
+                store_nutrition_title: "Ernährungsführer",
+                store_nutrition_text: "Umfassender Leitfaden zur metabolischen Ernährung für das Management von Epilepsie",
+                store_overview_title: "Metabolische Epilepsie Übersicht",
+                store_overview_text: "Umfassende Informationen zur metabolischen Epilepsie mit EEAT-Konformität und offiziellen Quellen",
+                questionnaire_title: "Metabolische Gesundheitsbewertung",
+                questionnaire_intro: "Beantworten Sie diese Fragen, um Ihre Risikofaktoren für metabolische Epilepsie-Auslöser zu bewerten.",
+                questionnaire_submit: "Erhalten Sie Ihre Ergebnisse",
+                question1: "1. Haben Sie nach den Mahlzeiten Müdigkeit oder Gehirnnebel?",
+                question2: "2. Haben Sie eine Empfindlichkeit gegenüber hellem Licht oder lauten Geräuschen?",
+                question3: "3. Haben Sie plötzliche Stimmungsschwankungen oder Reizbarkeit?",
+                question4: "4. Haben Sie Schwierigkeiten, konstante Energieniveaus aufrechtzuerhalten?",
+                question5: "5. Haben Sie unerklärliche Muskelschwäche oder Zittern?",
+                question6: "6. Haben Sie Lebensmittelunverträglichkeiten oder Verdauungsprobleme?",
+                question7: "7. Haben Sie Schlafstörungen oder Schlaflosigkeit?",
+                question8: "8. Haben Sie Schwierigkeiten, sich zu konzentrieren oder zu fokussieren?",
+                question9: "9. Haben Sie häufig Kopfschmerzen oder Migräne?",
+                question10: "10. Haben Sie eine Familiengeschichte von Epilepsie oder Stoffwechselstörungen?",
+                results_title: "Ihre Bewertungsergebnisse",
+                results_explore: "Ressourcen Erkunden",
+                donate_title: "Unterstützen Sie Unsere Mission",
+                donate_button: "Jetzt Spenden",
+                footer_initiative: "Eine Vitalistix Initiative",
+                footer_copyright: "&copy; 2024 MERIT. Alle Rechte vorbehalten.",
+                yes: "Ja",
+                no: "Nein",
+                risk_low: "Niedriges Risiko",
+                risk_moderate: "Mäßiges Risiko",
+                risk_high: "Hohes Risiko",
+                risk_low_text: "Sie zeigen wenige Indikatoren für Risikofaktoren der metabolischen Epilepsie. Fahren Sie fort, Ihren gesunden Lebensstil beizubehalten und bleiben Sie über metabolische Gesundheit informiert.",
+                risk_moderate_text: "Sie haben mehrere Indikatoren, die auf metabolische Ungleichgewichte hindeuten könnten. Wir empfehlen, unsere Ernährungsführer zu erkunden und einen Gesundheitsfachmann zu konsultieren.",
+                risk_high_text: "Sie zeigen mehrere Indikatoren, die mit Risikofaktoren der metabolischen Epilepsie verbunden sein könnten. Wir empfehlen dringend, einen Gesundheitsspezialisten zu konsultieren und unsere umfassenden Ressourcen zu erkunden.",
+                risk_based_on: "Basierend auf",
+                risk_responses: "'Ja'-Antworten von 10 Fragen.",
+                questionnaire_alert: "Bitte beantworten Sie alle Fragen vor dem Absenden.",
+                modal_title: "Zahlungsmethode Wählen",
+                modal_card_title: "Kredit-/Debitkarte",
+                modal_card_text: "Sichere Zahlung über Square",
+                modal_crypto_title: "Kryptowährung",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "Sie werden zu unserem sicheren Zahlungsabwickler weitergeleitet, um Ihre Spende abzuschließen.",
+                modal_card_button: "Zur Sicheren Zahlung Fortfahren",
+                notification_copied: "Adresse in die Zwischenablage kopiert!",
+                notification_redirect: "Weiterleitung zur sicheren Zahlung...",
+                notification_downloading: "Datei wird heruntergeladen...",
+                dropdown_language: "Sprache Auswählen"
+            },
+            it: {
+                nav_home: "Home",
+                nav_about: "Chi Siamo",
+                nav_research: "Ricerca",
+                nav_assessment: "Valutazione della Salute Metabolica",
+                nav_resources: "Download",
+                nav_donate: "Dona",
+                hero_tagline: "Remissione dell'Epilessia Metabolica Attraverso Conoscenza e Nutrizione",
+                hero_cta: "Unisciti alla Missione",
+                about_title: "Chi Siamo MERIT",
+                about_paragraph1: "MERIT è all'avanguardia della ricerca sull'epilessia metabolica, combinando scienza all'avanguardia con interventi nutrizionali per aiutare i pazienti a raggiungere la remissione. La nostra missione è potenziare le persone con conoscenza, fornire risorse basate su prove e pionierizzare nuovi approcci alla gestione della salute metabolica.",
+                about_paragraph2: "Attraverso una ricerca rigorosa e la collaborazione della comunità, stiamo costruendo un futuro in cui l'epilessia metabolica è gestibile attraverso strategie nutrizionali mirate e protocolli di cura personalizzati.",
+                about_neurology: "Neurologia",
+                about_metabolism: "Metabolismo",
+                about_energy: "Flusso di Energia",
+                research_title: "Ricerca e Prove",
+                research_nutritional_title: "Interventi Nutrizionali",
+                research_nutrition_text: "Studi supportati da EEAT che mostrano l'impatto delle diete chetogeniche e dell'ottimizzazione metabolica sui tassi di riduzione delle crisi.",
+                research_markers_title: "Marker Metabolici",
+                research_markers_text: "Ricerca che identifica biomarcatori chiave che predicono la suscettibilità alle crisi e la risposta alle terapie nutrizionali.",
+                research_neurological_title: "Percorsi Neurologici",
+                research_neurological_text: "Studi di imaging avanzati che rivelano come i cambiamenti metabolici influenzano l'attività cerebrale e le soglie delle crisi.",
+                store_title: "Download",
+                store_nutrition_title: "Guide Nutrizionali",
+                store_nutrition_text: "Guida completa alla nutrizione metabolica per la gestione dell'epilessia",
+                store_overview_title: "Panoramica dell'Epilessia Metabolica",
+                store_overview_text: "Informazioni complete sull'epilessia metabolica con conformità EEAT e fonti ufficiali",
+                questionnaire_title: "Valutazione della Salute Metabolica",
+                questionnaire_intro: "Rispondi a queste domande per valutare i tuoi fattori di rischio per i trigger dell'epilessia metabolica.",
+                questionnaire_submit: "Ottieni i Tuoi Risultati",
+                question1: "1. Sperimenti affaticamento o nebbia mentale dopo i pasti?",
+                question2: "2. Hai sensibilità a luci brillanti o suoni forti?",
+                question3: "3. Sperimenti sbalzi d'umore improvvisi o irritabilità?",
+                question4: "4. Hai difficoltà a mantenere livelli di energia costanti?",
+                question5: "5. Sperimenti debolezza muscolare inspiegabile o tremori?",
+                question6: "6. Hai sensibilità alimentari o problemi digestivi?",
+                question7: "7. Sperimenti disturbi del sonno o insonnia?",
+                question8: "8. Hai difficoltà a concentrarti o focalizzarti?",
+                question9: "9. Sperimenti frequenti mal di testa o emicranie?",
+                question10: "10. Hai una storia familiare di epilessia o disturbi metabolici?",
+                results_title: "I Tuoi Risultati di Valutazione",
+                results_explore: "Esplora Risorse",
+                donate_title: "Supporta la Nostra Missione",
+                donate_button: "Dona Ora",
+                footer_initiative: "Un'Iniziativa di Vitalistix",
+                footer_copyright: "&copy; 2024 MERIT. Tutti i diritti riservati.",
+                yes: "Sì",
+                no: "No",
+                risk_low: "Rischio Basso",
+                risk_moderate: "Rischio Moderato",
+                risk_high: "Rischio Alto",
+                risk_low_text: "Mostra pochi indicatori di fattori di rischio per l'epilessia metabolica. Continua a mantenere il tuo stile di vita sano e rimani informato sulla salute metabolica.",
+                risk_moderate_text: "Hai diversi indicatori che potrebbero suggerire squilibri metabolici. Ti consigliamo di esplorare le nostre guide nutrizionali e di consultare un professionista sanitario.",
+                risk_high_text: "Mostra molteplici indicatori che potrebbero essere associati a fattori di rischio per l'epilessia metabolica. Raccomandiamo vivamente di consultare uno specialista sanitario e di esplorare le nostre risorse complete.",
+                risk_based_on: "Basato su",
+                risk_responses: "risposte 'Sì' su 10 domande.",
+                questionnaire_alert: "Per favore rispondi a tutte le domande prima di inviare.",
+                modal_title: "Scegli Metodo di Pagamento",
+                modal_card_title: "Carta di Credito/Debito",
+                modal_card_text: "Pagamento sicuro tramite Square",
+                modal_crypto_title: "Criptovaluta",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "Sarai reindirizzato al nostro processore di pagamento sicuro per completare la tua donazione.",
+                modal_card_button: "Procedi al Pagamento Sicuro",
+                notification_copied: "Indirizzo copiato negli appunti!",
+                notification_redirect: "Reindirizzamento al pagamento sicuro...",
+                notification_downloading: "Download del file in corso...",
+                dropdown_language: "Seleziona Lingua"
+            },
+            pt: {
+                nav_home: "Início",
+                nav_about: "Sobre",
+                nav_research: "Pesquisa",
+                nav_assessment: "Avaliação de Saúde Metabólica",
+                nav_resources: "Downloads",
+                nav_donate: "Doar",
+                hero_tagline: "Remissão da Epilepsia Metabólica Através de Conhecimento e Nutrição",
+                hero_cta: "Junte-se à Missão",
+                about_title: "Sobre MERIT",
+                about_paragraph1: "MERIT está na vanguarda da pesquisa sobre epilepsia metabólica, combinando ciência de ponta com intervenções nutricionais para ajudar os pacientes a alcançar a remissão. Nossa missão é capacitar as pessoas com conhecimento, fornecer recursos baseados em evidências e pioneirar novas abordagens para o manejo da saúde metabólica.",
+                about_paragraph2: "Através de pesquisa rigorosa e colaboração comunitária, estamos construindo um futuro onde a epilepsia metabólica é gerenciável através de estratégias nutricionais direcionadas e protocolos de cuidados personalizados.",
+                about_neurology: "Neurologia",
+                about_metabolism: "Metabolismo",
+                about_energy: "Fluxo de Energia",
+                research_title: "Pesquisa e Evidências",
+                research_nutritional_title: "Intervenções Nutricionais",
+                research_nutrition_text: "Estudos apoiados por EEAT mostrando o impacto de dietas cetogênicas e otimização metabólica nas taxas de redução de convulsões.",
+                research_markers_title: "Marcadores Metabólicos",
+                research_markers_text: "Pesquisa identificando biomarcadores-chave que predizem suscetibilidade a convulsões e resposta a terapias nutricionais.",
+                research_neurological_title: "Vias Neurológicas",
+                research_neurological_text: "Estudos avançados de imagem revelando como mudanças metabólicas afetam a atividade cerebral e limiares de convulsão.",
+                store_title: "Downloads",
+                store_nutrition_title: "Guias de Nutrição",
+                store_nutrition_text: "Guia completo de nutrição metabólica para manejo de epilepsia",
+                store_overview_title: "Visão Geral da Epilepsia Metabólica",
+                store_overview_text: "Informações abrangentes cobrindo epilepsia metabólica com conformidade EEAT e fontes oficiais",
+                questionnaire_title: "Avaliação de Saúde Metabólica",
+                questionnaire_intro: "Responda a estas perguntas para avaliar seus fatores de risco para gatilhos de epilepsia metabólica.",
+                questionnaire_submit: "Obtenha Seus Resultados",
+                question1: "1. Você experimenta fadiga ou névoa mental após as refeições?",
+                question2: "2. Você tem sensibilidade a luzes brilhantes ou sons altos?",
+                question3: "3. Você experimenta mudanças de humor repentinas ou irritabilidade?",
+                question4: "4. Você tem dificuldade em manter níveis de energia consistentes?",
+                question5: "5. Você experimenta fraqueza muscular inexplicável ou tremores?",
+                question6: "6. Você tem sensibilidades alimentares ou problemas digestivos?",
+                question7: "7. Você experimenta distúrbios do sono ou insônia?",
+                question8: "8. Você tem dificuldade em se concentrar ou focar?",
+                question9: "9. Você experimenta dores de cabeça ou enxaquecas frequentes?",
+                question10: "10. Você tem histórico familiar de epilepsia ou distúrbios metabólicos?",
+                results_title: "Seus Resultados de Avaliação",
+                results_explore: "Explorar Recursos",
+                donate_title: "Apoie Nossa Missão",
+                donate_button: "Doe Agora",
+                footer_initiative: "Uma Iniciativa da Vitalistix",
+                footer_copyright: "&copy; 2024 MERIT. Todos os direitos reservados.",
+                yes: "Sim",
+                no: "Não",
+                risk_low: "Risco Baixo",
+                risk_moderate: "Risco Moderado",
+                risk_high: "Risco Alto",
+                risk_low_text: "Você mostra poucos indicadores de fatores de risco para epilepsia metabólica. Continue mantendo seu estilo de vida saudável e mantenha-se informado sobre saúde metabólica.",
+                risk_moderate_text: "Você tem vários indicadores que podem sugerir desequilíbrios metabólicos. Recomendamos explorar nossos guias nutricionais e consultar um profissional de saúde.",
+                risk_high_text: "Você mostra múltiplos indicadores que podem estar associados a fatores de risco para epilepsia metabólica. Recomendamos enfaticamente consultar um especialista em saúde e explorar nossos recursos completos.",
+                risk_based_on: "Baseado em",
+                risk_responses: "respostas 'Sim' de 10 perguntas.",
+                questionnaire_alert: "Por favor, responda a todas as perguntas antes de enviar.",
+                modal_title: "Escolha Método de Pagamento",
+                modal_card_title: "Cartão de Crédito/Débito",
+                modal_card_text: "Pagamento seguro via Square",
+                modal_crypto_title: "Criptomoeda",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "Você será redirecionado para nosso processador de pagamento seguro para completar sua doação.",
+                modal_card_button: "Prossiga para Pagamento Seguro",
+                notification_copied: "Endereço copiado para a área de transferência!",
+                notification_redirect: "Redirecionando para pagamento seguro...",
+                notification_downloading: "Baixando arquivo...",
+                dropdown_language: "Selecionar Idioma"
+            },
+            ru: {
+                nav_home: "Главная",
+                nav_about: "О нас",
+                nav_research: "Исследования",
+                nav_assessment: "Оценка Метаболического Здоровья",
+                nav_resources: "Загрузки",
+                nav_donate: "Пожертвовать",
+                hero_tagline: "Ремиссия Метаболической Эпилепсии Через Знания и Питание",
+                hero_cta: "Присоединитесь к Миссии",
+                about_title: "О MERIT",
+                about_paragraph1: "MERIT находится на переднем крае исследований метаболической эпилепсии, сочетая передовую науку с пищевыми вмешательствами, чтобы помочь пациентам достичь ремиссии. Наша миссия - наделить людей знаниями, предоставлять доказательные ресурсы и пионерствовать новые подходы к управлению метаболическим здоровьем.",
+                about_paragraph2: "Через строгие исследования и сотрудничество с сообществом мы строим будущее, где метаболическая эпилепсия управляема через целевые пищевые стратегии и персонализированные протоколы ухода.",
+                about_neurology: "Неврология",
+                about_metabolism: "Метаболизм",
+                about_energy: "Энергетический Поток",
+                research_title: "Исследования и Доказательства",
+                research_nutritional_title: "Пищевые Вмешательства",
+                research_nutrition_text: "Исследования, поддержанные EEAT, показывающие влияние кетогенных диет и метаболической оптимизации на частоту снижения приступов.",
+                research_markers_title: "Метаболические Маркеры",
+                research_markers_text: "Исследования, идентифицирующие ключевые биомаркеры, которые предсказывают восприимчивость к приступам и ответ на пищевые терапии.",
+                research_neurological_title: "Неврологические Пути",
+                research_neurological_text: "Передовые исследования визуализации, показывающие, как метаболические изменения влияют на мозговую активность и пороги приступов.",
+                store_title: "Загрузки",
+                store_nutrition_title: "Путеводители по Питанию",
+                store_nutrition_text: "Комплексное руководство по метаболическому питанию для управления эпилепсией",
+                store_overview_title: "Обзор Метаболической Эпилепсии",
+                store_overview_text: "Всесторонняя информация, охватывающая метаболическую эпилепсию с соблюдением требований EEAT и официальными источниками",
+                questionnaire_title: "Оценка Метаболического Здоровья",
+                questionnaire_intro: "Ответьте на эти вопросы, чтобы оценить ваши факторы риска триггеров метаболической эпилепсии.",
+                questionnaire_submit: "Получите Ваши Результаты",
+                question1: "1. Испытываете ли вы усталость или туман в голове после еды?",
+                question2: "2. Есть ли у вас чувствительность к яркому свету или громким звукам?",
+                question3: "3. Испытываете ли вы внезапные перепады настроения или раздражительность?",
+                question4: "4. Есть ли у вас трудности с поддержанием постоянных уровней энергии?",
+                question5: "5. Испытываете ли вы необъяснимую мышечную слабость или дрожь?",
+                question6: "6. Есть ли у вас пищевая чувствительность или проблемы с пищеварением?",
+                question7: "7. Испытываете ли вы нарушения сна или бессонницу?",
+                question8: "8. Есть ли у вас трудности с концентрацией или фокусировкой?",
+                question9: "9. Испытываете ли вы частые головные боли или мигрени?",
+                question10: "10. Есть ли у вас семейная история эпилепсии или метаболических расстройств?",
+                results_title: "Ваши Результаты Оценки",
+                results_explore: "Исследовать Ресурсы",
+                donate_title: "Поддержите Нашу Миссию",
+                donate_button: "Пожертвовать Сейчас",
+                footer_initiative: "Инициатива Vitalistix",
+                footer_copyright: "&copy; 2024 MERIT. Все права защищены.",
+                yes: "Да",
+                no: "Нет",
+                risk_low: "Низкий Риск",
+                risk_moderate: "Умеренный Риск",
+                risk_high: "Высокий Риск",
+                risk_low_text: "Вы показываете мало индикаторов факторов риска метаболической эпилепсии. Продолжайте поддерживать свой здоровый образ жизни и оставайтесь информированными о метаболическом здоровье.",
+                risk_moderate_text: "У вас есть несколько индикаторов, которые могут предполагать метаболические дисбалансы. Мы рекомендуем изучить наши руководства по питанию и проконсультироваться со специалистом в области здравоохранения.",
+                risk_high_text: "Вы показываете множественные индикаторы, которые могут быть связаны с факторами риска метаболической эпилепсии. Мы настоятельно рекомендуем проконсультироваться со специалистом в области здравоохранения и изучить наши комплексные ресурсы.",
+                risk_based_on: "Основано на",
+                risk_responses: "ответов 'Да' из 10 вопросов.",
+                questionnaire_alert: "Пожалуйста, ответьте на все вопросы перед отправкой.",
+                modal_title: "Выберите Способ Оплаты",
+                modal_card_title: "Кредитная/Дебетовая Карта",
+                modal_card_text: "Безопасная оплата через Square",
+                modal_crypto_title: "Криптовалюта",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "Вы будете перенаправлены на наш безопасный процессор платежей для завершения вашего пожертвования.",
+                modal_card_button: "Перейти к Безопасной Оплате",
+                notification_copied: "Адрес скопирован в буфер обмена!",
+                notification_redirect: "Перенаправление на безопасную оплату...",
+                notification_downloading: "Загрузка файла...",
+                dropdown_language: "Выбрать Язык"
+            },
+            zh: {
+                nav_home: "首页",
+                nav_about: "关于我们",
+                nav_research: "研究",
+                nav_assessment: "代谢健康评估",
+                nav_resources: "下载",
+                nav_donate: "捐赠",
+                hero_tagline: "通过知识和营养实现代谢性癫痫缓解",
+                hero_cta: "加入使命",
+                about_title: "关于MERIT",
+                about_paragraph1: "MERIT处于代谢性癫痫研究的前沿，结合尖端科学与营养干预，帮助患者实现缓解。我们的使命是通过知识赋予个人力量，提供基于证据的资源，并开创代谢健康管理的新方法。",
+                about_paragraph2: "通过严格的研究和社区合作，我们正在构建一个未来，其中代谢性癫痫通过有针对性的营养策略和个性化护理协议是可管理的。",
+                about_neurology: "神经学",
+                about_metabolism: "新陈代谢",
+                about_energy: "能量流动",
+                research_title: "研究与证据",
+                research_nutritional_title: "营养干预",
+                research_nutrition_text: "EEAT支持的研究显示生酮饮食和代谢优化对癫痫发作减少率的影响。",
+                research_markers_title: "代谢标志物",
+                research_markers_text: "识别预测癫痫发作易感性和营养疗法反应的关键生物标志物的研究。",
+                research_neurological_title: "神经通路",
+                research_neurological_text: "先进成像研究揭示代谢变化如何影响大脑活动和癫痫发作阈值。",
+                store_title: "下载",
+                store_nutrition_title: "营养指南",
+                store_nutrition_text: "癫痫管理的综合代谢营养指南",
+                store_overview_title: "代谢性癫痫概述",
+                store_overview_text: "涵盖代谢性癫痫的全面信息，符合EEAT标准并附有官方来源",
+                questionnaire_title: "代谢健康评估",
+                questionnaire_intro: "回答这些问题以评估您对代谢性癫痫触发因素的风险因素。",
+                questionnaire_submit: "获取您的结果",
+                question1: "1. 您在饭后会感到疲劳或脑雾吗？",
+                question2: "2. 您对强光或大声音敏感吗？",
+                question3: "3. 您会经历突然的情绪波动或易怒吗？",
+                question4: "4. 您难以保持一致的能量水平吗？",
+                question5: "5. 您会经历无法解释的肌肉无力或震颤吗？",
+                question6: "6. 您有食物敏感性或消化问题吗？",
+                question7: "7. 您会经历睡眠障碍或失眠吗？",
+                question8: "8. 您难以集中注意力或专注吗？",
+                question9: "9. 您经常头痛或偏头痛吗？",
+                question10: "10. 您有癫痫或代谢障碍的家族史吗？",
+                results_title: "您的评估结果",
+                results_explore: "探索资源",
+                donate_title: "支持我们的使命",
+                donate_button: "立即捐赠",
+                footer_initiative: "Vitalistix倡议",
+                footer_copyright: "&copy; 2024 MERIT. 版权所有。",
+                yes: "是",
+                no: "否",
+                risk_low: "低风险",
+                risk_moderate: "中等风险",
+                risk_high: "高风险",
+                risk_low_text: "您显示出很少的代谢性癫痫风险因素指标。继续保持您的健康生活方式并随时了解代谢健康信息。",
+                risk_moderate_text: "您有几个指标可能表明代谢失衡。我们建议探索我们的营养指南并咨询医疗保健专业人员。",
+                risk_high_text: "您显示出可能与代谢性癫痫风险因素相关的多个指标。我们强烈建议咨询医疗保健专家并探索我们的综合资源。",
+                risk_based_on: "基于",
+                risk_responses: "10个问题中的'是'回答。",
+                questionnaire_alert: "请在提交前回答所有问题。",
+                modal_title: "选择付款方式",
+                modal_card_title: "信用卡/借记卡",
+                modal_card_text: "通过Square安全付款",
+                modal_crypto_title: "加密货币",
+                modal_crypto_text: "BTC, XMR",
+                modal_card_info: "您将被重定向到我们的安全支付处理器以完成您的捐赠。",
+                modal_card_button: "继续安全付款",
+                notification_copied: "地址已复制到剪贴板！",
+                notification_redirect: "正在重定向到安全付款...",
+                notification_downloading: "正在下载文件...",
+                dropdown_language: "选择语言"
+            }
+        };
+
+        // Language detection and management
+        let currentLanguage = 'en';
+
+        // Function to detect browser language
+        function detectBrowserLanguage() {
+            const browserLang = navigator.language || navigator.userLanguage;
+            const langCode = browserLang.split('-')[0]; // Get primary language code
+            
+            // Check if we support this language
+            if (translations[langCode]) {
+                return langCode;
+            }
+            
+            // Default to English
+            return 'en';
+        }
+
+        // Function to update page content based on language
+        function updateLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+            
+            // Update current language display
+            const currentLangDisplay = document.getElementById('currentLanguage');
+            const languageNames = {
+                en: 'English',
+                es: 'Español',
+                fr: 'Français',
+                de: 'Deutsch',
+                it: 'Italiano',
+                pt: 'Português',
+                ru: 'Русский',
+                zh: '中文'
+            };
+            currentLangDisplay.textContent = languageNames[lang];
+            
+            // Update active language option
+            document.querySelectorAll('.language-option').forEach(option => {
+                option.classList.remove('active');
+                if (option.getAttribute('data-lang') === lang) {
+                    option.classList.add('active');
+                }
+            });
+            
+            // Store language preference
+            localStorage.setItem('preferredLanguage', lang);
+        }
+
+        // Initialize language on page load
+        function initializeLanguage() {
+            // Check for saved language preference
+            const savedLanguage = localStorage.getItem('preferredLanguage');
+            
+            if (savedLanguage && translations[savedLanguage]) {
+                updateLanguage(savedLanguage);
+            } else {
+                // Detect browser language
+                const detectedLang = detectBrowserLanguage();
+                updateLanguage(detectedLang);
+            }
+        }
+
+        // Language dropdown functionality
+        const languageDropdown = document.getElementById('languageDropdown');
+        const languageOptions = document.getElementById('languageOptions');
+
+        languageDropdown.addEventListener('click', function(e) {
+            e.stopPropagation();
+            languageDropdown.classList.toggle('open');
+            languageOptions.classList.toggle('show');
+        });
+
+        // Language option selection
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const selectedLang = this.getAttribute('data-lang');
+                updateLanguage(selectedLang);
+                
+                // Close dropdown
+                languageDropdown.classList.remove('open');
+                languageOptions.classList.remove('show');
+            });
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function() {
+            languageDropdown.classList.remove('open');
+            languageOptions.classList.remove('show');
+        });
+
+        // Payment modal functionality
+        function openPaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            
+            // Reset payment method selection
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            document.querySelectorAll('.payment-details').forEach(details => {
+                details.classList.remove('show');
+            });
+        }
+
+        function selectPaymentMethod(method) {
+            // Remove selected class from all methods
+            document.querySelectorAll('.payment-method').forEach(m => {
+                m.classList.remove('selected');
+            });
+            
+            // Hide all payment details
+            document.querySelectorAll('.payment-details').forEach(d => {
+                d.classList.remove('show');
+            });
+            
+            // Add selected class to clicked method
+            event.currentTarget.classList.add('selected');
+            
+            // Show corresponding payment details
+            if (method === 'card') {
+                document.getElementById('cardDetails').classList.add('show');
+            } else if (method === 'crypto') {
+                document.getElementById('cryptoDetails').classList.add('show');
+            }
+        }
+
+        function processSquarePayment() {
+            showNotification(translations[currentLanguage].notification_redirect);
+            
+            // Simulate redirect to Square
+            setTimeout(() => {
+                // Replace with your actual Square checkout URL
+                window.open('YOUR_SQUARE_PAYMENT_LINK_HERE', '_blank');
+                closePaymentModal();
+            }, 2000);
+        }
+
+        function copyAddress(address) {
+            navigator.clipboard.writeText(address).then(() => {
+                showNotification(translations[currentLanguage].notification_copied);
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('paymentModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closePaymentModal();
+            }
+        });
+
+        // Dropdown functionality for downloads
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            const isOpen = dropdown.classList.contains('show');
+            
+            // Close all dropdowns first
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.classList.remove('open');
+            });
+            
+            // Open the clicked dropdown if it was closed
+            if (!isOpen) {
+                dropdown.classList.add('show');
+                event.currentTarget.classList.add('open');
+            }
+        }
+
+        // Download file function
+        function downloadFile(filename) {
+            showNotification(translations[currentLanguage].notification_downloading);
+            
+            // Simulate file download
+            setTimeout(() => {
+                // In a real implementation, this would be an actual file download
+                const link = document.createElement('a');
+                link.href = `path/to/files/${filename}`;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }, 1000);
+            
+            // Close dropdown after selection
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                toggle.classList.remove('open');
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.download-dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.classList.remove('open');
+                });
+            }
+        });
+
+        // Enhanced scroll animations with throttling for better performance
+        let ticking = false;
+        
+        function checkVisibility() {
+            const elements = document.querySelectorAll('section, footer, .hero-content, .hero-logo, .hero h1, .tagline, .cta-button, .section-title, .about-text, .icon-box, .research-card, .product-card, .questionnaire-container, .question, .submit-questionnaire, .donate-container, .donation-message, .donate-button, .social-links a, .trust-statement, .copyright');
+            
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                // Check if element is in viewport (trigger earlier for better UX)
+                if (rect.top < windowHeight * 0.9 && rect.bottom > 0) {
+                    element.classList.add('visible');
+                }
+            });
+            
+            ticking = false;
+        }
+
+        function requestTick() {
+            if (!ticking) {
+                window.requestAnimationFrame(checkVisibility);
+                ticking = true;
+            }
+        }
+
+        // Initialize language when DOM is loaded
+        document.addEventListener('DOMContentLoaded', initializeLanguage);
+        
+        // Initial check on page load
+        window.addEventListener('load', checkVisibility);
+        
+        // Check on scroll with throttling
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Update scroll indicator
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            scrollIndicator.style.transform = `scaleX(${scrollPercentage / 100})`;
+
+            // Parallax effect for circuit lines
+            const scrolled = window.pageYOffset;
+            const circuitLines = document.querySelector('.circuit-lines');
+            circuitLines.style.transform = `translateX(-50%) translateY(${scrolled * 0.2}px)`;
+
+            // Check visibility for animations
+            requestTick();
+        });
+
+        // Smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Questionnaire functionality
+        const answers = {};
+
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const question = this.getAttribute('data-question');
+                const answer = this.getAttribute('data-answer');
+                
+                // Remove selected class from sibling buttons
+                const siblings = this.parentElement.querySelectorAll('.option-btn');
+                siblings.forEach(sibling => sibling.classList.remove('selected'));
+                
+                // Add selected class to clicked button
+                this.classList.add('selected');
+                
+                // Store answer
+                answers[question] = answer;
+            });
+        });
+
+        function calculateResults() {
+            const yesCount = Object.values(answers).filter(answer => answer === 'yes').length;
+            const totalQuestions = Object.keys(answers).length;
+            
+            if (totalQuestions < 10) {
+                alert(translations[currentLanguage].questionnaire_alert);
+                return;
+            }
+            
+            const resultsDiv = document.getElementById('results');
+            const resultText = document.getElementById('result-text');
+            
+            let message = '';
+            let riskLevel = '';
+            
+            if (yesCount <= 3) {
+                riskLevel = translations[currentLanguage].risk_low;
+                message = translations[currentLanguage].risk_low_text;
+            } else if (yesCount <= 6) {
+                riskLevel = translations[currentLanguage].risk_moderate;
+                message = translations[currentLanguage].risk_moderate_text;
+            } else {
+                riskLevel = translations[currentLanguage].risk_high;
+                message = translations[currentLanguage].risk_high_text;
+            }
+            
+            resultText.innerHTML = `
+                <strong>${translations[currentLanguage].risk_level || 'Risk Level'}: ${riskLevel}</strong><br><br>
+                ${message}<br><br>
+                <em>${translations[currentLanguage].risk_based_on} ${yesCount} ${translations[currentLanguage].risk_responses}</em>
+            `;
+            
+            resultsDiv.style.display = 'block';
+            setTimeout(() => {
+                resultsDiv.classList.add('show');
+            }, 100);
+            
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Logo replacement function
+        function updateHeroLogo(logoUrl) {
+            const logoElement = document.getElementById('heroLogo');
+            if (logoElement && logoUrl) {
+                logoElement.src = logoUrl;
+            }
+        }
+
+        // Video replacement function
+        function updateHeroVideo(videoUrl) {
+            const videoElement = document.querySelector('.hero-video source');
+            if (videoElement && videoUrl) {
+                videoElement.src = videoUrl;
+                document.querySelector('.hero-video').load();
+            }
+        }
+
+        // Function to adjust logo container based on aspect ratio
+        function adjustLogoAspectRatio(logoUrl, aspectRatio = 1) {
+            const logoElement = document.getElementById('heroLogo');
+            if (logoElement && logoUrl) {
+                logoElement.src = logoUrl;
+                
+                // Reset styles first
+                logoElement.style.background = 'transparent';
+                logoElement.style.borderRadius = '0';
+                logoElement.style.padding = '0';
+                
+                // Adjust dimensions based on aspect ratio
+                if (aspectRatio > 1) {
+                    // Landscape logo
+                    logoElement.style.width = '250px';
+                    logoElement.style.height = 'auto';
+                    logoElement.style.maxHeight = '200px';
+                } else if (aspectRatio < 1) {
+                    // Portrait logo
+                    logoElement.style.height = '250px';
+                    logoElement.style.width = 'auto';
+                    logoElement.style.maxWidth = '200px';
+                } else {
+                    // Square logo (default)
+                    logoElement.style.width = '200px';
+                    logoElement.style.height = '200px';
+                }
+            }
+        }
+
+        // Example usage (you can call these functions with your actual URLs):
+        // updateHeroLogo('path/to/your/logo.png');
+        // updateHeroVideo('path/to/your/video.mp4');
+        // adjustLogoAspectRatio('path/to/your/logo.png', 1); // 1 for square, >1 for landscape, <1 for portrait
+    </script>
+</body>
+</html>
