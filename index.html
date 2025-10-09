@@ -1797,7 +1797,7 @@
                 <p style="text-align: center; margin-bottom: 2rem; color: var(--text-dim);" data-translate="modal_card_info">
                     You will be redirected to our secure payment processor to complete your donation.
                 </p>
-                <button class="square-button" onclick="processSquarePayment(https://square.link/u/SZSARRY9)" data-translate="modal_card_button">
+                <button class="square-button" onclick="processSquarePayment()" data-translate="modal_card_button">
                     Proceed to Secure Payment
                 </button>
             </div>
@@ -2548,7 +2548,7 @@
             // Simulate redirect to Square
             setTimeout(() => {
                 // Replace with your actual Square checkout URL
-                window.open('YOUR_SQUARE_PAYMENT_LINK_HERE', '_blank');
+                window.open('https://square.link/u/SZSARRY9', '_blank');
                 closePaymentModal();
             }, 2000);
         }
@@ -2815,6 +2815,7 @@
     </script>
 </body>
 </html>
+
 
 
 
