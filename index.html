@@ -2596,41 +2596,51 @@
             }
         }
 
-        // Download file function
-        function downloadFile(filename) {
-            showNotification(translations[currentLanguage].notification_downloading);
+      // Download file function
+function downloadFile(filename) {
+    showNotification(translations[currentLanguage].notification_downloading);
+    
+    setTimeout(() => {
+        const link = document.createElement('a');
+        
+        // Complete file mapping - REPLACE THESE URLS WITH YOUR ACTUAL FILE URLs
+        const fileUrls = {
+            // Nutrition Guides
+            'nutrition-guide-en.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(English).pdf?updatedAt=1760056820474',
+            'nutrition-guide-es.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Espa%C3%B1ol).pdf?updatedAt=1760057142546',
+            'nutrition-guide-fr.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Fran%C3%A7ais).pdf?updatedAt=1760057203723',
+            'nutrition-guide-de.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Deutsch).pdf?updatedAt=1760056820816',
+            'nutrition-guide-it.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Italiano).pdf?updatedAt=1760056820700',
+            'nutrition-guide-pt.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Portugu%C3%AAs).pdf?updatedAt=1760057054294',
+            'nutrition-guide-ru.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(P%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf?updatedAt=1760056820583',
+            'nutrition-guide-zh.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%E4%B8%AD%E6%96%87).pdf?updatedAt=1760056820619',
             
-            // Simulate file download
-            setTimeout(() => {
-                // In a real implementation, this would be an actual file download
-                const link = document.createElement('a');
-                link.href = `path/to/files/${filename}`;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            }, 1000);
-            
-            // Close dropdown after selection
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('show');
-            });
-            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                toggle.classList.remove('open');
-            });
-        }
-
-        // Close dropdowns when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.download-dropdown')) {
-                document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                    menu.classList.remove('show');
-                });
-                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                    toggle.classList.remove('open');
-                });
-            }
-        });
+            // Metabolic Epilepsy Overview
+            'metabolic-epilepsy-overview-en.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-en.pdf',
+            'metabolic-epilepsy-overview-es.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-es.pdf',
+            'metabolic-epilepsy-overview-fr.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-fr.pdf',
+            'metabolic-epilepsy-overview-de.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-de.pdf',
+            'metabolic-epilepsy-overview-it.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-it.pdf',
+            'metabolic-epilepsy-overview-pt.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-pt.pdf',
+            'metabolic-epilepsy-overview-ru.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-ru.pdf',
+            'metabolic-epilepsy-overview-zh.pdf': 'YOUR_URL_HERE/metabolic-epilepsy-overview-zh.pdf'
+        };
+        
+        link.href = fileUrls[filename] || '#'; // Fallback to # if file not found
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }, 1000);
+    
+    // Close dropdown after selection
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('show');
+    });
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.classList.remove('open');
+    });
+}
 
         // Enhanced scroll animations with throttling for better performance
         let ticking = false;
@@ -2815,6 +2825,7 @@
     </script>
 </body>
 </html>
+
 
 
 
