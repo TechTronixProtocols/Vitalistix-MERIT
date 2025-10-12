@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Open Graph for Downloads -->
+    <meta property="og:title" content="Downloads - MERIT" />
+    <meta property="og:description" content="Download nutrition guides and metabolic epilepsy overview documents" />
+    <meta property="og:url" content="https://your-domain.com/#store" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://your-domain.com/images/downloads-preview.jpg" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MERIT - Metabolic Epilepsy Remediation & Information Taskforce</title>
@@ -1664,6 +1670,28 @@
     <section id="store">
         <h2 class="section-title" data-translate="store_title">Downloads</h2>
         <div class="downloads-grid">
+            <!-- Hidden SEO-friendly direct links -->
+<div style="display: none;" aria-hidden="true">
+    <!-- Nutrition Guides -->
+    <a href="https://your-domain.com/files/nutrition-guide-en.pdf" title="Nutrition Guide - English">Nutrition Guide (English)</a>
+    <a href="https://your-domain.com/files/nutrition-guide-es.pdf" title="Guía de Nutrición - Español">Guía de Nutrición (Español)</a>
+    <a href="https://your-domain.com/files/nutrition-guide-fr.pdf" title="Guide Nutrition - Français">Guide Nutrition (Français)</a>
+    <a href="https://your-domain.com/files/nutrition-guide-de.pdf" title="Ernährungsführer - Deutsch">Ernährungsführer (Deutsch)</a>
+    <a href="https://your-domain.com/files/nutrition-guide-it.pdf" title="Guida Nutrizionale - Italiano">Guida Nutrizionale (Italiano)</a>
+    <a href="https://your-domain.com/files/nutrition-guide-pt.pdf" title="Guia de Nutrição - Português">Guia de Nutrição (Português)</a>
+    <a href="https://your-domain.com/files/nutrition-guide-ru.pdf" title="Руководство по питанию - Русский">Руководство по питанию (Русский)</a>
+    <a href="https://your-domain.com/files/nutrition-guide-zh.pdf" title="营养指南 - 中文">营养指南 (中文)</a>
+    
+    <!-- Metabolic Epilepsy Overview -->
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-en.pdf" title="Metabolic Epilepsy Overview - English">Metabolic Epilepsy Overview (English)</a>
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-es.pdf" title="Resumen de Epilepsia Metabólica - Español">Resumen de Epilepsia Metabólica (Español)</a>
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-fr.pdf" title="Aperçu de l'Épilepsie Métabolique - Français">Aperçu de l'Épilepsie Métabolique (Français)</a>
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-de.pdf" title="Metabolische Epilepsie Übersicht - Deutsch">Metabolische Epilepsie Übersicht (Deutsch)</a>
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-it.pdf" title="Panoramica dell'Epilessia Metabolica - Italiano">Panoramica dell'Epilessia Metabolica (Italiano)</a>
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-pt.pdf" title="Visão Geral da Epilepsia Metabólica - Português">Visão Geral da Epilepsia Metabólica (Português)</a>
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-ru.pdf" title="Обзор Метаболической Эпилепсии - Русский">Обзор Метаболической Эпилепсии (Русский)</a>
+    <a href="https://your-domain.com/files/metabolic-epilepsy-overview-zh.pdf" title="代谢性癫痫概述 - 中文">代谢性癫痫概述 (中文)</a>
+</div>
             <div class="product-card">
                 <div class="product-icon">
                     <i class="fas fa-book"></i>
@@ -2842,13 +2870,104 @@ function downloadFile(filename) {
             }
         }
 
+        // Track downloads for analytics
+function trackDownload(filename) {
+    // Google Analytics 4 example
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'file_download', {
+            file_name: filename,
+            file_extension: 'pdf',
+            link_url: `https://your-domain.com/files/${filename}`
+        });
+    }
+    
+    // Facebook Pixel example
+    if (typeof fbq !== 'undefined') {
+        fbq('track', 'Download', {
+            content_name: filename,
+            content_type: 'pdf'
+        });
+    }
+    
+    // Custom tracking
+    console.log('Download tracked:', filename);
+}
+
         // Example usage (you can call these functions with your actual URLs):
         // updateHeroLogo('path/to/your/logo.png');
         // updateHeroVideo('path/to/your/video.mp4');
         // adjustLogoAspectRatio('path/to/your/logo.png', 1); // 1 for square, >1 for landscape, <1 for portrait
     </script>
+    <!-- Structured Data for Downloads -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Downloads",
+  "description": "Download nutrition guides and metabolic epilepsy overview documents",
+  "url": "https://your-domain.com/#store",
+  "mainEntity": {
+    "@type": "ItemList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "DigitalDocument",
+          "name": "Nutrition Guide - English",
+          "description": "Comprehensive guide to metabolic nutrition for epilepsy management",
+          "url": "https://your-domain.com/files/nutrition-guide-en.pdf",
+          "encodingFormat": "application/pdf",
+          "inLanguage": "en",
+          "datePublished": "2024-01-01",
+          "author": {
+            "@type": "Organization",
+            "name": "MERIT"
+          }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "DigitalDocument",
+          "name": "Guía de Nutrición - Español",
+          "description": "Guía completa de nutrición metabólica para el manejo de la epilepsia",
+          "url": "https://your-domain.com/files/nutrition-guide-es.pdf",
+          "encodingFormat": "application/pdf",
+          "inLanguage": "es",
+          "datePublished": "2024-01-01",
+          "author": {
+            "@type": "Organization",
+            "name": "MERIT"
+          }
+        }
+      },
+      // ... add all 16 documents with similar structure ...
+      {
+        "@type": "ListItem",
+        "position": 16,
+        "item": {
+          "@type": "DigitalDocument",
+          "name": "代谢性癫痫概述 - 中文",
+          "description": "涵盖代谢性癫痫的全面信息，符合EEAT标准并附有官方来源",
+          "url": "https://your-domain.com/files/metabolic-epilepsy-overview-zh.pdf",
+          "encodingFormat": "application/pdf",
+          "inLanguage": "zh",
+          "datePublished": "2024-01-01",
+          "author": {
+            "@type": "Organization",
+            "name": "MERIT"
+          }
+        }
+      }
+    ]
+  }
+}
+</script>
 </body>
 </html>
+
 
 
 
