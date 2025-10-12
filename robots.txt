@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Allow: /files/
+
+# Sitemap location
+Sitemap: https://your-domain.com/sitemap.xml
