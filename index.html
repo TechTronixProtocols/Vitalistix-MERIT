@@ -3745,24 +3745,9 @@ window.resetCookieConsent = function() {
 
 console.log('Cookie consent script loaded');
 </script>
-    // Add this right after the script starts
-setTimeout(function() {
-    console.log('=== DEBUG CHECK ===');
-    console.log('Document ready state:', document.readyState);
-    console.log('Cookie banner element:', document.getElementById('cookieConsent'));
-    console.log('Accept All button:', document.getElementById('acceptAllCookies'));
-    
-    // Force show
-    const banner = document.getElementById('cookieConsent');
-    if (banner) {
-        banner.style.display = 'block';
-        banner.style.opacity = '1';
-        banner.style.transform = 'translateY(0)';
-        console.log('FORCED: Banner should now be visible');
-    }
-}, 2000);
 </body>
 </html>
+
 
 
 
