@@ -3687,8 +3687,30 @@ window.resetCookieConsent = function() {
 
 console.log('Cookie consent script loaded');
 </script>
+    <!-- Temporary Test - Remove after confirming it works -->
+<script>
+console.log('=== TEMPORARY TEST ===');
+console.log('Cookie banner element:', document.getElementById('cookieConsent'));
+console.log('Accept All button:', document.getElementById('acceptAllCookies'));
+console.log('Customize button:', document.getElementById('customizeCookies'));
+
+// Force show banner after 1 second
+setTimeout(function() {
+    console.log('Forcing banner to show...');
+    const banner = document.getElementById('cookieConsent');
+    if (banner) {
+        banner.style.display = 'block';
+        banner.style.opacity = '1';
+        banner.style.transform = 'translateY(0)';
+        console.log('Banner should now be visible');
+    } else {
+        console.error('Banner element still not found');
+    }
+}, 1000);
+</script>
 </body>
 </html>
+
 
 
 
