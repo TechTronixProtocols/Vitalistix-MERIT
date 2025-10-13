@@ -3457,87 +3457,72 @@ function trackDownload(filename) {
     ]
   }
 }
-  <!-- Cookie Consent Script - Direct Approach -->
-<script>
-// Check for consent immediately (don't wait for DOMContentLoaded)
+ <script>
+// Cookie Consent Script - Timing Corrected
+console.log('Cookie consent script starting...');
+
+// Function to check if element exists
+function elementExists(id) {
+    return document.getElementById(id) !== null;
+}
+
+// Function to wait for element
+function waitForElement(id, callback, maxAttempts = 50) {
+    let attempts = 0;
+    
+    function check() {
+        attempts++;
+        if (elementExists(id)) {
+            callback();
+        } else if (attempts < maxAttempts) {
+            setTimeout(check, 50);
+        } else {
+            console.error(`Element ${id} not found after ${maxAttempts} attempts`);
+        }
+    }
+    
+    check();
+}
+
+// Main initialization function
+function initializeCookieConsent() {
+    console.log('Initializing cookie consent...');
+    
+    // Wait for banner element
+    waitForElement('cookieConsent', function() {
+        console.log('Cookie banner element found');
+        checkCookieConsent();
+        setupEventListeners();
+    });
+}
+
+// Check consent and show/hide banner
 function checkCookieConsent() {
     console.log('Checking cookie consent...');
     
-    // Check if consent already exists
     const hasConsent = localStorage.getItem('cookieConsent');
     console.log('Has consent:', hasConsent);
     
+    const banner = document.getElementById('cookieConsent');
+    if (!banner) {
+        console.error('Cookie banner element not found');
+        return;
+    }
+    
     if (!hasConsent) {
         console.log('No consent - showing banner');
-        showCookieBanner();
-    } else {
-        console.log('Consent exists - hiding banner');
-        hideCookieBanner();
-    }
-}
-
-// Show banner function
-function showCookieBanner() {
-    const banner = document.getElementById('cookieConsent');
-    if (banner) {
         banner.style.display = 'block';
         banner.style.opacity = '1';
         banner.style.transform = 'translateY(0)';
-        console.log('Banner shown successfully');
     } else {
-        console.error('Banner element not found');
+        console.log('Consent exists - hiding banner');
+        banner.style.display = 'none';
     }
 }
 
-// Hide banner function
-function hideCookieBanner() {
-    const banner = document.getElementById('cookieConsent');
-    if (banner) {
-        banner.style.opacity = '0';
-        banner.style.transform = 'translateY(100%)';
-        setTimeout(() => {
-            banner.style.display = 'none';
-        }, 300);
-    }
-}
-
-// Show modal function
-function showModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'flex';
-        setTimeout(() => {
-            modal.style.opacity = '1';
-            modal.style.visibility = 'visible';
-        }, 10);
-    }
-}
-
-// Hide modal function
-function hideModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.opacity = '0';
-        modal.style.visibility = 'hidden';
-        setTimeout(() => {
-            modal.style.display = 'none';
-        }, 300);
-    }
-}
-
-// Save consent function
-function saveConsent(consent) {
-    localStorage.setItem('cookieConsent', JSON.stringify(consent));
-    console.log('Consent saved:', consent);
-}
-
-// Initialize cookie consent
-console.log('Cookie consent script starting...');
-checkCookieConsent();
-
-// Set up event listeners when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - setting up listeners');
+// Set up all event listeners
+function setupEventListeners() {
+    console.log('Setting up event listeners...');
     
     // Accept All button
     const acceptAllBtn = document.getElementById('acceptAllCookies');
@@ -3554,6 +3539,8 @@ document.addEventListener('DOMContentLoaded', function() {
             hideCookieBanner();
             hideModal('cookieModal');
         });
+    } else {
+        console.error('Accept All button not found');
     }
     
     // Customize button
@@ -3563,6 +3550,8 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Customize clicked');
             showModal('cookieModal');
         });
+    } else {
+        console.error('Customize button not found');
     }
     
     // Modal close button
@@ -3571,6 +3560,8 @@ document.addEventListener('DOMContentLoaded', function() {
         closeModalBtn.addEventListener('click', function() {
             hideModal('cookieModal');
         });
+    } else {
+        console.error('Close modal button not found');
     }
     
     // Save preferences button
@@ -3588,6 +3579,8 @@ document.addEventListener('DOMContentLoaded', function() {
             hideCookieBanner();
             hideModal('cookieModal');
         });
+    } else {
+        console.error('Save preferences button not found');
     }
     
     // Accept All modal button
@@ -3605,6 +3598,8 @@ document.addEventListener('DOMContentLoaded', function() {
             hideCookieBanner();
             hideModal('cookieModal');
         });
+    } else {
+        console.error('Accept All modal button not found');
     }
     
     // Footer links
@@ -3676,6 +3671,69 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     console.log('All event listeners set up');
+}
+
+// Show/hide functions
+function showCookieBanner() {
+    const banner = document.getElementById('cookieConsent');
+    if (banner) {
+        banner.style.display = 'block';
+        banner.style.opacity = '1';
+        banner.style.transform = 'translateY(0)';
+        console.log('Banner shown successfully');
+    }
+}
+
+function hideCookieBanner() {
+    const banner = document.getElementById('cookieConsent');
+    if (banner) {
+        banner.style.opacity = '0';
+        banner.style.transform = 'translateY(100%)';
+        setTimeout(() => {
+            banner.style.display = 'none';
+        }, 300);
+    }
+}
+
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.display = 'flex';
+        setTimeout(() => {
+            modal.style.opacity = '1';
+            modal.style.visibility = 'visible';
+        }, 10);
+    }
+}
+
+function hideModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.style.opacity = '0';
+        modal.style.visibility = 'hidden';
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300);
+    }
+}
+
+function saveConsent(consent) {
+    localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    console.log('Consent saved:', consent);
+}
+
+// Initialize immediately and also on DOM ready
+console.log('Starting immediate initialization...');
+initializeCookieConsent();
+
+// Also try initialization on DOM ready as backup
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM ready - checking if already initialized...');
+    const banner = document.getElementById('cookieConsent');
+    if (banner && banner.style.display === 'none') {
+        console.log('Banner is hidden, initializing again...');
+        initializeCookieConsent();
+    }
 });
 
 // Reset function
@@ -3687,29 +3745,9 @@ window.resetCookieConsent = function() {
 
 console.log('Cookie consent script loaded');
 </script>
-    <!-- Temporary Test - Remove after confirming it works -->
-<script>
-console.log('=== TEMPORARY TEST ===');
-console.log('Cookie banner element:', document.getElementById('cookieConsent'));
-console.log('Accept All button:', document.getElementById('acceptAllCookies'));
-console.log('Customize button:', document.getElementById('customizeCookies'));
-
-// Force show banner after 1 second
-setTimeout(function() {
-    console.log('Forcing banner to show...');
-    const banner = document.getElementById('cookieConsent');
-    if (banner) {
-        banner.style.display = 'block';
-        banner.style.opacity = '1';
-        banner.style.transform = 'translateY(0)';
-        console.log('Banner should now be visible');
-    } else {
-        console.error('Banner element still not found');
-    }
-}, 1000);
-</script>
 </body>
 </html>
+
 
 
 
