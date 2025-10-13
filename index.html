@@ -3744,8 +3744,34 @@ document.addEventListener('DOMContentLoaded', () => {
     window.resetCookieConsent = () => manager.reset();
 });
 </script>
+    <!-- Temporary Debug Code -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== Cookie Consent Debug ===');
+    
+    // Check if elements exist
+    const elements = ['cookieConsent', 'acceptAllCookies', 'customizeCookies'];
+    elements.forEach(id => {
+        console.log(id + ':', document.getElementById(id) ? '✓' : '✗');
+    });
+    
+    // Force show banner after 2 seconds
+    setTimeout(() => {
+        console.log('Attempting to show cookie banner...');
+        const banner = document.getElementById('cookieConsent');
+        if (banner) {
+            banner.style.display = 'block';
+            banner.classList.add('show');
+            console.log('Cookie banner should now be visible');
+        } else {
+            console.error('Cookie banner element not found');
+        }
+    }, 2000);
+});
+</script>
 </body>
 </html>
+
 
 
 
