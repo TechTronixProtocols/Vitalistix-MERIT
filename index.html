@@ -1791,26 +1791,21 @@
         background: rgba(0, 255, 255, 0.1);
     }
 }
-    /* Add these styles to ensure banner works */
+   /* Emergency CSS for cookie banner */
 #cookieConsent {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.1);
-    z-index: 9999;
-    padding: 1rem;
-    transform: translateY(100%);
-    opacity: 0;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    display: none;
-}
-
-#cookieConsent.show {
-    transform: translateY(0);
-    opacity: 1;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    background: #ff6b6b !important;
+    color: white !important;
+    padding: 20px !important;
+    text-align: center !important;
+    z-index: 99999 !important;
+    display: block !important;
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
 }
         
     </style>
@@ -3521,6 +3516,7 @@ console.log('=== MINIMAL COOKIE SCRIPT END ===');
 </script>
 </body>
 </html>
+
 
 
 
