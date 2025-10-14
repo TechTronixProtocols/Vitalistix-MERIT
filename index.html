@@ -3458,380 +3458,70 @@ function trackDownload(filename) {
   }
 }
     
-// Bulletproof Cookie Consent Script
-console.log('=== COOKIE CONSENT SCRIPT START ===');
+console.log('=== MINIMAL COOKIE SCRIPT START ===');
 
-// Global variables
-let bannerElement = null;
-let initializationAttempts = 0;
-const maxAttempts = 10;
-
-// Initialize function with multiple attempts
-function initializeCookieConsent() {
-    initializationAttempts++;
-    console.log(`Initialization attempt ${initializationAttempts}/${maxAttempts}`);
+// Simple banner show function
+function showCookieBanner() {
+    console.log('showCookieBanner called');
     
-    // Check if banner element exists
-    bannerElement = document.getElementById('cookieConsent');
-    
-    if (!bannerElement) {
-        console.error('Cookie banner element not found');
-        if (initializationAttempts < maxAttempts) {
-            console.log('Retrying in 500ms...');
-            setTimeout(initializeCookieConsent, 500);
-        } else {
-            console.error('Max attempts reached - banner not found');
-            emergencyBannerDisplay();
-        }
-        return;
-    }
-    
-    console.log('Cookie banner element found:', bannerElement);
-    
-    // Check if consent exists
-    const hasConsent = localStorage.getItem('cookieConsent');
-    console.log('Consent status:', hasConsent);
-    
-    if (!hasConsent) {
-        console.log('No consent - showing banner');
-        showBanner();
-    } else {
-        console.log('Consent exists - hiding banner');
-        hideBanner();
-    }
-    
-    // Set up event listeners
-    setupEventListeners();
-}
-
-// Emergency banner display
-function emergencyBannerDisplay() {
-    console.log('=== EMERGENCY BANNER DISPLAY ===');
-    
-    // Create emergency banner if original doesn't exist
-    if (!document.getElementById('cookieConsent')) {
-        console.log('Creating emergency banner...');
-        const emergencyBanner = document.createElement('div');
-        emergencyBanner.id = 'emergencyCookieBanner';
-        emergencyBanner.style.cssText = `
-            position: fixed !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            background: #ff6b6b !important;
-            color: white !important;
-            padding: 20px !important;
-            text-align: center !important;
-            z-index: 99999 !important;
-            font-family: Arial, sans-serif !important;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.3) !important;
-        `;
-        emergencyBanner.innerHTML = `
-            <div style="max-width: 1200px; margin: 0 auto;">
-                <p style="margin: 0 0 10px 0;">We use cookies to enhance your experience.</p>
-                <button id="emergencyAccept" style="background: white; color: #ff6b6b; border: none; padding: 8px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer; font-weight: bold;">Accept All</button>
-                <button id="emergencyCustomize" style="background: transparent; color: white; border: 2px solid white; padding: 6px 20px; margin: 0 10px; border-radius: 5px; cursor: pointer;">Customize</button>
-            </div>
-        `;
-        document.body.appendChild(emergencyBanner);
-        
-        // Set up emergency banner event listeners
-        document.getElementById('emergencyAccept').addEventListener('click', function() {
-            const consent = {
-                necessary: true,
-                analytics: true,
-                marketing: true,
-                timestamp: new Date().toISOString()
-            };
-            localStorage.setItem('cookieConsent', JSON.stringify(consent));
-            document.getElementById('emergencyCookieBanner').remove();
-        });
-        
-        document.getElementById('emergencyCustomize').addEventListener('click', function() {
-            alert('Customize functionality - Please implement your preferences modal');
-        });
-        
-        console.log('Emergency banner created and displayed');
-    } else {
-        // Force show original banner
-        const banner = document.getElementById('cookieConsent');
+    const banner = document.getElementById('cookieConsent');
+    if (banner) {
+        console.log('Banner element found');
         banner.style.display = 'block';
         banner.style.opacity = '1';
         banner.style.transform = 'translateY(0)';
-        banner.style.visibility = 'visible';
-        console.log('Original banner forced to show');
-    }
-}
-
-// Show banner function
-function showBanner() {
-    if (!bannerElement) return;
-    
-    console.log('Executing showBanner()');
-    
-    // Reset styles
-    bannerElement.style.display = 'block';
-    bannerElement.style.opacity = '0';
-    bannerElement.style.transform = 'translateY(100%)';
-    bannerElement.style.visibility = 'visible';
-    
-    // Force reflow
-    bannerElement.offsetHeight;
-    
-    // Animate in
-    setTimeout(() => {
-        bannerElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-        bannerElement.style.opacity = '1';
-        bannerElement.style.transform = 'translateY(0)';
-        console.log('Banner animation started');
-    }, 10);
-}
-
-// Hide banner function
-function hideBanner() {
-    if (!bannerElement) return;
-    
-    console.log('Executing hideBanner()');
-    
-    bannerElement.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    bannerElement.style.opacity = '0';
-    bannerElement.style.transform = 'translateY(100%)';
-    
-    setTimeout(() => {
-        bannerElement.style.display = 'none';
-    }, 300);
-}
-
-// Show modal function
-function showModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'flex';
-        modal.style.opacity = '0';
-        modal.style.visibility = 'visible';
-        
-        setTimeout(() => {
-            modal.style.transition = 'opacity 0.3s ease';
-            modal.style.opacity = '1';
-        }, 10);
-    }
-}
-
-// Hide modal function
-function hideModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.transition = 'opacity 0.3s ease';
-        modal.style.opacity = '0';
-        
-        setTimeout(() => {
-            modal.style.visibility = 'hidden';
-            modal.style.display = 'none';
-        }, 300);
-    }
-}
-
-// Save consent function
-function saveConsent(consent) {
-    localStorage.setItem('cookieConsent', JSON.stringify(consent));
-    console.log('Consent saved:', consent);
-}
-
-// Setup event listeners
-function setupEventListeners() {
-    console.log('Setting up event listeners...');
-    
-    // Accept All button
-    const acceptAllBtn = document.getElementById('acceptAllCookies');
-    if (acceptAllBtn) {
-        acceptAllBtn.addEventListener('click', function() {
-            console.log('Accept All clicked');
-            const consent = {
-                necessary: true,
-                analytics: true,
-                marketing: true,
-                timestamp: new Date().toISOString()
-            };
-            saveConsent(consent);
-            hideBanner();
-            hideModal('cookieModal');
-        });
+        console.log('Banner should be visible');
     } else {
-        console.error('Accept All button not found');
+        console.error('Banner element not found');
     }
+}
+
+// Check consent
+function checkConsent() {
+    console.log('Checking consent...');
     
-    // Customize button
-    const customizeBtn = document.getElementById('customizeCookies');
-    if (customizeBtn) {
-        customizeBtn.addEventListener('click', function() {
-            console.log('Customize clicked');
-            showModal('cookieModal');
-        });
-    } else {
-        console.error('Customize button not found');
-    }
-    
-    // Modal close button
-    const closeModalBtn = document.getElementById('closeCookieModal');
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', function() {
-            hideModal('cookieModal');
-        });
-    }
-    
-    // Save preferences button
-    const savePrefsBtn = document.getElementById('saveCookiePreferences');
-    if (savePrefsBtn) {
-        savePrefsBtn.addEventListener('click', function() {
-            console.log('Save preferences clicked');
-            const consent = {
-                necessary: true,
-                analytics: document.getElementById('analyticsCookies').checked,
-                marketing: document.getElementById('marketingCookies').checked,
-                timestamp: new Date().toISOString()
-            };
-            saveConsent(consent);
-            hideBanner();
-            hideModal('cookieModal');
-        });
-    }
-    
-    // Accept All modal button
-    const acceptAllModalBtn = document.getElementById('acceptAllModalCookies');
-    if (acceptAllModalBtn) {
-        acceptAllModalBtn.addEventListener('click', function() {
-            console.log('Accept All modal clicked');
-            const consent = {
-                necessary: true,
-                analytics: true,
-                marketing: true,
-                timestamp: new Date().toISOString()
-            };
-            saveConsent(consent);
-            hideBanner();
-            hideModal('cookieModal');
-        });
-    }
-    
-    // Footer links
-    const footerSettingsBtn = document.getElementById('footerCookieSettings');
-    if (footerSettingsBtn) {
-        footerSettingsBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            showModal('cookieModal');
-        });
-    }
-    
-    const footerPrivacyBtn = document.getElementById('footerPrivacyPolicy');
-    if (footerPrivacyBtn) {
-        footerPrivacyBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            showModal('privacyModal');
-        });
-    }
-    
-    // Privacy modal close buttons
-    const closePrivacyModalBtn = document.getElementById('closePrivacyModal');
-    if (closePrivacyModalBtn) {
-        closePrivacyModalBtn.addEventListener('click', function() {
-            hideModal('privacyModal');
-        });
-    }
-    
-    const closePrivacyBtn = document.getElementById('closePrivacy');
-    if (closePrivacyBtn) {
-        closePrivacyBtn.addEventListener('click', function() {
-            hideModal('privacyModal');
-        });
-    }
-    
-    // Privacy policy links
-    const privacyLinks = document.querySelectorAll('.privacy-link');
-    privacyLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            showModal('privacyModal');
-        });
-    });
-    
-    // Close modals on outside click
-    const cookieModal = document.getElementById('cookieModal');
-    if (cookieModal) {
-        cookieModal.addEventListener('click', function(e) {
-            if (e.target === cookieModal) {
-                hideModal('cookieModal');
-            }
-        });
-    }
-    
-    const privacyModal = document.getElementById('privacyModal');
-    if (privacyModal) {
-        privacyModal.addEventListener('click', function(e) {
-            if (e.target === privacyModal) {
-                hideModal('privacyModal');
-            }
-        });
-    }
-    
-    // Keyboard accessibility
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            hideModal('cookieModal');
-            hideModal('privacyModal');
+    try {
+        const consent = localStorage.getItem('cookieConsent');
+        console.log('Consent value:', consent);
+        
+        if (!consent) {
+            console.log('No consent - showing banner');
+            showCookieBanner();
+        } else {
+            console.log('Consent exists - hiding banner');
         }
-    });
-    
-    console.log('Event listeners setup complete');
+    } catch (e) {
+        console.error('Error checking consent:', e);
+        showCookieBanner(); // Show banner if error
+    }
 }
 
-// Reset function
-window.resetCookieConsent = function() {
-    localStorage.removeItem('cookieConsent');
-    console.log('Cookie consent reset');
-    location.reload();
+// Simple initialization
+function init() {
+    console.log('Initializing...');
+    
+    // Wait a bit for DOM
+    setTimeout(() => {
+        console.log('Running checkConsent...');
+        checkConsent();
+    }, 1000);
+}
+
+// Start initialization
+console.log('Starting minimal script...');
+init();
+
+// Manual test function
+window.testBanner = function() {
+    console.log('Manual test called');
+    showCookieBanner();
 };
 
-// Start initialization with multiple triggers
-console.log('Starting cookie consent initialization...');
-
-// Try immediate initialization
-initializeCookieConsent();
-
-// Try on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOMContentLoaded event fired');
-    if (!bannerElement || bannerElement.style.display === 'none') {
-        console.log('Retrying initialization on DOMContentLoaded');
-        initializeCookieConsent();
-    }
-});
-
-// Try on window load (last resort)
-window.addEventListener('load', function() {
-    console.log('Window load event fired');
-    if (!bannerElement || bannerElement.style.display === 'none') {
-        console.log('Final attempt on window load');
-        initializeCookieConsent();
-    }
-});
-
-// Final emergency check after 3 seconds
-setTimeout(function() {
-    console.log('=== FINAL CHECK ===');
-    console.log('Banner element:', document.getElementById('cookieConsent'));
-    console.log('Banner display:', bannerElement ? bannerElement.style.display : 'N/A');
-    
-    const banner = document.getElementById('cookieConsent');
-    if (banner && banner.style.display === 'none') {
-        console.log('Banner still hidden after 3 seconds - forcing display');
-        emergencyBannerDisplay();
-    }
-}, 3000);
-
-console.log('=== COOKIE CONSENT SCRIPT END ===');
+console.log('=== MINIMAL COOKIE SCRIPT END ===');
 </script>
 </body>
 </html>
+
 
 
 
