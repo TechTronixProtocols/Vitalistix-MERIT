@@ -1093,6 +1093,162 @@ footer {
     transition: all 0.5s ease-out 0.5s;
 }
 
+     /* Contact Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.form-checkbox label {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+.contact-form-message {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.contact-form-message.show {
+    display: block;
+}
+
+.contact-form-message.success {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid #4CAF50;
+    color: #2E7D32;
+}
+
+.contact-form-message.error {
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid #F44336;
+    color: #C62828;
+}
+
+.contact-form-message i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.contact-form-message h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-form-message p {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Dark mode support for contact form */
+@media (prefers-color-scheme: dark) {
+    .form-group label {
+        color: var(--text-light);
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        background: rgba(26, 31, 58, 0.5);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--text-light);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--neon-teal);
+        box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.1);
+    }
+    
+    .form-checkbox label {
+        color: var(--text-dim);
+    }
+    
+    .contact-form-message.success {
+        background: rgba(76, 175, 80, 0.2);
+        border-color: #4CAF50;
+        color: #81C784;
+    }
+    
+    .contact-form-message.error {
+        background: rgba(244, 67, 54, 0.2);
+        border-color: #F44336;
+        color: #E57373;
+    }
+}
+
+/* Mobile responsiveness for contact form */
+@media (max-width: 768px) {
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.9rem;
+    }
+    
+    .form-checkbox {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-checkbox input[type="checkbox"] {
+        margin-top: 0;
+    }
+}
+
 /* Footer mobile responsiveness */
 @media (max-width: 768px) {
     footer {
@@ -2116,7 +2272,7 @@ footer {
     <div class="footer-content">
         <div class="footer-section">
             <h3>MERIT</h3>
-            <p class="footer-description">Metabolic Epilepsy Research Innovation & Therapy</p>
+            <p class="footer-description">Metabolic Epilepsy Remediation & Information Taskforce</p>
             <div class="social-links">
                 <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
                 <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
@@ -2128,8 +2284,7 @@ footer {
             <h4>Quick Links</h4>
             <ul class="footer-links">
                 <li><a href="#about">About Us</a></li>
-                <li><a href="#research">Research</a></li>
-                <li><a href="#downloads">Resources</a></li>
+                <li><a href="#downloads">Downloads</a></li>
                 <li><a href="#questionnaire">Questionnaire</a></li>
                 <li><a href="#donate">Donate</a></li>
             </ul>
@@ -2148,18 +2303,71 @@ footer {
         <div class="footer-section">
             <h4>Contact</h4>
             <ul class="footer-links">
-                <li><a href="mailto:info@merit.org">info@merit.org</a></li>
-                <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                <li><a href="#" id="footerContactForm">Form Submission</a></li>
             </ul>
         </div>
     </div>
     
     <div class="footer-bottom">
-        <p class="trust-statement">Committed to excellence in metabolic epilepsy research and patient care</p>
-        <p class="copyright">&copy; 2024 MERIT. All rights reserved.</p>
+        <p class="trust-statement">Committed to excellence in metabolic epilepsy research and awareness</p>
+        <p class="copyright">&copy; 2025 MERIT. All rights reserved.</p>
     </div>
 </footer>
 
+ <!-- Contact Form Modal -->
+<div id="contactModal" class="cookie-modal" style="display: none;">
+    <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+            <h2>Contact Us</h2>
+            <button class="cookie-modal-close" id="closeContactModal">&times;</button>
+        </div>
+        <div class="cookie-modal-body">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="contactName">Name *</label>
+                    <input type="text" id="contactName" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactEmail">Email *</label>
+                    <input type="email" id="contactEmail" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactSubject">Subject *</label>
+                    <input type="text" id="contactSubject" name="subject" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactMessage">Message *</label>
+                    <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="contactConsent" name="consent" required>
+                        <label for="contactConsent">I consent to the processing of my personal data for the purpose of responding to my inquiry.</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="cookie-btn cookie-btn-primary" id="submitContactForm">Send Message</button>
+            </form>
+            
+            <div id="contactFormSuccess" class="contact-form-message success">
+                <i class="fas fa-check-circle"></i>
+                <h3>Message Sent Successfully!</h3>
+                <p>Thank you for contacting us. We'll get back to you soon.</p>
+            </div>
+            
+            <div id="contactFormError" class="contact-form-message error">
+                <i class="fas fa-exclamation-circle"></i>
+                <h3>Message Not Sent</h3>
+                <p>Please check your information and try again.</p>
+            </div>
+        </div>
+    </div>
+</div>
+ 
     <!-- Payment Modal -->
     <div class="payment-modal" id="paymentModal">
         <div class="modal-content">
@@ -3388,9 +3596,204 @@ window.testBanner = function() {
 };
 
 console.log('=== MINIMAL COOKIE SCRIPT END ===');
+
+ // Contact Form Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== CONTACT FORM INITIALIZED ===');
+    
+    // Contact form modal elements
+    const contactModal = document.getElementById('contactModal');
+    const footerContactForm = document.getElementById('footerContactForm');
+    const closeContactModal = document.getElementById('closeContactModal');
+    const contactForm = document.getElementById('contactForm');
+    const submitContactForm = document.getElementById('submitContactForm');
+    const contactFormSuccess = document.getElementById('contactFormSuccess');
+    const contactFormError = document.getElementById('contactFormError');
+    
+    // Open contact modal
+    if (footerContactForm) {
+        footerContactForm.addEventListener('click', function(e) {
+            e.preventDefault();
+            showModal('contactModal');
+            // Reset form when opening
+            resetContactForm();
+        });
+    }
+    
+    // Close contact modal
+    if (closeContactModal) {
+        closeContactModal.addEventListener('click', function() {
+            hideModal('contactModal');
+        });
+    }
+    
+    // Close modal on outside click
+    if (contactModal) {
+        contactModal.addEventListener('click', function(e) {
+            if (e.target === contactModal) {
+                hideModal('contactModal');
+            }
+        });
+    }
+    
+    // Handle form submission
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            submitContactFormData();
+        });
+    }
+    
+    // Reset contact form
+    function resetContactForm() {
+        if (contactForm) {
+            contactForm.reset();
+            hideMessages();
+        }
+    }
+    
+    // Hide success/error messages
+    function hideMessages() {
+        if (contactFormSuccess) contactFormSuccess.classList.remove('show');
+        if (contactFormError) contactFormError.classList.remove('show');
+    }
+    
+    // Submit contact form data
+    function submitContactFormData() {
+        const formData = new FormData(contactForm);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message'),
+            consent: formData.get('consent')
+        };
+        
+        console.log('Submitting contact form:', data);
+        
+        // Show loading state
+        if (submitContactForm) {
+            submitContactForm.disabled = true;
+            submitContactForm.textContent = 'Sending...';
+        }
+        
+        // Simulate form submission (replace with actual backend call)
+        setTimeout(() => {
+            // Simulate successful submission
+            const success = Math.random() > 0.2; // 80% success rate for demo
+            
+            if (success) {
+                // Show success message
+                hideMessages();
+                if (contactFormSuccess) {
+                    contactFormSuccess.classList.add('show');
+                }
+                
+                // Hide form
+                if (contactForm) {
+                    contactForm.style.display = 'none';
+                }
+                
+                console.log('Contact form submitted successfully');
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    hideModal('contactModal');
+                    if (contactForm) {
+                        contactForm.style.display = 'block';
+                    }
+                    resetContactForm();
+                }, 3000);
+                
+            } else {
+                // Show error message
+                hideMessages();
+                if (contactFormError) {
+                    contactFormError.classList.add('show');
+                }
+                
+                console.error('Contact form submission failed');
+            }
+            
+            // Reset button
+            if (submitContactForm) {
+                submitContactForm.disabled = false;
+                submitContactForm.textContent = 'Send Message';
+            }
+            
+        }, 1500); // Simulate network delay
+        
+        /*
+        // UNCOMMENT THIS FOR REAL BACKEND INTEGRATION
+        // Replace the setTimeout above with this actual fetch call:
+        
+        fetch('https://your-backend-api.com/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                // Show success message
+                hideMessages();
+                contactFormSuccess.classList.add('show');
+                
+                // Hide form
+                contactForm.style.display = 'none';
+                
+                // Reset after 3 seconds
+                setTimeout(() => {
+                    hideModal('contactModal');
+                    contactForm.style.display = 'block';
+                    resetContactForm();
+                }, 3000);
+                
+            } else {
+                // Show error message
+                hideMessages();
+                contactFormError.classList.add('show');
+            }
+        })
+        .catch(error => {
+            console.error('Form submission error:', error);
+            // Show error message
+            hideMessages();
+            contactFormError.classList.add('show');
+        })
+        .finally(() => {
+            // Reset button
+            submitContactForm.disabled = false;
+            submitContactForm.textContent = 'Send Message';
+        });
+        */
+    }
+    
+    console.log('=== CONTACT FORM READY ===');
+});
+
+// Add to existing modal functions
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('show');
+        console.log('Modal shown:', modalId);
+    }
+}
+
+function hideModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.remove('show');
+        console.log('Modal hidden:', modalId);
+    }
+}
 </script>
 </body>
 </html>
+
 
 
 
