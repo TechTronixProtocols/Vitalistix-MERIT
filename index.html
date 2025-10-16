@@ -3711,49 +3711,135 @@ function hideModal(modalId) {
     }
 }
 
-// Smooth scrolling for footer links
+<script>
+// Comprehensive Smooth Scrolling Solution
 document.addEventListener('DOMContentLoaded', function() {
-    // Handle downloads link click
-    const downloadsLink = document.querySelector('.downloads-link');
-    if (downloadsLink) {
-        downloadsLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const downloadsSection = document.getElementById('downloads');
-            if (downloadsSection) {
-                downloadsSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
+    console.log('=== SMOOTH SCROLLING INITIALIZED ===');
+    
+    // Function to handle smooth scrolling
+    function smoothScrollTo(targetId) {
+        const targetSection = document.getElementById(targetId);
+        
+        if (!targetSection) {
+            console.error('Target section not found:', targetId);
+            return false;
+        }
+        
+        console.log('Scrolling to:', targetId);
+        
+        // Get header height for offset
+        const header = document.querySelector('nav');
+        const headerHeight = header ? header.offsetHeight : 0;
+        
+        // Calculate position with header offset
+        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+        
+        console.log('Target position:', targetPosition);
+        
+        // Smooth scroll to position
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
         });
+        
+        return true;
     }
     
-    // Handle other footer links
-    const footerLinks = document.querySelectorAll('.footer-links a[href^="#"]');
-    footerLinks.forEach(link => {
-        if (!link.classList.contains('legal-link') && !link.classList.contains('contact-link')) {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = link.getAttribute('href').substring(1);
-                const targetSection = document.getElementById(targetId);
-                
-                if (targetSection) {
-                    targetSection.scrollIntoView({
+    // Handle downloads link specifically
+    const downloadsLink = document.querySelector('.downloads-link');
+    if (downloadsLink) {
+        console.log('Downloads link found:', downloadsLink);
+        
+        downloadsLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Downloads link clicked');
+            
+            // Try multiple methods to ensure it works
+            const success = smoothScrollTo('downloads');
+            
+            if (!success) {
+                console.log('Trying alternative scroll method...');
+                // Fallback method
+                const downloadsSection = document.getElementById('downloads');
+                if (downloadsSection) {
+                    downloadsSection.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
                 }
-            });
+            }
+        });
+    } else {
+        console.error('Downloads link not found');
+    }
+    
+    // Handle all other footer links
+    const footerLinks = document.querySelectorAll('.footer-links a[href^="#"]');
+    footerLinks.forEach(link => {
+        // Skip special links that open modals
+        if (link.id === 'footerPrivacyPolicy' || 
+            link.id === 'footerCookieSettings' || 
+            link.id === 'footerContactForm') {
+            return;
         }
+        
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href').substring(1);
+            if (targetId) {
+                smoothScrollTo(targetId);
+            }
+        });
     });
+    
+    // Also handle any other anchor links on the page
+    const allAnchorLinks = document.querySelectorAll('a[href^="#"]:not(.footer-links a):not(.dropdown-toggle)');
+    allAnchorLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            
+            // Skip empty hashes and special links
+            if (href === '#' || href.includes('modal') || href.includes('privacy-policy')) {
+                return;
+            }
+            
+            const targetId = href.substring(1);
+            if (targetId) {
+                e.preventDefault();
+                smoothScrollTo(targetId);
+            }
+        });
+    });
+    
+    console.log('=== SMOOTH SCROLLING READY ===');
+});
+
+// Additional scroll margin fix
+document.addEventListener('DOMContentLoaded', function() {
+    // Add CSS for scroll margin
+    const style = document.createElement('style');
+    style.textContent = `
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        #downloads,
+        #about,
+        #research,
+        #questionnaire,
+        #donate {
+            scroll-margin-top: 80px;
+        }
+    `;
+    document.head.appendChild(style);
 });
 </script>
  
 </script>
 </body>
 </html>
+
 
 
 
