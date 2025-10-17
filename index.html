@@ -2081,7 +2081,7 @@ html {
     </section>
 
     <!-- Downloads Section -->
-    <section id="Downloads">
+    <section id="downloads">
         <h2 class="section-title" data-translate="store_title">Downloads</h2>
         <div class="downloads-grid">
             <!-- Hidden SEO-friendly direct links -->
@@ -3723,9 +3723,8 @@ function hideModal(modalId) {
         console.log('Modal hidden:', modalId);
     }
 }
-
-<script>
-// Comprehensive Smooth Scrolling Solution
+ 
+// Updated Smooth Scrolling for "Downloads" ID
 document.addEventListener('DOMContentLoaded', function() {
     console.log('=== SMOOTH SCROLLING INITIALIZED ===');
     
@@ -3758,7 +3757,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
     
-    // Handle downloads link specifically
+    // Handle downloads link specifically - UPDATED TO MATCH NEW ID
     const downloadsLink = document.querySelector('.downloads-link');
     if (downloadsLink) {
         console.log('Downloads link found:', downloadsLink);
@@ -3767,13 +3766,13 @@ document.addEventListener('DOMContentLoaded', function() {
             e.preventDefault();
             console.log('Downloads link clicked');
             
-            // Try multiple methods to ensure it works
-            const success = smoothScrollTo('downloads');
+            // Use the new ID "Downloads" (capital D)
+            const success = smoothScrollTo('Downloads');
             
             if (!success) {
                 console.log('Trying alternative scroll method...');
-                // Fallback method
-                const downloadsSection = document.getElementById('downloads');
+                // Fallback method with new ID
+                const downloadsSection = document.getElementById('Downloads');
                 if (downloadsSection) {
                     downloadsSection.scrollIntoView({
                         behavior: 'smooth',
@@ -3828,16 +3827,16 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('=== SMOOTH SCROLLING READY ===');
 });
 
-// Additional scroll margin fix
+// Additional scroll margin fix - UPDATED TO MATCH NEW ID
 document.addEventListener('DOMContentLoaded', function() {
-    // Add CSS for scroll margin
+    // Add CSS for scroll margin with new ID
     const style = document.createElement('style');
     style.textContent = `
         html {
             scroll-behavior: smooth;
         }
         
-        #downloads,
+        #Downloads,  /* UPDATED TO MATCH NEW ID */
         #about,
         #research,
         #questionnaire,
@@ -3852,6 +3851,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
+
 
 
 
