@@ -4646,8 +4646,84 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('=== MODAL CLOSE FIX READY ===');
 });
 </script>
+
+<script>
+// Fix for Accept All Button on Cookie Banner
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== ACCEPT ALL FIX ===');
+    
+    // Get the Accept All button from the banner
+    const acceptAllBtn = document.getElementById('acceptAllCookies');
+    
+    console.log('Accept All Button:', acceptAllBtn);
+    
+    if (acceptAllBtn) {
+        // Remove any existing event listeners
+        acceptAllBtn.replaceWith(acceptAllBtn.cloneNode(true));
+        
+        // Get the fresh button
+        const freshBtn = document.getElementById('acceptAllCookies');
+        
+        // Add direct onclick handler
+        freshBtn.onclick = function() {
+            console.log('ACCEPT ALL BUTTON CLICKED');
+            
+            // Save all preferences
+            const consent = {
+                necessary: true,
+                analytics: true,
+                marketing: true,
+                timestamp: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            // Save to localStorage
+            localStorage.setItem('cookieConsent', JSON.stringify(consent));
+            console.log('All cookies accepted:', consent);
+            
+            // Hide banner
+            const banner = document.getElementById('cookieConsent');
+            if (banner) {
+                banner.classList.remove('show');
+                console.log('Banner hidden');
+            }
+            
+            // Hide modal if open
+            const modal = document.getElementById('cookieModal');
+            if (modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+                console.log('Modal hidden');
+            }
+            
+            // Show success message
+            alert('All cookies accepted! Thank you.');
+            
+            // Apply consent (load scripts if needed)
+            if (consent.analytics) {
+                console.log('Analytics enabled');
+                // Load analytics scripts here if needed
+            }
+            
+            if (consent.marketing) {
+                console.log('Marketing enabled');
+                // Load marketing scripts here if needed
+            }
+        };
+        
+        console.log('Accept All button fixed');
+    } else {
+        console.error('Accept All button not found');
+    }
+    
+    console.log('=== ACCEPT ALL FIX END ===');
+});
+</script> 
+
 </body>
 </html>
+
 
 
 
