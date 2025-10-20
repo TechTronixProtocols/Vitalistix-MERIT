@@ -4538,11 +4538,117 @@ console.log('=== COOKIE CONSENT DEBUG END ===');
 </script>
 
  
-</script>
- 
+<script>
+// Modal Close Fix - Add this after your existing cookie scripts
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== MODAL CLOSE FIX INIT ===');
+    
+    // Get modal elements
+    const modal = document.getElementById('cookieModal');
+    const closeBtn = document.getElementById('closeCookieModal');
+    const saveBtn = document.getElementById('saveCookiePreferences');
+    const acceptAllBtn = document.getElementById('acceptAllModalCookies');
+    
+    console.log('Modal:', modal);
+    console.log('CloseBtn:', closeBtn);
+    console.log('SaveBtn:', saveBtn);
+    console.log('AcceptAllBtn:', acceptAllBtn);
+    
+    // Force close modal function
+    function forceCloseModal() {
+        if (modal) {
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+            console.log('Modal force closed');
+        }
+    }
+    
+    // Close button
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            console.log('Close button clicked');
+            forceCloseModal();
+        };
+    }
+    
+    // Save preferences
+    if (saveBtn) {
+        saveBtn.onclick = function() {
+            console.log('Save clicked');
+            
+            // Get values
+            const analytics = document.getElementById('analyticsCookies').checked;
+            const marketing = document.getElementById('marketingCookies').checked;
+            
+            // Save
+            const consent = {
+                necessary: true,
+                analytics: analytics,
+                marketing: marketing,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('cookieConsent', JSON.stringify(consent));
+            console.log('Saved:', consent);
+            
+            forceCloseModal();
+            
+            // Hide banner
+            const banner = document.getElementById('cookieConsent');
+            if (banner) banner.classList.remove('show');
+            
+            alert('Preferences saved!');
+        };
+    }
+    
+    // Accept all
+    if (acceptAllBtn) {
+        acceptAllBtn.onclick = function() {
+            console.log('Accept all clicked');
+            
+            const consent = {
+                necessary: true,
+                analytics: true,
+                marketing: true,
+                timestamp: new Date().toISOString()
+            };
+            
+            localStorage.setItem('cookieConsent', JSON.stringify(consent));
+            console.log('All accepted:', consent);
+            
+            forceCloseModal();
+            
+            // Hide banner
+            const banner = document.getElementById('cookieConsent');
+            if (banner) banner.classList.remove('show');
+            
+            alert('All cookies accepted!');
+        };
+    }
+    
+    // Click outside
+    document.onclick = function(e) {
+        if (e.target === modal) {
+            console.log('Outside click');
+            forceCloseModal();
+        }
+    };
+    
+    // ESC key
+    document.onkeydown = function(e) {
+        if (e.key === 'Escape' && modal && modal.style.display !== 'none') {
+            console.log('ESC key');
+            forceCloseModal();
+        }
+    };
+    
+    console.log('=== MODAL CLOSE FIX READY ===');
+});
 </script>
 </body>
 </html>
+
 
 
 
