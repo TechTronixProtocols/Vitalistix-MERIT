@@ -4191,11 +4191,69 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
 });
+
+ <script>
+console.log('=== COOKIE CONSENT DEBUG START ===');
+
+// Debug version of cookie consent
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded for cookie consent');
+    
+    // Check if elements exist
+    const customizeBtn = document.getElementById('customizeCookies');
+    const cookieModal = document.getElementById('cookieModal');
+    
+    console.log('Customize button found:', !!customizeBtn);
+    console.log('Cookie modal found:', !!cookieModal);
+    
+    if (customizeBtn) {
+        console.log('Customize button element:', customizeBtn);
+        
+        // Add click event with debug
+        customizeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Customize button clicked!');
+            
+            if (cookieModal) {
+                console.log('Showing cookie modal');
+                cookieModal.style.display = 'flex';
+                cookieModal.classList.add('show');
+                console.log('Modal classes after show:', cookieModal.className);
+            } else {
+                console.error('Cookie modal not found!');
+            }
+        });
+    } else {
+        console.error('Customize button not found!');
+    }
+    
+    // Also check footer cookie settings
+    const footerCookieSettings = document.getElementById('footerCookieSettings');
+    console.log('Footer cookie settings found:', !!footerCookieSettings);
+    
+    if (footerCookieSettings) {
+        footerCookieSettings.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Footer cookie settings clicked!');
+            
+            if (cookieModal) {
+                cookieModal.style.display = 'flex';
+                cookieModal.classList.add('show');
+            }
+        });
+    }
+});
+
+console.log('=== COOKIE CONSENT DEBUG END ===');
+</script>
+
+ 
 </script>
  
 </script>
 </body>
 </html>
+
 
 
 
