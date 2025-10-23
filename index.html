@@ -2061,6 +2061,222 @@ html {
         box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
     }
 }
+
+     /* Contact Form Modal Styles */
+#contactModal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: rgba(5, 8, 20, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    z-index: 10000 !important;
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.3s ease !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    overflow-y: auto !important;
+    pointer-events: none !important;
+}
+
+#contactModal.show {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+#contactModal .cookie-modal-content {
+    background: var(--light-navy) !important;
+    border: 2px solid rgba(0, 255, 255, 0.5) !important;
+    border-radius: 20px !important;
+    max-width: 600px !important;
+    width: 100% !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+    position: relative !important;
+    transform: scale(0.95) !important;
+    transition: transform 0.3s ease !important;
+    box-shadow: 0 20px 60px rgba(0, 255, 255, 0.3) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#contactModal.show .cookie-modal-content {
+    transform: scale(1) !important;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-checkbox input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.form-checkbox label {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+    cursor: pointer;
+    font-weight: normal;
+}
+
+/* Success/Error Messages */
+.contact-form-message {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 1rem;
+}
+
+.contact-form-message.show {
+    display: block;
+}
+
+.contact-form-message.success {
+    background: rgba(76, 175, 80, 0.1);
+    border: 1px solid #4CAF50;
+    color: #2E7D32;
+}
+
+.contact-form-message.error {
+    background: rgba(244, 67, 54, 0.1);
+    border: 1px solid #F44336;
+    color: #C62828;
+}
+
+.contact-form-message i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.contact-form-message h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.contact-form-message p {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .form-group label {
+        color: var(--text-light);
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        background: rgba(26, 31, 58, 0.5);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: var(--text-light);
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--neon-teal);
+        box-shadow: 0 0 0 3px rgba(0, 255, 255, 0.1);
+    }
+    
+    .form-checkbox label {
+        color: var(--text-dim);
+    }
+    
+    .contact-form-message.success {
+        background: rgba(76, 175, 80, 0.2);
+        border-color: #4CAF50;
+        color: #81C784;
+    }
+    
+    .contact-form-message.error {
+        background: rgba(244, 67, 54, 0.2);
+        border-color: #F44336;
+        color: #E57373;
+    }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    #contactModal {
+        padding: 10px !important;
+    }
+    
+    #contactModal .cookie-modal-content {
+        max-height: 95vh !important;
+        border-radius: 15px !important;
+    }
+    
+    .form-group input,
+    .form-group textarea {
+        font-size: 0.9rem;
+    }
+    
+    .form-checkbox {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .form-checkbox input[type="checkbox"] {
+        margin-top: 0;
+    }
+}
+
      
     </style>
 </head>
@@ -2623,6 +2839,7 @@ html {
         </div>
     </div>
 </div>
+
  
     <!-- Payment Modal -->
     <div class="payment-modal" id="paymentModal">
@@ -4165,322 +4382,330 @@ window.resetCookieConsent = function() {
 console.log('Enhanced cookie consent script loaded');
 </script>
 
- // Contact Form Functionality
+<script>
+// Complete Modal & Form System
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== CONTACT FORM INITIALIZED ===');
+    console.log('=== COMPLETE MODAL & FORM SYSTEM ===');
     
-    // Contact form modal elements
-    const contactModal = document.getElementById('contactModal');
-    const footerContactForm = document.getElementById('footerContactForm');
-    const closeContactModal = document.getElementById('closeContactModal');
-    const contactForm = document.getElementById('contactForm');
-    const submitContactForm = document.getElementById('submitContactForm');
-    const contactFormSuccess = document.getElementById('contactFormSuccess');
-    const contactFormError = document.getElementById('contactFormError');
+    // ========================================
+    // MODAL SYSTEM
+    // ========================================
     
-    // Open contact modal
-    if (footerContactForm) {
-        footerContactForm.addEventListener('click', function(e) {
-            e.preventDefault();
-            showModal('contactModal');
-            // Reset form when opening
-            resetContactForm();
-        });
-    }
-    
-    // Close contact modal
-    if (closeContactModal) {
-        closeContactModal.addEventListener('click', function() {
-            hideModal('contactModal');
-        });
-    }
-    
-    // Close modal on outside click
-    if (contactModal) {
-        contactModal.addEventListener('click', function(e) {
-            if (e.target === contactModal) {
-                hideModal('contactModal');
+    const ModalSystem = {
+        // Show modal with all necessary styles
+        showModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('show');
+                modal.style.display = 'flex';
+                modal.style.opacity = '1';
+                modal.style.visibility = 'visible';
+                modal.style.pointerEvents = 'auto';
+                modal.style.position = 'fixed';
+                modal.style.top = '0';
+                modal.style.left = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.zIndex = '10000';
+                document.body.style.overflow = 'hidden';
+                console.log('Modal shown:', modalId);
             }
-        });
-    }
-    
-    // Handle form submission
-    if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            submitContactFormData();
-        });
-    }
-    
-    // Reset contact form
-    function resetContactForm() {
-        if (contactForm) {
-            contactForm.reset();
-            hideMessages();
-        }
-    }
-    
-    // Hide success/error messages
-    function hideMessages() {
-        if (contactFormSuccess) contactFormSuccess.classList.remove('show');
-        if (contactFormError) contactFormError.classList.remove('show');
-    }
-    
-    // Submit contact form data
-    function submitContactFormData() {
-        const formData = new FormData(contactForm);
-        const data = {
-            name: formData.get('name'),
-            email: formData.get('email'),
-            subject: formData.get('subject'),
-            message: formData.get('message'),
-            consent: formData.get('consent')
-        };
+        },
         
-        console.log('Submitting contact form:', data);
+        // Hide modal completely
+        hideModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('show');
+                modal.style.display = 'none';
+                modal.style.opacity = '0';
+                modal.style.visibility = 'hidden';
+                modal.style.pointerEvents = 'none';
+                document.body.style.overflow = '';
+                console.log('Modal hidden:', modalId);
+            }
+        },
         
-        // Show loading state
-        if (submitContactForm) {
-            submitContactForm.disabled = true;
-            submitContactForm.textContent = 'Sending...';
-        }
-        
-        // Simulate form submission (replace with actual backend call)
-        setTimeout(() => {
-            // Simulate successful submission
-            const success = Math.random() > 0.2; // 80% success rate for demo
-            
-            if (success) {
-                // Show success message
-                hideMessages();
-                if (contactFormSuccess) {
-                    contactFormSuccess.classList.add('show');
+        // Force hide on page load
+        forceHideAllModals() {
+            const modals = ['contactModal', 'cookieModal', 'privacyModal'];
+            modals.forEach(modalId => {
+                const modal = document.getElementById(modalId);
+                if (modal) {
+                    modal.style.display = 'none';
+                    modal.style.opacity = '0';
+                    modal.style.visibility = 'hidden';
+                    modal.style.pointerEvents = 'none';
+                    modal.classList.remove('show');
                 }
-                
-                // Hide form
-                if (contactForm) {
-                    contactForm.style.display = 'none';
-                }
-                
-                console.log('Contact form submitted successfully');
-                
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    hideModal('contactModal');
-                    if (contactForm) {
-                        contactForm.style.display = 'block';
-                    }
-                    resetContactForm();
-                }, 3000);
-                
-            } else {
-                // Show error message
-                hideMessages();
-                if (contactFormError) {
-                    contactFormError.classList.add('show');
-                }
-                
-                console.error('Contact form submission failed');
-            }
-            
-            // Reset button
-            if (submitContactForm) {
-                submitContactForm.disabled = false;
-                submitContactForm.textContent = 'Send Message';
-            }
-            
-        }, 1500); // Simulate network delay
-        
-        /*
-        // UNCOMMENT THIS FOR REAL BACKEND INTEGRATION
-        // Replace the setTimeout above with this actual fetch call:
-        
-        fetch('https://your-backend-api.com/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(result => {
-            if (result.success) {
-                // Show success message
-                hideMessages();
-                contactFormSuccess.classList.add('show');
-                
-                // Hide form
-                contactForm.style.display = 'none';
-                
-                // Reset after 3 seconds
-                setTimeout(() => {
-                    hideModal('contactModal');
-                    contactForm.style.display = 'block';
-                    resetContactForm();
-                }, 3000);
-                
-            } else {
-                // Show error message
-                hideMessages();
-                contactFormError.classList.add('show');
-            }
-        })
-        .catch(error => {
-            console.error('Form submission error:', error);
-            // Show error message
-            hideMessages();
-            contactFormError.classList.add('show');
-        })
-        .finally(() => {
-            // Reset button
-            submitContactForm.disabled = false;
-            submitContactForm.textContent = 'Send Message';
-        });
-        */
-    }
-    
-    console.log('=== CONTACT FORM READY ===');
-});
-
-// Add to existing modal functions
-function showModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.add('show');
-        console.log('Modal shown:', modalId);
-    }
-}
-
-function hideModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.classList.remove('show');
-        console.log('Modal hidden:', modalId);
-    }
-}
- 
-// Updated Smooth Scrolling for "Downloads" ID
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== SMOOTH SCROLLING INITIALIZED ===');
-    
-    // Function to handle smooth scrolling
-    function smoothScrollTo(targetId) {
-        const targetSection = document.getElementById(targetId);
-        
-        if (!targetSection) {
-            console.error('Target section not found:', targetId);
-            return false;
+            });
+            console.log('All modals force hidden');
         }
-        
-        console.log('Scrolling to:', targetId);
-        
-        // Get header height for offset
-        const header = document.querySelector('nav');
-        const headerHeight = header ? header.offsetHeight : 0;
-        
-        // Calculate position with header offset
-        const targetPosition = targetSection.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-        
-        console.log('Target position:', targetPosition);
-        
-        // Smooth scroll to position
-        window.scrollTo({
-            top: targetPosition,
-            behavior: 'smooth'
-        });
-        
-        return true;
-    }
+    };
     
-    // Handle downloads link specifically - UPDATED TO MATCH NEW ID
-    const downloadsLink = document.querySelector('.downloads-link');
-    if (downloadsLink) {
-        console.log('Downloads link found:', downloadsLink);
-        
-        downloadsLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Downloads link clicked');
+    // ========================================
+    // CONTACT FORM SYSTEM
+    // ========================================
+    
+    const ContactFormSystem = {
+        // Setup contact form event listeners
+        setupEventListeners() {
+            console.log('Setting up contact form listeners');
             
-            // Use the new ID "Downloads" (capital D)
-            const success = smoothScrollTo('Downloads');
-            
-            if (!success) {
-                console.log('Trying alternative scroll method...');
-                // Fallback method with new ID
-                const downloadsSection = document.getElementById('Downloads');
-                if (downloadsSection) {
-                    downloadsSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+            // Footer link
+            const footerContactForm = document.getElementById('footerContactForm');
+            if (footerContactForm) {
+                footerContactForm.onclick = (e) => {
+                    e.preventDefault();
+                    ModalSystem.showModal('contactModal');
+                    this.resetForm();
+                };
             }
-        });
-    } else {
-        console.error('Downloads link not found');
-    }
-    
-    // Handle all other footer links
-    const footerLinks = document.querySelectorAll('.footer-links a[href^="#"]');
-    footerLinks.forEach(link => {
-        // Skip special links that open modals
-        if (link.id === 'footerPrivacyPolicy' || 
-            link.id === 'footerCookieSettings' || 
-            link.id === 'footerContactForm') {
-            return;
-        }
-        
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
             
-            const targetId = this.getAttribute('href').substring(1);
-            if (targetId) {
-                smoothScrollTo(targetId);
+            // Close button
+            const closeBtn = document.getElementById('closeContactModal');
+            if (closeBtn) {
+                closeBtn.onclick = () => {
+                    ModalSystem.hideModal('contactModal');
+                };
             }
-        });
-    });
-    
-    // Also handle any other anchor links on the page
-    const allAnchorLinks = document.querySelectorAll('a[href^="#"]:not(.footer-links a):not(.dropdown-toggle)');
-    allAnchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
             
-            // Skip empty hashes and special links
-            if (href === '#' || href.includes('modal') || href.includes('privacy-policy')) {
+            // Form submission
+            const submitBtn = document.getElementById('submitContactForm');
+            if (submitBtn) {
+                submitBtn.onclick = (e) => {
+                    e.preventDefault();
+                    this.submitForm();
+                };
+            }
+        },
+        
+        // Reset contact form
+        resetForm() {
+            const form = document.getElementById('contactForm');
+            if (form) {
+                form.reset();
+                this.hideMessages();
+            }
+        },
+        
+        // Hide success/error messages
+        hideMessages() {
+            const success = document.getElementById('contactFormSuccess');
+            const error = document.getElementById('contactFormError');
+            if (success) success.classList.remove('show');
+            if (error) error.classList.remove('show');
+        },
+        
+        // Submit form data
+        submitForm() {
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            const consent = document.getElementById('contactConsent').checked;
+            
+            // Validation
+            if (!name || !email || !subject || !message || !consent) {
+                this.showError();
                 return;
             }
             
-            const targetId = href.substring(1);
-            if (targetId) {
-                e.preventDefault();
-                smoothScrollTo(targetId);
+            // Show loading
+            const submitBtn = document.getElementById('submitContactForm');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
             }
-        });
+            
+            // Simulate sending
+            setTimeout(() => {
+                const success = Math.random() > 0.1;
+                
+                if (success) {
+                    this.showSuccess();
+                    setTimeout(() => {
+                        ModalSystem.hideModal('contactModal');
+                        this.resetForm();
+                    }, 3000);
+                } else {
+                    this.showError();
+                }
+                
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                }
+            }, 1500);
+        },
+        
+        // Show success message
+        showSuccess() {
+            const success = document.getElementById('contactFormSuccess');
+            const form = document.getElementById('contactForm');
+            const error = document.getElementById('contactFormError');
+            
+            this.hideMessages();
+            
+            if (form) form.style.display = 'none';
+            if (success) success.classList.add('show');
+            
+            setTimeout(() => {
+                if (form) form.style.display = 'block';
+                if (success) success.classList.remove('show');
+            }, 3000);
+        },
+        
+        // Show error message
+        showError() {
+            const error = document.getElementById('contactFormError');
+            const success = document.getElementById('contactFormSuccess');
+            
+            this.hideMessages();
+            if (error) error.classList.add('show');
+        }
+    };
+    
+    // ========================================
+    // COOKIE CONSENT SYSTEM
+    // ========================================
+    
+    const CookieConsentSystem = {
+        // Initialize cookie consent
+        init() {
+            const consent = this.getConsent();
+            if (!consent) {
+                this.showBanner();
+            } else {
+                this.hideBanner();
+            }
+            this.setupEventListeners();
+        },
+        
+        // Get consent from localStorage
+        getConsent() {
+            const stored = localStorage.getItem('cookieConsent');
+            return stored ? JSON.parse(stored) : null;
+        },
+        
+        // Save consent to localStorage
+        saveConsent(consent) {
+            const consentData = {
+                necessary: true,
+                analytics: consent.analytics || false,
+                marketing: consent.marketing || false,
+                timestamp: new Date().toISOString(),
+                version: '1.0'
+            };
+            localStorage.setItem('cookieConsent', JSON.stringify(consentData));
+            console.log('Consent saved:', consentData);
+            return consentData;
+        },
+        
+        // Show cookie banner
+        showBanner() {
+            const banner = document.getElementById('cookieConsent');
+            if (banner) banner.classList.add('show');
+        },
+        
+        // Hide cookie banner
+        hideBanner() {
+            const banner = document.getElementById('cookieConsent');
+            if (banner) banner.classList.remove('show');
+        },
+        
+        // Setup cookie consent event listeners
+        setupEventListeners() {
+            // Banner buttons
+            const acceptAllBtn = document.getElementById('acceptAllCookies');
+            const customizeBtn = document.getElementById('customizeCookies');
+            
+            if (acceptAllBtn) {
+                acceptAllBtn.onclick = () => {
+                    this.saveConsent({ necessary: true, analytics: true, marketing: true });
+                    this.hideBanner();
+                    ModalSystem.hideModal('cookieModal');
+                };
+            }
+            
+            if (customizeBtn) {
+                customizeBtn.onclick = () => {
+                    ModalSystem.showModal('cookieModal');
+                };
+            }
+            
+            // Footer links
+            const footerSettings = document.getElementById('footerCookieSettings');
+            const footerPrivacy = document.getElementById('footerPrivacyPolicy');
+            
+            if (footerSettings) {
+                footerSettings.onclick = (e) => {
+                    e.preventDefault();
+                    ModalSystem.showModal('cookieModal');
+                };
+            }
+            
+            if (footerPrivacy) {
+                footerPrivacy.onclick = (e) => {
+                    e.preventDefault();
+                    ModalSystem.showModal('privacyModal');
+                };
+            }
+        }
+    };
+    
+    // ========================================
+    // GLOBAL MODAL EVENTS
+    // ========================================
+    
+    // Close modal on outside click
+    document.addEventListener('click', (e) => {
+        const contactModal = document.getElementById('contactModal');
+        const cookieModal = document.getElementById('cookieModal');
+        const privacyModal = document.getElementById('privacyModal');
+        
+        if (e.target === contactModal) ModalSystem.hideModal('contactModal');
+        if (e.target === cookieModal) ModalSystem.hideModal('cookieModal');
+        if (e.target === privacyModal) ModalSystem.hideModal('privacyModal');
     });
     
-    console.log('=== SMOOTH SCROLLING READY ===');
-});
-
-// Additional scroll margin fix - UPDATED TO MATCH NEW ID
-document.addEventListener('DOMContentLoaded', function() {
-    // Add CSS for scroll margin with new ID
-    const style = document.createElement('style');
-    style.textContent = `
-        html {
-            scroll-behavior: smooth;
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            const contactModal = document.getElementById('contactModal');
+            const cookieModal = document.getElementById('cookieModal');
+            const privacyModal = document.getElementById('privacyModal');
+            
+            if (contactModal && contactModal.classList.contains('show')) {
+                ModalSystem.hideModal('contactModal');
+            }
+            if (cookieModal && cookieModal.classList.contains('show')) {
+                ModalSystem.hideModal('cookieModal');
+            }
+            if (privacyModal && privacyModal.classList.contains('show')) {
+                ModalSystem.hideModal('privacyModal');
+            }
         }
-        
-        #Downloads,  /* UPDATED TO MATCH NEW ID */
-        #about,
-        #research,
-        #questionnaire,
-        #donate {
-            scroll-margin-top: 80px;
-        }
-    `;
-    document.head.appendChild(style);
+    });
+    
+    // ========================================
+    // INITIALIZE EVERYTHING
+    // ========================================
+    
+    // Force hide all modals on page load
+    ModalSystem.forceHideAllModals();
+    
+    // Initialize systems
+    CookieConsentSystem.init();
+    ContactFormSystem.setupEventListeners();
+    
+    // Make functions globally available
+    window.showModal = (modalId) => ModalSystem.showModal(modalId);
+    window.hideModal = (modalId) => ModalSystem.hideModal(modalId);
+    
+    console.log('=== COMPLETE MODAL & FORM SYSTEM READY ===');
 });
+</script>
 
  <script>
 console.log('=== COOKIE CONSENT DEBUG START ===');
@@ -4723,6 +4948,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
