@@ -4497,69 +4497,68 @@ document.addEventListener('DOMContentLoaded', function() {
             if (error) error.classList.remove('show');
         },
         
-        // Submit form data
-        // In your contact form script, update the submitContactFormData function
-async function submitContactFormData() {
+       // In your contact form JavaScript, update the submitContactFormData function:
+function submitContactFormData() {
     const form = document.getElementById('contactForm');
     if (!form) return;
-    
+
     const name = document.getElementById('contactName').value;
     const email = document.getElementById('contactEmail').value;
     const subject = document.getElementById('contactSubject').value;
     const message = document.getElementById('contactMessage').value;
     const consent = document.getElementById('contactConsent').checked;
-    
+
     // Validation
     if (!name || !email || !subject || !message || !consent) {
-        showError();
+        showContactError();
         return;
     }
-    
+
     // Show loading
     const submitBtn = document.getElementById('submitContactForm');
     if (submitBtn) {
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
     }
-    
-    try {
-        // Send to backend
-        const response = await fetch('https://your-backend-url.com/api/contact', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                name,
-                email,
-                subject,
-                message,
-                consent
-            })
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            showSuccess();
+
+    // Send to backend
+    fetch('http://localhost:3000/api/contact', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            name: name,
+            email: email,
+            subject: subject,
+            message: message,
+            consent: consent
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showContactSuccess();
             setTimeout(() => {
                 hideModal('contactModal');
                 resetContactForm();
             }, 3000);
         } else {
-            showError();
+            showContactError();
         }
-    } catch (error) {
+    })
+    .catch(error => {
         console.error('Form submission error:', error);
-        showError();
-    } finally {
-        // Reset button
+        showContactError();
+    })
+    .finally(() => {
         if (submitBtn) {
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
         }
-    }
+    });
 }
+
 
         
         // Show success message
@@ -4971,6 +4970,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
