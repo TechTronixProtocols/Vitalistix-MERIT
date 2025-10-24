@@ -4498,46 +4498,69 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         
         // Submit form data
-        submitForm() {
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const subject = document.getElementById('contactSubject').value;
-            const message = document.getElementById('contactMessage').value;
-            const consent = document.getElementById('contactConsent').checked;
-            
-            // Validation
-            if (!name || !email || !subject || !message || !consent) {
-                this.showError();
-                return;
-            }
-            
-            // Show loading
-            const submitBtn = document.getElementById('submitContactForm');
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Sending...';
-            }
-            
-            // Simulate sending
+        // In your contact form script, update the submitContactFormData function
+async function submitContactFormData() {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const subject = document.getElementById('contactSubject').value;
+    const message = document.getElementById('contactMessage').value;
+    const consent = document.getElementById('contactConsent').checked;
+    
+    // Validation
+    if (!name || !email || !subject || !message || !consent) {
+        showError();
+        return;
+    }
+    
+    // Show loading
+    const submitBtn = document.getElementById('submitContactForm');
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+    }
+    
+    try {
+        // Send to backend
+        const response = await fetch('https://your-backend-url.com/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                email,
+                subject,
+                message,
+                consent
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showSuccess();
             setTimeout(() => {
-                const success = Math.random() > 0.1;
-                
-                if (success) {
-                    this.showSuccess();
-                    setTimeout(() => {
-                        ModalSystem.hideModal('contactModal');
-                        this.resetForm();
-                    }, 3000);
-                } else {
-                    this.showError();
-                }
-                
-                if (submitBtn) {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
-                }
-            }, 1500);
-        },
+                hideModal('contactModal');
+                resetContactForm();
+            }, 3000);
+        } else {
+            showError();
+        }
+    } catch (error) {
+        console.error('Form submission error:', error);
+        showError();
+    } finally {
+        // Reset button
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+        }
+    }
+}
+
         
         // Show success message
         showSuccess() {
@@ -4948,6 +4971,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
