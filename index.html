@@ -4894,6 +4894,179 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+ <script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('=== CONTACT FORM MODAL FIX ===');
+    
+    // Get all modal elements
+    const contactModal = document.getElementById('contactModal');
+    const footerContactForm = document.getElementById('footerContactForm');
+    const closeContactModal = document.getElementById('closeContactModal');
+    const contactForm = document.getElementById('contactForm');
+    const submitContactForm = document.getElementById('submitContactForm');
+    const contactFormSuccess = document.getElementById('contactFormSuccess');
+    const contactFormError = document.getElementById('contactFormError');
+    
+    console.log('Modal elements:', {
+        modal: !!contactModal,
+        footerLink: !!footerContactForm,
+        closeBtn: !!closeContactModal,
+        form: !!contactForm,
+        submitBtn: !!submitContactForm
+    });
+    
+    // Force hide modal on page load
+    if (contactModal) {
+        contactModal.style.display = 'none';
+        contactModal.classList.remove('show');
+        console.log('Modal force hidden on load');
+    }
+    
+    // Open modal when footer link is clicked
+    if (footerContactForm) {
+        footerContactForm.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Footer contact link clicked');
+            
+            if (contactModal) {
+                // Reset form
+                if (contactForm) {
+                    contactForm.reset();
+                    contactForm.style.display = 'block';
+                }
+                
+                // Hide messages
+                if (contactFormSuccess) contactFormSuccess.classList.remove('show');
+                if (contactFormError) contactFormError.classList.remove('show');
+                
+                // Show modal
+                contactModal.style.display = 'flex';
+                contactModal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                
+                console.log('Modal opened');
+            }
+        });
+    }
+    
+    // Close modal functions
+    function closeModal() {
+        if (contactModal) {
+            contactModal.style.display = 'none';
+            contactModal.classList.remove('show');
+            document.body.style.overflow = '';
+            console.log('Modal closed');
+        }
+    }
+    
+    // Close button
+    if (closeContactModal) {
+        closeContactModal.addEventListener('click', closeModal);
+    }
+    
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+            closeModal();
+        }
+    });
+    
+    // Close on ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && contactModal && contactModal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+    
+    // Handle form submission
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted');
+            
+            // Get form data
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            const consent = document.getElementById('contactConsent').checked;
+            
+            console.log('Form data:', { name, email, subject, message, consent });
+            
+            // Validate
+            if (!name || !email || !subject || !message || !consent) {
+                console.log('Form validation failed');
+                if (contactFormError) {
+                    contactFormError.classList.add('show');
+                    if (contactFormSuccess) contactFormSuccess.classList.remove('show');
+                }
+                return;
+            }
+            
+            // Show loading
+            if (submitContactForm) {
+                submitContactForm.disabled = true;
+                submitContactForm.textContent = 'Sending...';
+            }
+            
+            // Simulate sending (replace with actual backend call)
+            setTimeout(function() {
+                // Simulate success (90% success rate)
+                const success = Math.random() > 0.1;
+                
+                if (success) {
+                    console.log('Form sent successfully');
+                    
+                    // Hide form
+                    if (contactForm) {
+                        contactForm.style.display = 'none';
+                    }
+                    
+                    // Show success message
+                    if (contactFormSuccess) {
+                        contactFormSuccess.classList.add('show');
+                        if (contactFormError) contactFormError.classList.remove('show');
+                    }
+                    
+                    // Close modal after 3 seconds
+                    setTimeout(function() {
+                        closeModal();
+                        
+                        // Reset form for next time
+                        setTimeout(function() {
+                            if (contactForm) {
+                                contactForm.reset();
+                                contactForm.style.display = 'block';
+                            }
+                            if (contactFormSuccess) contactFormSuccess.classList.remove('show');
+                        }, 500);
+                    }, 3000);
+                    
+                } else {
+                    console.log('Form sending failed');
+                    
+                    // Show error message
+                    if (contactFormError) {
+                        contactFormError.classList.add('show');
+                        if (contactFormSuccess) contactFormSuccess.classList.remove('show');
+                    }
+                }
+                
+                // Reset button
+                if (submitContactForm) {
+                    submitContactForm.disabled = false;
+                    submitContactForm.textContent = 'Send Message';
+                }
+                
+            }, 1500); // Simulate network delay
+        });
+    }
+    
+    console.log('=== CONTACT FORM MODAL FIX END ===');
+});
+</script>
+
+
 <script>
 // Fix for Accept All Button on Cookie Banner
 document.addEventListener('DOMContentLoaded', function() {
@@ -4970,6 +5143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
