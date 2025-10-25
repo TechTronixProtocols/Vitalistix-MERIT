@@ -4784,121 +4784,12 @@ document.addEventListener('DOMContentLoaded', function() {
 console.log('=== COOKIE CONSENT DEBUG END ===');
 </script>
 
- 
 <script>
-// Modal Close Fix - Add this after your existing cookie scripts
+// Complete Contact Form System
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== MODAL CLOSE FIX INIT ===');
+    console.log('=== COMPLETE CONTACT FORM SYSTEM ===');
     
-    // Get modal elements
-    const modal = document.getElementById('cookieModal');
-    const closeBtn = document.getElementById('closeCookieModal');
-    const saveBtn = document.getElementById('saveCookiePreferences');
-    const acceptAllBtn = document.getElementById('acceptAllModalCookies');
-    
-    console.log('Modal:', modal);
-    console.log('CloseBtn:', closeBtn);
-    console.log('SaveBtn:', saveBtn);
-    console.log('AcceptAllBtn:', acceptAllBtn);
-    
-    // Force close modal function
-    function forceCloseModal() {
-        if (modal) {
-            modal.style.display = 'none';
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-            console.log('Modal force closed');
-        }
-    }
-    
-    // Close button
-    if (closeBtn) {
-        closeBtn.onclick = function() {
-            console.log('Close button clicked');
-            forceCloseModal();
-        };
-    }
-    
-    // Save preferences
-    if (saveBtn) {
-        saveBtn.onclick = function() {
-            console.log('Save clicked');
-            
-            // Get values
-            const analytics = document.getElementById('analyticsCookies').checked;
-            const marketing = document.getElementById('marketingCookies').checked;
-            
-            // Save
-            const consent = {
-                necessary: true,
-                analytics: analytics,
-                marketing: marketing,
-                timestamp: new Date().toISOString()
-            };
-            
-            localStorage.setItem('cookieConsent', JSON.stringify(consent));
-            console.log('Saved:', consent);
-            
-            forceCloseModal();
-            
-            // Hide banner
-            const banner = document.getElementById('cookieConsent');
-            if (banner) banner.classList.remove('show');
-            
-            alert('Preferences saved!');
-        };
-    }
-    
-    // Accept all
-    if (acceptAllBtn) {
-        acceptAllBtn.onclick = function() {
-            console.log('Accept all clicked');
-            
-            const consent = {
-                necessary: true,
-                analytics: true,
-                marketing: true,
-                timestamp: new Date().toISOString()
-            };
-            
-            localStorage.setItem('cookieConsent', JSON.stringify(consent));
-            console.log('All accepted:', consent);
-            
-            forceCloseModal();
-            
-            // Hide banner
-            const banner = document.getElementById('cookieConsent');
-            if (banner) banner.classList.remove('show');
-            
-            alert('All cookies accepted!');
-        };
-    }
-    
-    // Click outside
-    document.onclick = function(e) {
-        if (e.target === modal) {
-            console.log('Outside click');
-            forceCloseModal();
-        }
-    };
-    
-    // ESC key
-    document.onkeydown = function(e) {
-        if (e.key === 'Escape' && modal && modal.style.display !== 'none') {
-            console.log('ESC key');
-            forceCloseModal();
-        }
-    };
-    
-    console.log('=== MODAL CLOSE FIX READY ===');
-});
-</script>
-
- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('=== CONTACT FORM MODAL FIX ===');
-    
-    // Get all modal elements
+    // Get all elements
     const contactModal = document.getElementById('contactModal');
     const footerContactForm = document.getElementById('footerContactForm');
     const closeContactModal = document.getElementById('closeContactModal');
@@ -4907,7 +4798,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactFormSuccess = document.getElementById('contactFormSuccess');
     const contactFormError = document.getElementById('contactFormError');
     
-    console.log('Modal elements:', {
+    console.log('Elements found:', {
         modal: !!contactModal,
         footerLink: !!footerContactForm,
         closeBtn: !!closeContactModal,
@@ -4919,14 +4810,14 @@ document.addEventListener('DOMContentLoaded', function() {
     if (contactModal) {
         contactModal.style.display = 'none';
         contactModal.classList.remove('show');
-        console.log('Modal force hidden on load');
+        console.log('Modal hidden on load');
     }
     
     // Open modal when footer link is clicked
     if (footerContactForm) {
         footerContactForm.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('Footer contact link clicked');
+            console.log('Footer link clicked');
             
             if (contactModal) {
                 // Reset form
@@ -4949,7 +4840,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Close modal functions
+    // Close modal function
     function closeModal() {
         if (contactModal) {
             contactModal.style.display = 'none';
@@ -4965,11 +4856,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Close on outside click
-    document.addEventListener('click', function(e) {
-        if (e.target === contactModal) {
-            closeModal();
-        }
-    });
+    if (contactModal) {
+        contactModal.addEventListener('click', function(e) {
+            if (e.target === contactModal) {
+                closeModal();
+            }
+        });
+    }
     
     // Close on ESC key
     document.addEventListener('keydown', function(e) {
@@ -4979,203 +4872,131 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Handle form submission
-    if (contactForm) {
+    if (contactForm && submitContactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             console.log('Form submitted');
             
             // Get form data
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const subject = document.getElementById('contactSubject').value;
-            const message = document.getElementById('contactMessage').value;
-            const consent = document.getElementById('contactConsent').checked;
+            const formData = {
+                name: document.getElementById('contactName').value,
+                email: document.getElementById('contactEmail').value,
+                subject: document.getElementById('contactSubject').value,
+                message: document.getElementById('contactMessage').value,
+                consent: document.getElementById('contactConsent').checked
+            };
             
-            console.log('Form data:', { name, email, subject, message, consent });
+            console.log('Form data:', formData);
             
             // Validate
-            if (!name || !email || !subject || !message || !consent) {
+            if (!formData.name || !formData.email || !formData.subject || !formData.message || !formData.consent) {
                 console.log('Form validation failed');
-                if (contactFormError) {
-                    contactFormError.classList.add('show');
-                    if (contactFormSuccess) contactFormSuccess.classList.remove('show');
-                }
-                return;
-            }
-            
-            // Show loading
-            if (submitContactForm) {
-                submitContactForm.disabled = true;
-                submitContactForm.textContent = 'Sending...';
-            }
-            
-            // Simulate sending (replace with actual backend call)
-            setTimeout(function() {
-                // Simulate success (90% success rate)
-                const success = Math.random() > 0.1;
-                
-                if (success) {
-                    console.log('Form sent successfully');
-                    
-                    // Hide form
-                    if (contactForm) {
-                        contactForm.style.display = 'none';
-                    }
-                    
-                    // Show success message
-                    if (contactFormSuccess) {
-                        contactFormSuccess.classList.add('show');
-                        if (contactFormError) contactFormError.classList.remove('show');
-                    }
-                    
-                    // Close modal after 3 seconds
-                    setTimeout(function() {
-                        closeModal();
-                        
-                        // Reset form for next time
-                        setTimeout(function() {
-                            if (contactForm) {
-                                contactForm.reset();
-                                contactForm.style.display = 'block';
-                            }
-                            if (contactFormSuccess) contactFormSuccess.classList.remove('show');
-                        }, 500);
-                    }, 3000);
-                    
-                } else {
-                    console.log('Form sending failed');
-                    
-                    // Show error message
-                    if (contactFormError) {
-                        contactFormError.classList.add('show');
-                        if (contactFormSuccess) contactFormSuccess.classList.remove('show');
-                    }
-                }
-                
-                // Reset button
-                if (submitContactForm) {
-                    submitContactForm.disabled = false;
-                    submitContactForm.textContent = 'Send Message';
-                }
-                
-            }, 1500); // Simulate network delay
-        });
-    }
-    
-    console.log('=== CONTACT FORM MODAL FIX END ===');
-});
-</script>
-
- <script>
-console.log('=== FORM SUBMISSION DEBUG ===');
-
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded - setting up form debug');
-    
-    // Get all form elements
-    const contactForm = document.getElementById('contactForm');
-    const submitBtn = document.getElementById('submitContactForm');
-    const footerLink = document.getElementById('footerContactForm');
-    const modal = document.getElementById('contactModal');
-    const closeBtn = document.getElementById('closeContactModal');
-    
-    console.log('Form elements found:', {
-        contactForm: !!contactForm,
-        submitBtn: !!submitBtn,
-        footerLink: !!footerLink,
-        modal: !!modal,
-        closeBtn: !!closeBtn
-    });
-    
-    // Open modal when footer link is clicked
-    if (footerLink) {
-        footerLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Footer link clicked');
-            if (modal) {
-                modal.style.display = 'flex';
-                modal.classList.add('show');
-                document.body.style.overflow = 'hidden';
-            }
-        });
-    }
-    
-    // Close modal
-    function closeModal() {
-        if (modal) {
-            modal.style.display = 'none';
-            modal.classList.remove('show');
-            document.body.style.overflow = '';
-        }
-    }
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeModal);
-    }
-    
-    // Click outside to close
-    if (modal) {
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        });
-    }
-    
-    // Handle form submission
-    if (contactForm && submitBtn) {
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            console.log('Form submit event triggered');
-            
-            // Get form values
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const subject = document.getElementById('contactSubject').value;
-            const message = document.getElementById('contactMessage').value;
-            const consent = document.getElementById('contactConsent').checked;
-            
-            console.log('Form values:', { name, email, subject, message, consent });
-            
-            // Validation
-            if (!name || !email || !subject || !message || !consent) {
-                console.log('Form validation failed');
-                alert('Please fill in all required fields');
+                showErrorMessage('Please fill in all required fields');
                 return;
             }
             
             // Show loading state
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Sending...';
-            console.log('Loading state shown');
+            submitContactForm.disabled = true;
+            submitContactForm.textContent = 'Sending...';
             
-            // Simulate form submission (replace with actual backend call)
-            setTimeout(function() {
-                console.log('Form submission completed');
-                
-                // Reset button state
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-                
-                // Show success message
-                alert('Form submitted successfully!');
-                
-                // Close modal
-                closeModal();
-                
-                // Reset form
-                contactForm.reset();
-                
-            }, 1500);
+            // Send to backend
+            sendFormData(formData);
         });
-    } else {
-        console.error('Form or submit button not found');
     }
+    
+    // Send form data to backend
+    function sendFormData(data) {
+        console.log('Sending data to backend:', data);
+        
+        // Backend URL - make sure this matches your server
+        const backendUrl = 'http://localhost:3000/api/submit-form';
+        
+        fetch(backendUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            return response.json();
+        })
+        .then(responseData => {
+            console.log('Response data:', responseData);
+            
+            if (responseData.success) {
+                showSuccessMessage();
+            } else {
+                showErrorMessage(responseData.message || 'Failed to send message');
+            }
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+            showErrorMessage('Network error. Please try again.');
+        })
+        .finally(() => {
+            // Reset button state
+            submitContactForm.disabled = false;
+            submitContactForm.textContent = 'Send Message';
+        });
+    }
+    
+    // Show success message
+    function showSuccessMessage() {
+        console.log('Showing success message');
+        
+        // Hide form
+        if (contactForm) {
+            contactForm.style.display = 'none';
+        }
+        
+        // Show success message
+        if (contactFormSuccess) {
+            contactFormSuccess.classList.add('show');
+        }
+        if (contactFormError) {
+            contactFormError.classList.remove('show');
+        }
+        
+        // Close modal after 3 seconds
+        setTimeout(() => {
+            closeModal();
+            
+            // Reset form for next time
+            setTimeout(() => {
+                if (contactForm) {
+                    contactForm.reset();
+                    contactForm.style.display = 'block';
+                }
+                if (contactFormSuccess) {
+                    contactFormSuccess.classList.remove('show');
+                }
+            }, 500);
+        }, 3000);
+    }
+    
+    // Show error message
+    function showErrorMessage(message) {
+        console.log('Showing error message:', message);
+        
+        // Update error message text
+        if (contactFormError) {
+            const errorText = contactFormError.querySelector('p');
+            if (errorText) {
+                errorText.textContent = message;
+            }
+            contactFormError.classList.add('show');
+        }
+        
+        if (contactFormSuccess) {
+            contactFormSuccess.classList.remove('show');
+        }
+    }
+    
+    console.log('=== COMPLETE CONTACT FORM SYSTEM READY ===');
 });
-
-console.log('=== FORM SUBMISSION DEBUG END ===');
 </script>
-
 
 <script>
 // Fix for Accept All Button on Cookie Banner
@@ -5253,6 +5074,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
