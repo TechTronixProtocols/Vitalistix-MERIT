@@ -5066,6 +5066,116 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+ <script>
+console.log('=== FORM SUBMISSION DEBUG ===');
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM loaded - setting up form debug');
+    
+    // Get all form elements
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitContactForm');
+    const footerLink = document.getElementById('footerContactForm');
+    const modal = document.getElementById('contactModal');
+    const closeBtn = document.getElementById('closeContactModal');
+    
+    console.log('Form elements found:', {
+        contactForm: !!contactForm,
+        submitBtn: !!submitBtn,
+        footerLink: !!footerLink,
+        modal: !!modal,
+        closeBtn: !!closeBtn
+    });
+    
+    // Open modal when footer link is clicked
+    if (footerLink) {
+        footerLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Footer link clicked');
+            if (modal) {
+                modal.style.display = 'flex';
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
+    
+    // Close modal
+    function closeModal() {
+        if (modal) {
+            modal.style.display = 'none';
+            modal.classList.remove('show');
+            document.body.style.overflow = '';
+        }
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+    }
+    
+    // Click outside to close
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+    
+    // Handle form submission
+    if (contactForm && submitBtn) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submit event triggered');
+            
+            // Get form values
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const subject = document.getElementById('contactSubject').value;
+            const message = document.getElementById('contactMessage').value;
+            const consent = document.getElementById('contactConsent').checked;
+            
+            console.log('Form values:', { name, email, subject, message, consent });
+            
+            // Validation
+            if (!name || !email || !subject || !message || !consent) {
+                console.log('Form validation failed');
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            console.log('Loading state shown');
+            
+            // Simulate form submission (replace with actual backend call)
+            setTimeout(function() {
+                console.log('Form submission completed');
+                
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+                
+                // Show success message
+                alert('Form submitted successfully!');
+                
+                // Close modal
+                closeModal();
+                
+                // Reset form
+                contactForm.reset();
+                
+            }, 1500);
+        });
+    } else {
+        console.error('Form or submit button not found');
+    }
+});
+
+console.log('=== FORM SUBMISSION DEBUG END ===');
+</script>
+
 
 <script>
 // Fix for Accept All Button on Cookie Banner
@@ -5143,6 +5253,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
 
 
