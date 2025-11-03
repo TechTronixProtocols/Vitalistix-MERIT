@@ -3934,24 +3934,24 @@ function downloadFile(filename) {
         // Complete file mapping - REPLACE THESE URLS WITH YOUR ACTUAL FILE URLs
         const fileUrls = {
             // Nutrition Guides
-            'nutrition-guide-en.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(English).pdf?updatedAt=1760056820474',
-            'nutrition-guide-es.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Espa%C3%B1ol).pdf?updatedAt=1760057142546',
-            'nutrition-guide-fr.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Fran%C3%A7ais).pdf?updatedAt=1760057203723',
-            'nutrition-guide-de.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Deutsch).pdf?updatedAt=1760056820816',
-            'nutrition-guide-it.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Italiano).pdf?updatedAt=1760056820700',
-            'nutrition-guide-pt.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Portugu%C3%AAs).pdf?updatedAt=1760057054294',
-            'nutrition-guide-ru.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(P%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf?updatedAt=1760056820583',
-            'nutrition-guide-zh.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%E4%B8%AD%E6%96%87).pdf?updatedAt=1760056820619',
+            'nutrition-guide-en.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(English).pdf',
+            'nutrition-guide-es.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(English).pdf',
+            'nutrition-guide-fr.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Fran%C3%A7ais).pdf',
+            'nutrition-guide-de.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Deutsch).pdf',
+            'nutrition-guide-it.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Italiano).pdf',
+            'nutrition-guide-pt.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Portugu%C3%AAs).pdf',
+            'nutrition-guide-ru.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(P%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf',
+            'nutrition-guide-zh.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%E4%B8%AD%E6%96%87).pdf',
             
             // Metabolic Epilepsy Overview
-            'metabolic-epilepsy-overview-en.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(English).pdf?updatedAt=1760138449514',
-            'metabolic-epilepsy-overview-es.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Espa%C3%B1ol).pdf?updatedAt=1760138449856',
-            'metabolic-epilepsy-overview-fr.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Fran%C3%A7ais).pdf?updatedAt=1760138449938',
-            'metabolic-epilepsy-overview-de.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Deutsch).pdf?updatedAt=1760138450024',
-            'metabolic-epilepsy-overview-it.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Italiano).pdf?updatedAt=1760138449991',
-            'metabolic-epilepsy-overview-pt.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Portugu%C3%AAs).pdf?updatedAt=1760138449894',
-            'metabolic-epilepsy-overview-ru.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(P%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf?updatedAt=1760138450166',
-            'metabolic-epilepsy-overview-zh.pdf': 'https://ik.imagekit.io/vitalistixmerit/Vitalistix_Merit/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20%7B%E4%B8%AD%E6%96%87).pdf?updatedAt=1760138449911'
+            'metabolic-epilepsy-overview-en.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(English).pdf',
+            'metabolic-epilepsy-overview-es.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Espa%C3%B1ol).pdf',
+            'metabolic-epilepsy-overview-fr.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Fran%C3%A7ais).pdf',
+            'metabolic-epilepsy-overview-de.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Deutsch).pdf',
+            'metabolic-epilepsy-overview-it.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Italiano).pdf',
+            'metabolic-epilepsy-overview-pt.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Portugu%C3%AAs).pdf',
+            'metabolic-epilepsy-overview-ru.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(P%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf',
+            'metabolic-epilepsy-overview-zh.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20%7B%E4%B8%AD%E6%96%87).pdf'
         };
         
         link.href = fileUrls[filename] || '#'; // Fallback to # if file not found
@@ -5520,5 +5520,6 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 </body>
 </html>
+
 
 
