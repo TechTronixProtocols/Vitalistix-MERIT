@@ -3924,64 +3924,89 @@ body.modal-open {
             }
         }
 
-    // Download file function (Fixed for direct downloads)
+    // Turn any GitHub "blob" URL into a raw URL
+function toRawGitHub(url) {
+  if (!url) return url;
+  // already raw
+  if (url.includes('raw.githubusercontent.com')) return url;
+
+  // e.g. https://github.com/OWNER/REPO/blob/BRANCH/path/file.pdf
+  const m = url.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
+  if (m) {
+    const [, owner, repo, branch, path] = m;
+    return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
+  }
+  return url;
+}
+
+// Force a download (never navigate)
+function forceDownload(url, filename) {
+  console.log('[download] fetching:', url);
+  fetch(url, { cache: 'no-store' })
+    .then(r => {
+      if (!r.ok) throw new Error(`HTTP ${r.status}`);
+      return r.blob();
+    })
+    .then(blob => {
+      const blobUrl = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = filename || 'download';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+      console.log('[download] success:', filename);
+    })
+    .catch(err => {
+      console.error('[download] failed:', err);
+      // Optional fallback: open raw URL in a new tab if fetch fails
+      // window.open(url, '_blank', 'noopener,noreferrer');
+    });
+}
+
+// Download file function (final)
 function downloadFile(filename) {
-    showNotification(translations[currentLanguage].notification_downloading);
+  showNotification(translations[currentLanguage].notification_downloading);
 
-    setTimeout(() => {
-        const link = document.createElement('a');
+  setTimeout(() => {
+    // Map your filenames -> GitHub links (can be blob or raw; we'll normalize)
+    const fileUrls = {
+      // Nutrition Guides
+      'nutrition-guide-en.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(English).pdf',
+      'nutrition-guide-es.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Espa%C3%B1ol).pdf',
+      'nutrition-guide-fr.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Fran%C3%A7ais).pdf',
+      'nutrition-guide-de.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Deutsch).pdf',
+      'nutrition-guide-it.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Italiano).pdf',
+      'nutrition-guide-pt.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Portugu%C3%AAs).pdf',
+      'nutrition-guide-ru.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf',
+      'nutrition-guide-zh.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%E4%B8%AD%E6%96%87).pdf',
 
-        // Corrected file URLs — using raw.githubusercontent.com instead of blob links
-        const fileUrls = {
-            // Nutrition Guides
-            'nutrition-guide-en.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(English).pdf',
-            'nutrition-guide-es.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Espa%C3%B1ol).pdf',
-            'nutrition-guide-fr.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Fran%C3%A7ais).pdf',
-            'nutrition-guide-de.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Deutsch).pdf',
-            'nutrition-guide-it.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Italiano).pdf',
-            'nutrition-guide-pt.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Portugu%C3%AAs).pdf',
-            'nutrition-guide-ru.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf',
-            'nutrition-guide-zh.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%E4%B8%AD%E6%96%87).pdf',
+      // Metabolic Epilepsy Overview
+      'metabolic-epilepsy-overview-en.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(English).pdf',
+      'metabolic-epilepsy-overview-es.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Espa%C3%B1ol).pdf',
+      'metabolic-epilepsy-overview-fr.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Fran%C3%A7ais).pdf',
+      'metabolic-epilepsy-overview-de.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Deutsch).pdf',
+      'metabolic-epilepsy-overview-it.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Italiano).pdf',
+      'metabolic-epilepsy-overview-pt.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Portugu%C3%AAs).pdf',
+      'metabolic-epilepsy-overview-ru.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf',
+      'metabolic-epilepsy-overview-zh.pdf': 'https://github.com/TechTronixProtocols/Vitalistix/blob/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(%E4%B8%AD%E6%96%87).pdf'
+    };
 
-            // Metabolic Epilepsy Overview
-            'metabolic-epilepsy-overview-en.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(English).pdf',
-            'metabolic-epilepsy-overview-es.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Espa%C3%B1ol).pdf',
-            'metabolic-epilepsy-overview-fr.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Fran%C3%A7ais).pdf',
-            'metabolic-epilepsy-overview-de.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Deutsch).pdf',
-            'metabolic-epilepsy-overview-it.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Italiano).pdf',
-            'metabolic-epilepsy-overview-pt.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Portugu%C3%AAs).pdf',
-            'metabolic-epilepsy-overview-ru.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(%D0%A0%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf',
-            'metabolic-epilepsy-overview-zh.pdf': 'https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(%E4%B8%AD%E6%96%87).pdf'
-        };
+    const originalUrl = fileUrls[filename];
+    if (!originalUrl) {
+      console.error('[download] unknown filename:', filename);
+      return;
+    }
 
-        const fileURL = fileUrls[filename];
-        if (!fileURL) {
-            console.error('File not found:', filename);
-            return;
-        }
+    const directUrl = toRawGitHub(originalUrl);
+    forceDownload(directUrl, filename);
 
-        // Force download instead of inline open
-        fetch(fileURL)
-            .then(response => response.blob())
-            .then(blob => {
-                const blobUrl = window.URL.createObjectURL(blob);
-                link.href = blobUrl;
-                link.download = filename;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                window.URL.revokeObjectURL(blobUrl);
-            })
-            .catch(err => console.error('Download error:', err));
-    }, 800);
+  }, 300);
 
-    // Close dropdown after selection
-    document.querySelectorAll('.dropdown-menu').forEach(menu => {
-        menu.classList.remove('show');
-    });
-    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-        toggle.classList.remove('open');
-    });
+  // Close dropdown after selection
+  document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
+  document.querySelectorAll('.dropdown-toggle').forEach(toggle => toggle.classList.remove('open'));
 }
 
         // Enhanced scroll animations with throttling for better performance
@@ -5534,6 +5559,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 </body>
 </html>
+
 
 
 
