@@ -2277,6 +2277,24 @@ html {
     }
 }
 
+     /* Make contact form labels white */
+#contactModal .form-group label {
+    color: #ffffff !important;
+}
+
+/* Make the field text itself white */
+#contactModal .form-group input,
+#contactModal .form-group textarea {
+    color: #ffffff !important;
+}
+
+/* Optional - make placeholder text lighter instead of gray */
+#contactModal .form-group input::placeholder,
+#contactModal .form-group textarea::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+
      /* Base */
 .nav-toggle { display: none; background: transparent; border: 0; cursor: pointer; }
 .nav-toggle .bar { display: block; width: 24px; height: 2px; margin: 5px 0; background: var(--text-light); transition: transform .2s ease, opacity .2s ease; }
@@ -5727,6 +5745,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
