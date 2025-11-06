@@ -2523,7 +2523,29 @@ body.modal-open {
   pointer-events: none !important;
 }
 
+     /* Force white labels/text ONLY inside the contact modal */
+#contactModal .form-group label,
+#contactModal .form-checkbox label {
+  color: #fff !important;
+  opacity: 1 !important;   /* in case a parent dims text */
+}
 
+/* Field text + placeholders */
+#contactModal .form-group input,
+#contactModal .form-group textarea {
+  color: #fff !important;
+}
+
+#contactModal .form-group input::placeholder,
+#contactModal .form-group textarea::placeholder {
+  color: rgba(255,255,255,.6) !important;
+}
+
+/* (Optional) if a parent sets color on everything inside the modal */
+#contactModal .cookie-modal-content,
+#contactModal .cookie-modal-content * {
+  color: inherit;
+}
     </style>
 </head>
 <body>
@@ -5745,6 +5767,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
