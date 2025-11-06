@@ -3002,12 +3002,12 @@ body.modal-open {
         
         <div class="footer-section">
             <h4>Legal</h4>
-            <ul class="footer-links">
-                <li><a href="#" id="footerPrivacyPolicy" class="legal-link">Privacy Policy</a></li>
-                <li><a href="#" id="footerCookieSettings" class="legal-link">Cookie Settings</a></li>
-                <li><a href="#">Terms of Service</a></li>
-                <li><a href="#">Disclaimer</a></li>
-            </ul>
+           <ul class="footer-links">
+             <li><a href="#" class="legal-link" data-open="privacyPolicyModal">Privacy Policy</a></li>
+             <li><a href="#" class="legal-link" data-open="termsModal">Terms of Service</a></li>
+             <li><a href="#" class="legal-link" data-open="disclaimerModal">Disclaimer</a></li>
+         </ul>
+
         </div>
         
         <div class="footer-section">
@@ -3078,6 +3078,137 @@ body.modal-open {
     </div>
 </div>
 
+<!-- Privacy Policy Modal -->
+<div id="privacyPolicyModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+            <h2>Privacy Policy</h2>
+            <button class="cookie-modal-close" data-close="privacyPolicyModal">&times;</button>
+        </div>
+        <div class="cookie-modal-body">
+            <p>PRIVACY POLICY
+
+MERIT (“we,” “our,” or “this site”) respects your privacy and is committed to protecting any information that may be collected while you use this website.
+
+Information We Collect
+
+We may collect:
+
+Information voluntarily submitted through forms (such as email inquiries)
+
+Non-personal browsing data (such as IP address, device type, and usage analytics)
+
+Donation-related information processed securely through third-party payment platforms
+
+We do not sell or share personal data with outside parties for marketing.
+
+How We Use Information
+
+Information may be used to:
+
+Provide resources and educational content
+
+Respond to user inquiries
+
+Improve site performance and user experience
+
+Maintain community quality and moderation standards
+
+Cookies
+
+This site may use cookies to support website functionality and analytics.
+You can adjust cookie settings in your browser at any time.
+
+Third-Party Services
+
+We may use external platforms such as:
+
+Analytics: (e.g., Google Analytics)
+
+Payments: (e.g., Square, Google Pay)
+
+Email Communications: (e.g., Mailchimp)
+
+These services have their own privacy policies which we do not control.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Terms of Service Modal -->
+<div id="termsModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+            <h2>Terms of Service</h2>
+            <button class="cookie-modal-close" data-close="termsModal">&times;</button>
+        </div>
+        <div class="cookie-modal-body">
+            <p>TERMS OF SERVICE
+
+By accessing or using this website, you agree to the following terms.
+
+Purpose of the Website
+
+This site provides informational and educational material on metabolic health and epilepsy-related topics.
+It does not provide medical advice or clinical instruction.
+
+User Conduct
+
+You agree not to:
+
+Use the site for illegal activities
+
+Harass, abuse, or harm other community members
+
+Copy, reproduce, or redistribute site content without permission
+
+Intellectual Property
+
+All educational content, graphics, PDFs, branding, and written materials on this site are the property of their respective creators unless otherwise noted.
+
+External Links
+
+This site may reference or link to third-party research or resources.
+We are not responsible for external content, accuracy, or policies.
+
+Donations
+
+Donations made through linked platforms are voluntary and non-refundable.
+They support the continuation and development of educational materials and outreach efforts.
+
+Limitation of Liability
+
+This site and its contributors are not liable for:
+
+Health decisions made based on content
+
+Any direct, indirect, or incidental damages resulting from site use</p>
+        </div>
+    </div>
+</div>
+
+<!-- Disclaimer Modal -->
+<div id="disclaimerModal" class="cookie-modal">
+    <div class="cookie-modal-content">
+        <div class="cookie-modal-header">
+            <h2>Disclaimer</h2>
+            <button class="cookie-modal-close" data-close="disclaimerModal">&times;</button>
+        </div>
+        <div class="cookie-modal-body">
+            <p>DISCLAIMER
+
+The information on this website is intended for educational purposes only.
+It is not medical advice, and it should not be used to diagnose, treat, prevent, or cure any condition.
+
+Always consult a licensed healthcare professional before changing diet, medication, or treatment plans.
+
+Do not delay or disregard professional medical advice because of information found here.
+
+Personal experiences described on this website reflect individual outcomes and may not be universally applicable.
+
+If you are experiencing a medical emergency, call emergency services immediately.</p>
+        </div>
+    </div>
+</div> 
  
     <!-- Payment Modal -->
     <div class="payment-modal" id="paymentModal">
@@ -5563,8 +5694,39 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 });
 </script>
+
+ <script>
+document.addEventListener('click', function(e) {
+    const openId = e.target.getAttribute('data-open');
+    const closeId = e.target.getAttribute('data-close');
+
+    // Open Modal
+    if (openId) {
+        e.preventDefault();
+        const modal = document.getElementById(openId);
+        if (modal) modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Close Modal
+    if (closeId) {
+        e.preventDefault();
+        const modal = document.getElementById(closeId);
+        if (modal) modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+});
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('cookie-modal')) {
+        e.target.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+});
+</script>
 </body>
 </html>
+
 
 
 
