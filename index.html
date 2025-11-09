@@ -4122,7 +4122,6 @@ function renderFAQ() {
             return 'en';
         }
 
-      // Function to update page content based on language
 function updateLanguage(lang) {
     currentLanguage = lang;
     
@@ -4137,35 +4136,34 @@ function updateLanguage(lang) {
         }
     });
 
-    // ✅ Refresh FAQ after language change
+    // Refresh FAQ in the correct language
     renderFAQ();
-}
-            
-            // Update current language display
-            const currentLangDisplay = document.getElementById('currentLanguage');
-            const languageNames = {
-                en: 'English',
-                es: 'Español',
-                fr: 'Français',
-                de: 'Deutsch',
-                it: 'Italiano',
-                pt: 'Português',
-                ru: 'Pусский',
-                zh: '中文'
-            };
-            currentLangDisplay.textContent = languageNames[lang];
-            
-            // Update active language option
-            document.querySelectorAll('.language-option').forEach(option => {
-                option.classList.remove('active');
-                if (option.getAttribute('data-lang') === lang) {
-                    option.classList.add('active');
-                }
-            });
-            
-            // Store language preference
-            localStorage.setItem('preferredLanguage', lang);
+
+    // Update current language display
+    const currentLangDisplay = document.getElementById('currentLanguage');
+    const languageNames = {
+        en: 'English',
+        es: 'Español',
+        fr: 'Français',
+        de: 'Deutsch',
+        it: 'Italiano',
+        pt: 'Português',
+        ru: 'Pусский',
+        zh: '中文'
+    };
+    currentLangDisplay.textContent = languageNames[lang];
+
+    // Update active language option
+    document.querySelectorAll('.language-option').forEach(option => {
+        option.classList.remove('active');
+        if (option.getAttribute('data-lang') === lang) {
+            option.classList.add('active');
         }
+    });
+
+    // Store language preference
+    localStorage.setItem('preferredLanguage', lang);
+}
 
         // Initialize language on page load
         function initializeLanguage() {
@@ -5972,6 +5970,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
