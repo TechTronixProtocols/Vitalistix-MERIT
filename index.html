@@ -2546,6 +2546,58 @@ body.modal-open {
 #contactModal .cookie-modal-content * {
   color: inherit;
 }
+
+/* FAQ Section Layout */
+#faq.section {
+  padding: 80px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* Wrapper centers content and limits width */
+.faq-wrapper {
+  width: 90%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* FAQ container card */
+.faq-card-container {
+  margin-top: 30px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 0 24px rgba(0, 255, 209, 0.1);
+}
+
+/* Individual Q/A blocks */
+.faq-card {
+  text-align: left;
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Remove border from last item */
+.faq-card:last-child {
+  border-bottom: none;
+}
+
+/* Question Style */
+.faq-card h3 {
+  font-size: 1.2rem;
+  color: #38e0f8; /* your neon cyan */
+  margin-bottom: 8px;
+}
+
+/* Answer Style */
+.faq-card p {
+  font-size: 1rem;
+  color: #d4e2ef;
+  line-height: 1.6;
+}         
     </style>
 </head>
 <body>
@@ -3011,9 +3063,14 @@ body.modal-open {
         </div>
     </section>
 
-<section id="faq" class="faq-section">
-  <h2 class="section-title" data-i18n="faq_title">Frequently Asked Questions</h2>
-  <div id="faqCardContainer" class="faq-card-container"></div>
+<section id="faq" class="section">
+  <div class="faq-wrapper">
+    <h2 class="section-title" data-translate="faq_title">Frequently Asked Questions</h2>
+
+    <div id="faqCardContainer" class="faq-card-container">
+      <!-- FAQ cards will be injected here by JS -->
+    </div>
+  </div>
 </section>
  
 <!-- Footer -->
@@ -5970,6 +6027,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
