@@ -3909,36 +3909,6 @@ If you are experiencing a medical emergency, call emergency services immediately
             }
         };
      
-function renderFAQ() {
-  const container = document.getElementById('faqCardContainer');
-  if (!container) return;
-  
-  container.innerHTML = ""; // Clear old content
-
-  const faq = translations[currentLanguage].faq;
-
-  faq.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'faq-card';
-    card.innerHTML = `
-      <h3>${item.q}</h3>
-      <p>${item.a}</p>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// Run on load
-document.addEventListener('DOMContentLoaded', renderFAQ);
-
-// Run when language changes
-const originalSwitchLanguage = switchLanguage;
-switchLanguage = function (lang) {
-  originalSwitchLanguage(lang);
-  renderFAQ(); // refresh FAQ in new language
-};
-
-     
         // Language detection and management
         let currentLanguage = 'en';
 
@@ -5802,6 +5772,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
