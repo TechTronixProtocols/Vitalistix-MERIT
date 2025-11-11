@@ -821,6 +821,16 @@
     pointer-events: none !important;
 }
 
+/* Mobile: float the menu above everything when shown */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    /* default still hidden; position is set by JS when opened */
+    z-index: 99999;
+    pointer-events: auto;
+    max-height: 60vh;
+  }
+}
+
         /* Questionnaire Section */
         .questionnaire-container {
             max-width: 900px;
@@ -4378,35 +4388,64 @@ function updateLanguage(lang) {
             }
         });
 
-       // Dropdown functionality for downloads
-function toggleDropdown(dropdownId, event) {
-    const dropdown = document.getElementById(dropdownId);
-    const isOpen = dropdown.classList.contains('show');
+       // Close all dropdowns (shared helper)
+function closeAllDropdowns() {
+  document.querySelectorAll('.dropdown-menu').forEach(m => {
+    m.classList.remove('show');
+    // clear temporary positioning used on mobile
+    m.style.position = '';
+    m.style.left = '';
+    m.style.top = '';
+    m.style.transform = '';
+    m.style.zIndex = '';
+  });
 
-    // Close all dropdowns first
-    document.querySelectorAll('.dropdown-menu').forEach(menu => {
-        menu.classList.remove('show');
-    });
-    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-        toggle.classList.remove('open');
-    });
-
-    // Safely handle missing event (prevents silent break)
-    if (!isOpen) {
-        dropdown.classList.add('show');
-        if (event && event.currentTarget) {
-            event.currentTarget.classList.add('open');
-        }
-    }
+  document.querySelectorAll('.dropdown-toggle').forEach(t => t.classList.remove('open'));
 }
 
-// Keep this — it prevents menu from collapsing before click is registered
+// Mobile + Desktop compatible dropdown
+function toggleDropdown(dropdownId, event) {
+  const menu = document.getElementById(dropdownId);
+  const wasOpen = menu.classList.contains('show');
+
+  closeAllDropdowns();
+  if (wasOpen) return;
+
+  event.currentTarget.classList.add('open');
+
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  if (isMobile) {
+    // Position menu in viewport so it does not get clipped
+    const rect = event.currentTarget.getBoundingClientRect();
+
+    menu.style.position = 'fixed';
+    menu.style.left = (rect.left + rect.width / 2) + 'px';
+    menu.style.top = (rect.bottom + 8) + 'px';
+    menu.style.transform = 'translateX(-50%)';
+    menu.style.zIndex = '99999';
+  }
+
+  menu.classList.add('show');
+}
+
+// Prevent dropdown from closing before click registers
 document.querySelectorAll('.dropdown-item').forEach(item => {
-    item.addEventListener('click', function(e) {
-        e.stopPropagation();
-        // allow normal download to proceed
-    });
+  item.addEventListener('click', function(e) {
+    e.stopPropagation();
+  });
 });
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.dropdown-menu') && !e.target.closest('.dropdown-toggle')) {
+    closeAllDropdowns();
+  }
+});
+
+// Close on scroll or orientation change (mobile fix)
+window.addEventListener('scroll', closeAllDropdowns, true);
+window.addEventListener('resize', closeAllDropdowns);
 
         // Enhanced scroll animations with throttling for better performance
         let ticking = false;
@@ -5988,6 +6027,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
