@@ -620,13 +620,20 @@
   padding: 2rem;
   text-align: center;
   border: 1px solid rgba(255, 215, 0, 0.3);
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, filter 0.3s ease;
   position: relative;
   opacity: 1;
+  filter: brightness(0.95); /* replaces scale(0.95) */
+}
+
+.product-card.visible {
+  opacity: 1;
+  filter: brightness(1); /* replaces scale(1) */
 }
 
 .product-card:hover {
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+  filter: brightness(1.15); /* replaces translateY(-5px) pop */
 }
 
 /* Icon + Text */
@@ -668,7 +675,7 @@
 .dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
 .dropdown-toggle.open i { transform: rotate(180deg); }
 
-/* === Guaranteed Correct Dropdown Placement === */
+/* Guaranteed Correct Dropdown Placement */
 #downloads .download-dropdown .dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
@@ -706,6 +713,7 @@
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
   transition: all 0.25s ease;
 }
+
 .dropdown-item:last-child { border-bottom: 1px solid rgba(255, 215, 0, 0.1); }
 
 .dropdown-item:hover {
@@ -726,17 +734,12 @@
   position: relative;
 }
 
-/* Freeze cards while dropdown open (prevents card from lifting over menu) */
+/* Freeze cards while dropdown open */
 body.dropdown-open #downloads .product-card,
 body.dropdown-open #downloads .product-card:hover {
+  filter: brightness(1) !important;
   box-shadow: none !important;
-}
-
-     /* When any dropdown is open, disable transform on ALL cards */
-body.dropdown-open #downloads .product-card,
-body.dropdown-open #downloads .product-card:hover {
-    transform: none !important;
-    z-index: 1 !important;
+  z-index: 1 !important;
 }
      
         /* Questionnaire Section */
@@ -5926,6 +5929,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
