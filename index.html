@@ -768,6 +768,50 @@
             text-align: center;
         }
 
+     /* FIX: Ensure hover animation applies to all languages (including Русский & 中文) */
+.dropdown-item {
+    padding-left: 1.2rem; /* Set a consistent base */
+}
+
+.dropdown-item:hover {
+    padding-left: 1.9rem !important; /* Slightly softer movement */
+    background: rgba(255, 215, 0, 0.12) !important;
+    color: var(--gold) !important;
+}
+
+/* FIX: Ensure the container allows room for hover expansion */
+.dropdown-menu {
+    overflow: visible !important; /* Allows hover animation to be visible */
+}
+
+/* FIX: Bottom languages were visually compressed — restore spacing */
+.dropdown-item:nth-last-child(-n+2) {
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1) !important;
+}
+     
+       /* Ensure dropdown displays ABOVE surrounding containers */
+.download-dropdown {
+    position: relative;
+    z-index: 20;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 9999; /* Force on top */
+    max-height: 220px; /* Allow scrolling */
+    overflow-y: auto;
+    background: rgba(20, 24, 44, 0.98);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+}
+
+/* Ensure nothing clips the dropdown */
+.product-card,
+.downloads-grid,
+#downloads {
+    overflow: visible !important;
+}
+
         /* Questionnaire Section */
         .questionnaire-container {
             max-width: 900px;
@@ -2597,29 +2641,6 @@ body.modal-open {
   font-size: 1rem;
   color: #d4e2ef;
   line-height: 1.6;
-}
-
-     /* Ensure dropdown displays ABOVE surrounding containers */
-.download-dropdown {
-    position: relative;
-    z-index: 20;
-}
-
-.dropdown-menu {
-    position: absolute;
-    z-index: 9999; /* Force on top */
-    max-height: 220px; /* Allow scrolling */
-    overflow-y: auto;
-    background: rgba(20, 24, 44, 0.98);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 8px;
-}
-
-/* Ensure nothing clips the dropdown */
-.product-card,
-.downloads-grid,
-#downloads {
-    overflow: visible !important;
 }
      
     </style>
@@ -5956,6 +5977,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
