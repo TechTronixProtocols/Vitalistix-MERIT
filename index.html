@@ -601,182 +601,135 @@
             color: var(--neon-teal);
         }
 
-        /* Downloads Section */
-        .downloads-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-            width: 100%;
-        }
+        /* ===============================
+   DOWNLOADS SECTION — CLEAN + FIXED
+   =============================== */
 
-        .product-card {
-            background: rgba(26, 31, 58, 0.5);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            opacity: 0;
-            transform: scale(0.95);
-        }
+/* Layout */
+.downloads-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2.5rem;
+  width: 100%;
+}
 
-        .product-card.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
+/* Product Cards — NO TRANSFORM (Prevents stacking context issues) */
+.product-card {
+  background: rgba(26, 31, 58, 0.5);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  opacity: 1;
+}
 
-        .product-card:nth-child(1) { transition-delay: 0.1s; }
-        .product-card:nth-child(2) { transition-delay: 0.2s; }
+.product-card:hover {
+  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+}
 
-        .product-card:hover {
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-            transform: translateY(-5px);
-        }
+/* Icon + Text */
+.product-icon { font-size: 3rem; color: var(--gold); margin-bottom: 1rem; }
+.product-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-light); }
+.product-card p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.95rem; }
 
-        .product-icon {
-            font-size: 3rem;
-            color: var(--gold);
-            margin-bottom: 1rem;
-        }
-
-        .product-card h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--text-light);
-        }
-
-        .product-card p {
-            color: var(--text-dim);
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-      /* ===============================
-   DOWNLOADS SECTION — FINAL CLEAN CSS
+/* ===============================
+   DROPDOWN
    =============================== */
 
 .download-dropdown {
-    position: relative;
-    margin-top: 1rem;
-    z-index: 200;
+  position: relative;
+  margin-top: 1rem;
+  z-index: 200;
 }
 
 .dropdown-toggle {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    background: transparent;
-    color: var(--gold);
-    border: 2px solid var(--gold);
-    border-radius: 25px;
-    text-decoration: none;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 200px;
-    text-align: center;
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+  border-radius: 25px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+  text-align: center;
 }
 
 .dropdown-toggle:hover {
-    background: var(--gold);
-    color: var(--deep-navy);
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+  background: var(--gold);
+  color: var(--deep-navy);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
-.dropdown-toggle i {
-    margin-left: 0.5rem;
-    transition: transform 0.3s ease;
-}
+.dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
+.dropdown-toggle.open i { transform: rotate(180deg); }
 
-.dropdown-toggle.open i {
-    transform: rotate(180deg);
-}
-
-/* === Correct, stable dropdown placement === */
+/* === Guaranteed Correct Dropdown Placement === */
 #downloads .download-dropdown .dropdown-menu {
-    position: absolute;
-    top: calc(100% + 8px);  /* clean, consistent spacing */
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 250px;
-    max-width: 300px;
-    max-height: 250px;
-    overflow-y: auto;
-    background: rgba(26, 31, 58, 0.97);
-    border: 1px solid rgba(255, 215, 0, 0.3);
-    border-radius: 10px;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: auto;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    z-index: 9999; /* always above Overview card */
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 250px;
+  max-width: 300px;
+  max-height: 250px;
+  overflow-y: auto;
+  background: rgba(26, 31, 58, 0.97);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 10px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  z-index: 99999;
 }
 
-/* Show state */
+/* Show State */
 #downloads .download-dropdown .dropdown-menu.show {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-/* Scrollbar styling */
+/* Dropdown Items */
+.dropdown-item {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  color: var(--text-light);
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.9rem;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  transition: all 0.25s ease;
+}
+.dropdown-item:last-child { border-bottom: 1px solid rgba(255, 215, 0, 0.1); }
+
+.dropdown-item:hover {
+  background: rgba(255, 215, 0, 0.15);
+  color: var(--gold);
+  padding-left: 1.6rem;
+}
+
+/* Scrollbar */
 #downloads .dropdown-menu::-webkit-scrollbar { width: 6px; }
 #downloads .dropdown-menu::-webkit-scrollbar-track { background: rgba(255, 215, 0, 0.1); }
 #downloads .dropdown-menu::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
 #downloads .dropdown-menu::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.5); }
 
-/* Dropdown items */
-.dropdown-item {
-    display: block;
-    padding: 0.8rem 1.2rem;
-    color: var(--text-light);
-    text-decoration: none;
-    font-family: 'Exo 2', sans-serif;
-    font-size: 0.9rem;
-    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-    transition: all 0.25s ease;
-}
-.dropdown-item:last-child {
-    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-}
-.dropdown-item:hover {
-    background: rgba(255, 215, 0, 0.15);
-    color: var(--gold);
-    padding-left: 1.6rem;
-}
-
-/* Ensure dropdown items always stay clickable */
-#downloads .dropdown-item { pointer-events: auto; }
-
-/* Ensure section and cards never clip or swallow dropdown */
+/* Ensure dropdown ALWAYS overlays cards */
 #downloads, #downloads .downloads-grid, #downloads .product-card {
-    overflow: visible !important;
-    position: relative;
+  overflow: visible !important;
+  position: relative;
 }
 
-/* When ANY dropdown is open, freeze card hover transform stack context */
-body.dropdown-open #downloads .product-card {
-    transform: none !important;
-    z-index: 1 !important;
-}
-
-     /* When a dropdown is open, disable transforms that create stacking context */
-body.dropdown-open #downloads .product-card {
-    transform: none !important;
-}
-
-/* Also stop hover from re-triggering transform during dropdown open */
+/* Freeze cards while dropdown open (prevents card from lifting over menu) */
+body.dropdown-open #downloads .product-card,
 body.dropdown-open #downloads .product-card:hover {
-    transform: none !important;
-}
-
-/* Ensure dropdown is guaranteed to overlay */
-body.dropdown-open #downloads .dropdown-menu {
-    z-index: 999999 !important;
-    position: absolute !important;
-    pointer-events: auto !important;
+  box-shadow: none !important;
 }
      
         /* Questionnaire Section */
@@ -5966,6 +5919,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
