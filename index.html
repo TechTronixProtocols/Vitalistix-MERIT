@@ -613,7 +613,7 @@
   width: 100%;
 }
 
-/* Product Cards (NO TRANSFORM — prevents stacking context issues) */
+/* Product Cards */
 .product-card {
   background: rgba(26, 31, 58, 0.5);
   border-radius: 15px;
@@ -630,7 +630,7 @@
   filter: brightness(1.15);
 }
 
-/* Text + Icons */
+/* Icon + Text */
 .product-icon { font-size: 3rem; color: var(--gold); margin-bottom: 1rem; }
 .product-card h3 { color: var(--text-light); font-size: 1.3rem; margin-bottom: 1rem; }
 .product-card p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.95rem; }
@@ -642,10 +642,9 @@
 .download-dropdown {
   position: relative;
   margin-top: 1rem;
-  z-index: 20; /* Slight lift for default state */
+  z-index: 20;
 }
 
-/* When menu opens, lift the entire card above all others */
 .download-dropdown.open-menu {
   z-index: 99990 !important;
 }
@@ -661,13 +660,13 @@
   font-weight: 600;
   cursor: pointer;
   min-width: 200px;
-  transition: all 0.3s ease;
   text-align: center;
+  transition: all 0.3s ease;
 }
 .dropdown-toggle:hover {
   background: var(--gold);
   color: var(--deep-navy);
-  box-shadow: 0 0 20px rgba(255,215,0,0.5);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 .dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
 .dropdown-toggle.open i { transform: rotate(180deg); }
@@ -690,7 +689,7 @@
   pointer-events: none;
   transition: opacity .25s ease, visibility .25s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  z-index: 99999 !important; /* Always above other content */
+  z-index: 99999 !important;
 }
 
 /* Show State */
@@ -710,9 +709,9 @@
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
   transition: all 0.25s ease;
 }
-.dropdown-item:last-child { border-bottom: 1px solid rgba(255,215,0,0.1); }
+.dropdown-item:last-child { border-bottom: 1px solid rgba(255, 215, 0, 0.1); }
 .dropdown-item:hover {
-  background: rgba(255,215,0,0.15);
+  background: rgba(255, 215, 0, 0.15);
   color: var(--gold);
   padding-left: 1.6rem;
 }
@@ -721,16 +720,21 @@
 #downloads .dropdown-menu::-webkit-scrollbar { width: 6px; }
 #downloads .dropdown-menu::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.3); border-radius: 3px; }
 
-/* DO NOT allow donate section to create a stacking context */
-#donate,
-#donate * {
+/* Never clip dropdown */
+#downloads,
+#downloads .downloads-grid,
+#downloads .product-card {
+  overflow: visible !important;
+  position: relative;
+}
+
+/* Remove stacking context in donate/support section */
+#donate, #donate * {
   transform: none !important;
   z-index: auto !important;
 }
 
-/* ===============================
-   MOBILE — FLOAT MENU
-   =============================== */
+/* Mobile Floating Dropdown */
 @media (max-width: 768px) {
   #downloads .download-dropdown .dropdown-menu.show {
     position: fixed !important;
@@ -5922,6 +5926,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
