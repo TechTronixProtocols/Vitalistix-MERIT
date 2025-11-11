@@ -653,163 +653,113 @@
             font-size: 0.95rem;
         }
 
-        /* Download Dropdown Styles */
-        .download-dropdown {
-            position: relative;
-            margin-top: 1rem;
-        }
-
-        .dropdown-toggle {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            background: transparent;
-            color: var(--gold);
-            border: 2px solid var(--gold);
-            border-radius: 25px;
-            text-decoration: none;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            position: relative;
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .dropdown-toggle:hover {
-            background: var(--gold);
-            color: var(--deep-navy);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-        }
-
-        .dropdown-toggle i {
-            margin-left: 0.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .dropdown-toggle.open i {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(26, 31, 58, 0.95);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            border-radius: 10px;
-            margin-top: 0.5rem;
-            min-width: 250px;
-            max-width: 300px;
-            overflow: hidden;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(-50%) translateY(-10px);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-        }
-
-        .dropdown-menu.show {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .dropdown-menu.scrollable {
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        /* Custom scrollbar for dropdown */
-        .dropdown-menu.scrollable::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .dropdown-menu.scrollable::-webkit-scrollbar-track {
-            background: rgba(255, 215, 0, 0.1);
-            border-radius: 3px;
-        }
-
-        .dropdown-menu.scrollable::-webkit-scrollbar-thumb {
-            background: rgba(255, 215, 0, 0.3);
-            border-radius: 3px;
-        }
-
-        .dropdown-menu.scrollable::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 215, 0, 0.5);
-        }
-
-        .dropdown-item {
-            display: block;
-            padding: 0.8rem 1.2rem;
-            color: var(--text-light);
-            text-decoration: none;
-            font-family: 'Exo 2', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-        }
-
-        .dropdown-item:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-item:hover {
-            background: rgba(255, 215, 0, 0.1);
-            color: var(--gold);
-            padding-left: 1.5rem;
-        }
-
-        .dropdown-item i {
-            margin-right: 0.5rem;
-            width: 16px;
-            text-align: center;
-        }
-
-     /* FIX: Ensure hover animation applies to all languages (including Русский & 中文) */
-.dropdown-item {
-    padding-left: 1.2rem; /* Set a consistent base */
-}
-
-.dropdown-item:hover {
-    padding-left: 1.9rem !important; /* Slightly softer movement */
-    background: rgba(255, 215, 0, 0.12) !important;
-    color: var(--gold) !important;
-}
-
-/* FIX: Ensure the container allows room for hover expansion */
-.dropdown-menu {
-    overflow: visible !important; /* Allows hover animation to be visible */
-}
-
-/* FIX: Bottom languages were visually compressed — restore spacing */
-.dropdown-item:nth-last-child(-n+2) {
-    border-bottom: 1px solid rgba(255, 215, 0, 0.1) !important;
-}
-     
-       /* Ensure dropdown displays ABOVE surrounding containers */
+       /* Download Dropdown Styles */
 .download-dropdown {
     position: relative;
+    margin-top: 1rem;
     z-index: 20;
+}
+
+.dropdown-toggle {
+    display: inline-block;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    color: var(--gold);
+    border: 2px solid var(--gold);
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-align: center;
+}
+
+.dropdown-toggle:hover {
+    background: var(--gold);
+    color: var(--deep-navy);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+.dropdown-toggle i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.dropdown-toggle.open i {
+    transform: rotate(180deg);
 }
 
 .dropdown-menu {
     position: absolute;
-    z-index: 9999; /* Force on top */
-    max-height: 220px; /* Allow scrolling */
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    min-width: 250px;
+    max-width: 300px;
+    max-height: 250px;
     overflow-y: auto;
-    background: rgba(20, 24, 44, 0.98);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 8px;
+    background: rgba(26, 31, 58, 0.97);
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 10px;
+    margin-top: 0.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
 }
 
-/* Ensure nothing clips the dropdown */
-.product-card,
-.downloads-grid,
-#downloads {
-    overflow: visible !important;
+.dropdown-menu.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.dropdown-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 3px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 215, 0, 0.5);
+}
+
+.dropdown-item {
+    display: block;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-light);
+    text-decoration: none;
+    font-family: 'Exo 2', sans-serif;
+    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+    transition: all 0.25s ease;
+}
+
+/* Keep borders consistent for ALL items */
+.dropdown-item:last-child {
+    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+}
+
+/* Perfect hover behavior for every language (including Русский + 中文) */
+.dropdown-item:hover {
+    background: rgba(255, 215, 0, 0.15);
+    color: var(--gold);
+    padding-left: 1.6rem;
+}
+
+.dropdown-item i {
+    margin-right: 0.5rem;
+    width: 16px;
+    text-align: center;
 }
 
         /* Questionnaire Section */
@@ -5977,6 +5927,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
