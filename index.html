@@ -4325,87 +4325,24 @@ function updateLanguage(lang) {
         });
 
         // Dropdown functionality for downloads
-        function toggleDropdown(dropdownId) {
-            const dropdown = document.getElementById(dropdownId);
-            const isOpen = dropdown.classList.contains('show');
-            
-            // Close all dropdowns first
-            document.querySelectorAll('.dropdown-menu').forEach(menu => {
-                menu.classList.remove('show');
-            });
-            document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
-                toggle.classList.remove('open');
-            });
-            
-            // Open the clicked dropdown if it was closed
-            if (!isOpen) {
-                dropdown.classList.add('show');
-                event.currentTarget.classList.add('open');
-            }
-        }
-
-    // Turn any GitHub "blob" URL into a raw URL
-function toRawGitHub(url) {
-  if (!url) return url;
-  // already raw
-  if (url.includes('raw.githubusercontent.com')) return url;
-
-  // e.g. https://github.com/OWNER/REPO/blob/BRANCH/path/file.pdf
-  const m = url.match(/^https?:\/\/github\.com\/([^\/]+)\/([^\/]+)\/blob\/([^\/]+)\/(.+)$/i);
-  if (m) {
-    const [, owner, repo, branch, path] = m;
-    return `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${path}`;
-  }
-  return url;
-}
-
-// Force a download (never navigate)
-function forceDownload(url, filename) {
-  console.log('[download] fetching:', url);
-  fetch(url, { cache: 'no-store' })
-    .then(r => {
-      if (!r.ok) throw new Error(`HTTP ${r.status}`);
-      return r.blob();
-    })
-    .then(blob => {
-      const blobUrl = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = blobUrl;
-      a.download = filename || 'download';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(blobUrl);
-      console.log('[download] success:', filename);
-    })
-    .catch(err => {
-      console.error('[download] failed:', err);
-      // Optional fallback: open raw URL in a new tab if fetch fails
-      // window.open(url, '_blank', 'noopener,noreferrer');
+function toggleDropdown(dropdownId, event) {
+    const dropdown = document.getElementById(dropdownId);
+    const isOpen = dropdown.classList.contains('show');
+    
+    // Close all dropdowns first
+    document.querySelectorAll('.dropdown-menu').forEach(menu => {
+        menu.classList.remove('show');
     });
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.classList.remove('open');
+    });
+
+    // Open the clicked dropdown if it was closed
+    if (!isOpen) {
+        dropdown.classList.add('show');
+        event.currentTarget.classList.add('open');
+    }
 }
-
-// Download file function (final local-hosted version)
-function downloadFile(filename) {
-  showNotification(translations[currentLanguage].notification_downloading);
-
-  setTimeout(() => {
-    const filePath = `downloads/${filename}`;
-
-    // Trigger download
-    const link = document.createElement('a');
-    link.href = filePath;
-    link.download = filename; // Ensures "download" behavior instead of opening
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  }, 300);
-
-  // Close dropdown after selection
-  document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.remove('show'));
-  document.querySelectorAll('.dropdown-toggle').forEach(toggle => toggle.classList.remove('open'));
-}
-
 
         // Enhanced scroll animations with throttling for better performance
         let ticking = false;
@@ -5987,6 +5924,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
