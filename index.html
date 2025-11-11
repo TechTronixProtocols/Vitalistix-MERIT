@@ -738,6 +738,19 @@ body.dropdown-open #downloads .product-card:hover {
   box-shadow: none !important;
   z-index: 1 !important;
 }
+
+     /* === FIX OVERVIEW DROPDOWN BEING HIDDEN BY DONATE SECTION === */
+#donate, 
+#donate * {
+  position: static !important;   /* remove stacking context */
+  z-index: auto !important;
+  overflow: visible !important;
+}
+
+/* Allow dropdown to always float above donate section */
+body.dropdown-open #downloads .dropdown-menu {
+  z-index: 999999 !important;
+}
      
         /* Questionnaire Section */
         .questionnaire-container {
@@ -5926,6 +5939,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
