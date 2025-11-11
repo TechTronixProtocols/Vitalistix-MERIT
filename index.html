@@ -601,7 +601,7 @@
             color: var(--neon-teal);
         }
 
-   /* ===============================
+  /* ===============================
    DOWNLOADS SECTION — CLEAN + FIXED
    =============================== */
 
@@ -613,7 +613,7 @@
   width: 100%;
 }
 
-/* Product Cards (NO TRANSFORM — no stacking context) */
+/* Product Cards (NO TRANSFORM — prevents stacking context issues) */
 .product-card {
   background: rgba(26, 31, 58, 0.5);
   border-radius: 15px;
@@ -622,7 +622,6 @@
   border: 1px solid rgba(255, 215, 0, 0.3);
   transition: box-shadow 0.3s ease, filter 0.3s ease;
   position: relative;
-  opacity: 1;
   filter: brightness(0.95);
 }
 .product-card.visible { filter: brightness(1); }
@@ -643,7 +642,12 @@
 .download-dropdown {
   position: relative;
   margin-top: 1rem;
-  z-index: 200;
+  z-index: 10;
+}
+
+/* Track which dropdown is open */
+.download-dropdown.open-menu {
+  z-index: 99998 !important; /* Raised above other cards */
 }
 
 .dropdown-toggle {
@@ -668,7 +672,7 @@
 .dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
 .dropdown-toggle.open i { transform: rotate(180deg); }
 
-/* Default dropdown placement (desktop) */
+/* Default dropdown placement */
 #downloads .download-dropdown .dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
@@ -717,25 +721,18 @@
 #downloads .dropdown-menu::-webkit-scrollbar { width: 6px; }
 #downloads .dropdown-menu::-webkit-scrollbar-track { background: rgba(255, 215, 0, 0.1); }
 #downloads .dropdown-menu::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
-#downloads .dropdown-menu::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.5); }
 
-/* Never clip dropdown */
-#downloads, #downloads .downloads-grid, #downloads .product-card {
+/* Make sure nothing clips dropdowns */
+#downloads,
+#downloads .downloads-grid,
+#downloads .product-card {
   overflow: visible !important;
   position: relative;
 }
 
-/* Freeze cards during dropdown open */
-body.dropdown-open #downloads .product-card,
-body.dropdown-open #downloads .product-card:hover {
-  filter: brightness(1) !important;
-  box-shadow: none !important;
-  z-index: 1 !important;
-}
-
-/* ===============================
-   MOBILE: Force dropdown to overlay ALL sections
-   =============================== */
+/* ===================================
+   MOBILE MODE — FLOAT DROPDOWN OVERLAY
+   =================================== */
 @media (max-width: 768px) {
   #downloads .download-dropdown .dropdown-menu.show {
     position: fixed !important;
@@ -5934,6 +5931,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
