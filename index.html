@@ -601,7 +601,7 @@
             color: var(--neon-teal);
         }
 
-      /* ===============================
+   /* ===============================
    DOWNLOADS SECTION — CLEAN + FIXED
    =============================== */
 
@@ -613,7 +613,7 @@
   width: 100%;
 }
 
-/* Product Cards — NO TRANSFORM */
+/* Product Cards (NO TRANSFORM — no stacking context) */
 .product-card {
   background: rgba(26, 31, 58, 0.5);
   border-radius: 15px;
@@ -625,17 +625,15 @@
   opacity: 1;
   filter: brightness(0.95);
 }
-
 .product-card.visible { filter: brightness(1); }
-
 .product-card:hover {
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
   filter: brightness(1.15);
 }
 
-/* Icon + Text */
+/* Text + Icons */
 .product-icon { font-size: 3rem; color: var(--gold); margin-bottom: 1rem; }
-.product-card h3 { font-family: 'Montserrat', sans-serif; font-size: 1.3rem; margin-bottom: 1rem; color: var(--text-light); }
+.product-card h3 { color: var(--text-light); font-size: 1.3rem; margin-bottom: 1rem; }
 .product-card p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.95rem; }
 
 /* ===============================
@@ -662,17 +660,15 @@
   min-width: 200px;
   text-align: center;
 }
-
 .dropdown-toggle:hover {
   background: var(--gold);
   color: var(--deep-navy);
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
-
 .dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
 .dropdown-toggle.open i { transform: rotate(180deg); }
 
-/* Correct Dropdown Placement */
+/* Default dropdown placement (desktop) */
 #downloads .download-dropdown .dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
@@ -688,12 +684,12 @@
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: opacity .25s ease, visibility .25s ease;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
   z-index: 99999;
 }
 
-/* Show State */
+/* Show state */
 #downloads .download-dropdown .dropdown-menu.show {
   opacity: 1;
   visibility: visible;
@@ -710,9 +706,7 @@
   border-bottom: 1px solid rgba(255, 215, 0, 0.1);
   transition: all 0.25s ease;
 }
-
 .dropdown-item:last-child { border-bottom: 1px solid rgba(255, 215, 0, 0.1); }
-
 .dropdown-item:hover {
   background: rgba(255, 215, 0, 0.15);
   color: var(--gold);
@@ -725,13 +719,13 @@
 #downloads .dropdown-menu::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
 #downloads .dropdown-menu::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.5); }
 
-/* Ensure dropdown overlays */
+/* Never clip dropdown */
 #downloads, #downloads .downloads-grid, #downloads .product-card {
   overflow: visible !important;
   position: relative;
 }
 
-/* Freeze cards while open */
+/* Freeze cards during dropdown open */
 body.dropdown-open #downloads .product-card,
 body.dropdown-open #downloads .product-card:hover {
   filter: brightness(1) !important;
@@ -739,17 +733,18 @@ body.dropdown-open #downloads .product-card:hover {
   z-index: 1 !important;
 }
 
-     /* === FIX OVERVIEW DROPDOWN BEING HIDDEN BY DONATE SECTION === */
-#donate, 
-#donate * {
-  position: static !important;   /* remove stacking context */
-  z-index: auto !important;
-  overflow: visible !important;
-}
-
-/* Allow dropdown to always float above donate section */
-body.dropdown-open #downloads .dropdown-menu {
-  z-index: 999999 !important;
+/* ===============================
+   MOBILE: Force dropdown to overlay ALL sections
+   =============================== */
+@media (max-width: 768px) {
+  #downloads .download-dropdown .dropdown-menu.show {
+    position: fixed !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: var(--dropdown-open-top, 200px) !important;
+    z-index: 9999999 !important;
+    pointer-events: auto !important;
+  }
 }
      
         /* Questionnaire Section */
@@ -5939,6 +5934,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
