@@ -613,26 +613,26 @@
   width: 100%;
 }
 
-/* Product Cards */
+/* Product Cards (NO stacking context) */
 .product-card {
   background: rgba(26, 31, 58, 0.5);
   border-radius: 15px;
   padding: 2rem;
   text-align: center;
   border: 1px solid rgba(255, 215, 0, 0.3);
-  transition: box-shadow 0.3s ease, filter 0.3s ease;
+  transition: box-shadow 0.3s ease;
   position: relative;
-  filter: brightness(0.95);
+  /* REMOVE stacking contexts */
+  filter: none !important;
+  transform: none !important;
+  will-change: auto !important;
 }
-
-.product-card.visible { filter: brightness(1); }
 
 .product-card:hover {
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-  filter: brightness(1.15);
 }
 
-/* Freeze card hover lifting when dropdown is open (Nutrition fix) */
+/* Freeze hover lift while dropdown open */
 body.dropdown-open #downloads .product-card,
 body.dropdown-open #downloads .product-card:hover {
   box-shadow: none !important;
@@ -650,11 +650,11 @@ body.dropdown-open #downloads .product-card:hover {
 .download-dropdown {
   position: relative;
   margin-top: 1rem;
-  z-index: 20;
+  z-index: 50; /* small, card positions are now safe */
 }
 
 .download-dropdown.open-menu {
-  z-index: 99990 !important;
+  z-index: 100000 !important;
 }
 
 .dropdown-toggle {
@@ -699,7 +699,7 @@ body.dropdown-open #downloads .product-card:hover {
   pointer-events: none;
   transition: opacity .25s ease, visibility .25s ease;
   box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  z-index: 99999 !important;
+  z-index: 999999 !important; /* VERY IMPORTANT */
 }
 
 /* Show State */
@@ -5964,6 +5964,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
