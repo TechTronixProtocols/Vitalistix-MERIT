@@ -601,7 +601,7 @@
             color: var(--neon-teal);
         }
 
-        /* ===============================
+      /* ===============================
    DOWNLOADS SECTION — CLEAN + FIXED
    =============================== */
 
@@ -613,7 +613,7 @@
   width: 100%;
 }
 
-/* Product Cards — NO TRANSFORM (Prevents stacking context issues) */
+/* Product Cards — NO TRANSFORM */
 .product-card {
   background: rgba(26, 31, 58, 0.5);
   border-radius: 15px;
@@ -623,17 +623,14 @@
   transition: box-shadow 0.3s ease, filter 0.3s ease;
   position: relative;
   opacity: 1;
-  filter: brightness(0.95); /* replaces scale(0.95) */
+  filter: brightness(0.95);
 }
 
-.product-card.visible {
-  opacity: 1;
-  filter: brightness(1); /* replaces scale(1) */
-}
+.product-card.visible { filter: brightness(1); }
 
 .product-card:hover {
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-  filter: brightness(1.15); /* replaces translateY(-5px) pop */
+  filter: brightness(1.15);
 }
 
 /* Icon + Text */
@@ -675,7 +672,7 @@
 .dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
 .dropdown-toggle.open i { transform: rotate(180deg); }
 
-/* Guaranteed Correct Dropdown Placement */
+/* Correct Dropdown Placement */
 #downloads .download-dropdown .dropdown-menu {
   position: absolute;
   top: calc(100% + 8px);
@@ -728,39 +725,18 @@
 #downloads .dropdown-menu::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
 #downloads .dropdown-menu::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.5); }
 
-/* Ensure dropdown ALWAYS overlays cards */
+/* Ensure dropdown overlays */
 #downloads, #downloads .downloads-grid, #downloads .product-card {
   overflow: visible !important;
   position: relative;
 }
 
-/* Freeze cards while dropdown open */
+/* Freeze cards while open */
 body.dropdown-open #downloads .product-card,
 body.dropdown-open #downloads .product-card:hover {
   filter: brightness(1) !important;
   box-shadow: none !important;
   z-index: 1 !important;
-}
-
-     /* ===== FORCE DROPDOWN TO OVERLAY EVERYTHING BELOW IT ===== */
-
-#support,
-#support *,
-#mission,
-#mission *,
-.support-section,
-.support-section *,
-.donate-section,
-.donate-section * {
-    transform: none !important;
-    z-index: auto !important;
-    pointer-events: auto !important;
-}
-
-/* The dropdown itself stays on top */
-#downloads .dropdown-menu {
-    z-index: 999999 !important;
-    position: absolute !important;
 }
      
         /* Questionnaire Section */
@@ -5950,6 +5926,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
