@@ -4326,7 +4326,6 @@ function updateLanguage(lang) {
 function closeAllDropdowns() {
   document.querySelectorAll('#downloads .dropdown-menu').forEach(menu => {
     menu.classList.remove('show');
-    // reset any inline positioning
     menu.style.position = '';
     menu.style.top = '';
     menu.style.left = '';
@@ -4347,29 +4346,28 @@ function toggleDropdown(dropdownId, event) {
   closeAllDropdowns();
   if (wasOpen) return;
 
-  const btn = event && event.currentTarget ? event.currentTarget : null;
+  const btn = event?.currentTarget;
   if (!btn) return;
+
   const wrapper = btn.closest('.download-dropdown');
 
-  // stacking + state
   if (wrapper) wrapper.classList.add('open-menu');
   document.body.classList.add('dropdown-open');
 
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  const rect = btn.getBoundingClientRect();
 
   if (isMobile) {
-    // Position this menu as a viewport overlay directly under THIS button
-    const r = btn.getBoundingClientRect();
-
+    // ✅ Mobile: fixed to viewport position
     menu.style.position = 'fixed';
-    menu.style.left = (r.left + r.width / 2) + 'px';
-    menu.style.top  = Math.round(r.bottom + 8) + 'px';
+    menu.style.left = (rect.left + rect.width / 2) + 'px';
+    menu.style.top = Math.round(rect.bottom + 8) + 'px';
     menu.style.transform = 'translateX(-50%)';
   } else {
-    // Desktop: anchor to the button inside its card
+    // ✅ Desktop: absolute at true page position (scroll-aware)
     menu.style.position = 'absolute';
     menu.style.left = '50%';
-    menu.style.top  = (btn.offsetHeight + 8) + 'px';
+    menu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
     menu.style.transform = 'translateX(-50%)';
   }
 
@@ -4382,7 +4380,7 @@ document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
   item.addEventListener('click', e => e.stopPropagation());
 });
 
-// Close when clicking outside / scrolling / resizing
+// Close when clicking outside / scroll / resize
 document.addEventListener('click', e => {
   if (!e.target.closest('#downloads .download-dropdown')) closeAllDropdowns();
 });
@@ -5970,6 +5968,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
