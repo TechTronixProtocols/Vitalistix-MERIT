@@ -1,86 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-    <!-- Main Website -->
-    <url>
-        <loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/</loc>
-        <lastmod>2025-01-01</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>1.0</priority>
-    </url>
+  <!-- Main Site Pages -->
+  <url>
+    <loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
 
-    <!-- ========================= -->
-    <!-- NUTRITION GUIDE (8 LANGUAGES) -->
-    <!-- ========================= -->
+  <url>
+    <loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/#downloads</loc>
+    <priority>0.9</priority>
+  </url>
 
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(English).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Espa%C3%B1ol).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Fran%C3%A7ais).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Deutsch).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Italiano).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(Portugu%C3%AAs).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(P%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Nutritional%20Guide%20(%E4%B8%AD%E6%96%87).pdf</loc>
-        <priority>0.8</priority>
-    </url>
+  <!-- Nutrition Guides -->
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-en.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-es.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-fr.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-de.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-it.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-pt.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-ru.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-zh.pdf</loc></url>
 
-    <!-- ========================= -->
-    <!-- PRACTICAL OVERVIEW (8 LANGUAGES) -->
-    <!-- ========================= -->
-
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(English).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Espa%C3%B1ol).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Fran%C3%A7ais).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Deutsch).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Italiano).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(Portugu%C3%AAs).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(P%D1%83%D1%81%D1%81%D0%BA%D0%B8%D0%B9).pdf</loc>
-        <priority>0.8</priority>
-    </url>
-    <url>
-        <loc>https://raw.githubusercontent.com/TechTronixProtocols/Vitalistix-MERIT/main/Understanding%20Metabolic%20Epilepsy_%20A%20Practical%20Guide%20(%E4%B8%AD%E6%96%87).pdf</loc>
-        <priority>0.8</priority>
-    </url>
+  <!-- Metabolic Overview Guides -->
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-en.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-es.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-fr.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-de.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-it.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-pt.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-ru.pdf</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-zh.pdf</loc></url>
 
 </urlset>
