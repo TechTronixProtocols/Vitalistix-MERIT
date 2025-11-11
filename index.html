@@ -741,6 +741,27 @@ body.dropdown-open #downloads .product-card:hover {
   box-shadow: none !important;
   z-index: 1 !important;
 }
+
+     /* ===== FORCE DROPDOWN TO OVERLAY EVERYTHING BELOW IT ===== */
+
+#support,
+#support *,
+#mission,
+#mission *,
+.support-section,
+.support-section *,
+.donate-section,
+.donate-section * {
+    transform: none !important;
+    z-index: auto !important;
+    pointer-events: auto !important;
+}
+
+/* The dropdown itself stays on top */
+#downloads .dropdown-menu {
+    z-index: 999999 !important;
+    position: absolute !important;
+}
      
         /* Questionnaire Section */
         .questionnaire-container {
@@ -5929,6 +5950,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
