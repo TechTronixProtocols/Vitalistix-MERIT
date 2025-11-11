@@ -886,6 +886,11 @@ body.dropdown-open #downloads .product-card:hover { transform: none !important; 
 /* Make sure nothing nearby clips or swallows clicks */
 #downloads, #downloads .downloads-grid, #downloads .product-card { overflow: visible !important; }
 #downloads .dropdown-item { pointer-events: auto; }
+
+     body.dropdown-open .product-card {
+    transform: none !important;
+    z-index: 1 !important;
+}
      
         /* Questionnaire Section */
         .questionnaire-container {
@@ -4444,46 +4449,55 @@ function updateLanguage(lang) {
             }
         });
 
-      function toggleDropdown(dropdownId, event) {
-  const menu = document.getElementById(dropdownId);
-  const wasOpen = menu.classList.contains('show');
-
-  // Close everything
+    // Close all dropdowns
+function closeAllDropdowns() {
   document.querySelectorAll('#downloads .dropdown-menu').forEach(m => m.classList.remove('show'));
   document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
   document.body.classList.remove('dropdown-open');
-
-  // Re-open the clicked one (if it wasn't already open)
-  if (!wasOpen) {
-    const btn = event?.currentTarget;
-    const wrap = btn?.closest('.download-dropdown');
-
-    if (wrap && btn) {
-      // Pin the menu EXACTLY under this button, always.
-      menu.style.top = (btn.offsetHeight + 8) + 'px'; // 8px spacing under button
-      menu.style.left = '50%';
-      menu.style.transform = 'translateX(-50%)';
-    }
-
-    menu.classList.add('show');
-    if (btn) btn.classList.add('open');
-    document.body.classList.add('dropdown-open');
-  }
 }
 
-// Prevent dropdown from closing before download fires
+// Toggle dropdown (mobile + desktop safe)
+function toggleDropdown(dropdownId, event) {
+  const menu = document.getElementById(dropdownId);
+  const wasOpen = menu.classList.contains('show');
+
+  // Close any open dropdown
+  closeAllDropdowns();
+  if (wasOpen) return;
+
+  const btn = event?.currentTarget;
+  const wrap = btn?.closest('.download-dropdown');
+
+  if (wrap && btn) {
+    // Position dropdown directly below the button
+    menu.style.top = (btn.offsetHeight + 8) + 'px';
+    menu.style.left = '50%';
+    menu.style.transform = 'translateX(-50%)';
+  }
+
+  menu.classList.add('show');
+  if (btn) btn.classList.add('open');
+  document.body.classList.add('dropdown-open'); // ✅ keeps cards from scaling above
+}
+
+// Prevent dropdown from collapsing before click registers
 document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
   item.addEventListener('click', e => e.stopPropagation());
 });
 
-// Close menus when clicking anywhere outside
+// Close menus when clicking outside
 document.addEventListener('click', (e) => {
   if (!e.target.closest('#downloads .download-dropdown')) {
-    document.querySelectorAll('#downloads .dropdown-menu').forEach(m => m.classList.remove('show'));
-    document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
-    document.body.classList.remove('dropdown-open');
+    closeAllDropdowns();
   }
 });
+
+// Close menus when scrolling (mobile stability)
+window.addEventListener('scroll', closeAllDropdowns, { passive: true });
+
+// Close menus when resizing / orientation changes
+window.addEventListener('resize', closeAllDropdowns);
+
 
         // Enhanced scroll animations with throttling for better performance
         let ticking = false;
@@ -6065,6 +6079,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
