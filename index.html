@@ -3009,7 +3009,7 @@ body.modal-open {
             </p>
 
             <div class="download-dropdown">
-                <button class="dropdown-toggle" onclick="toggleDropdown('nutritionDropdown')">
+                <button class="dropdown-toggle" onclick="toggleDropdown('nutritionDropdown', event)">
                     Select Language <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="dropdown-menu scrollable" id="nutritionDropdown">
@@ -3034,7 +3034,7 @@ body.modal-open {
             </p>
 
             <div class="download-dropdown">
-                <button class="dropdown-toggle" onclick="toggleDropdown('overviewDropdown')">
+                <button class="dropdown-toggle" onclick="toggleDropdown('overviewDropdown', event)">
                     Select Language <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="dropdown-menu scrollable" id="overviewDropdown">
@@ -4367,6 +4367,14 @@ function toggleDropdown(dropdownId, event) {
         event.currentTarget.classList.add('open');
     }
 }
+
+     // Prevent dropdown link clicks from closing menu before download triggers
+document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', function(e) {
+        e.stopPropagation();
+        // allow normal download to proceed
+    });
+});
 
         // Enhanced scroll animations with throttling for better performance
         let ticking = false;
@@ -5948,6 +5956,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
