@@ -653,11 +653,14 @@
             font-size: 0.95rem;
         }
 
-       /* Download Dropdown Styles */
+      /* ===============================
+   DOWNLOADS SECTION — FINAL CLEAN CSS
+   =============================== */
+
 .download-dropdown {
     position: relative;
     margin-top: 1rem;
-    z-index: 20;
+    z-index: 200;
 }
 
 .dropdown-toggle {
@@ -691,11 +694,12 @@
     transform: rotate(180deg);
 }
 
-.dropdown-menu {
+/* === Correct, stable dropdown placement === */
+#downloads .download-dropdown .dropdown-menu {
     position: absolute;
-    top: 100%;
+    top: calc(100% + 8px);  /* clean, consistent spacing */
     left: 50%;
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%);
     min-width: 250px;
     max-width: 300px;
     max-height: 250px;
@@ -703,36 +707,27 @@
     background: rgba(26, 31, 58, 0.97);
     border: 1px solid rgba(255, 215, 0, 0.3);
     border-radius: 10px;
-    margin-top: 0.5rem;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.25s ease;
+    pointer-events: auto;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    z-index: 9999;
+    z-index: 9999; /* always above Overview card */
 }
 
-.dropdown-menu.show {
+/* Show state */
+#downloads .download-dropdown .dropdown-menu.show {
     opacity: 1;
     visibility: visible;
 }
 
-.dropdown-menu::-webkit-scrollbar {
-    width: 6px;
-}
+/* Scrollbar styling */
+#downloads .dropdown-menu::-webkit-scrollbar { width: 6px; }
+#downloads .dropdown-menu::-webkit-scrollbar-track { background: rgba(255, 215, 0, 0.1); }
+#downloads .dropdown-menu::-webkit-scrollbar-thumb { background: rgba(255, 215, 0, 0.3); border-radius: 3px; }
+#downloads .dropdown-menu::-webkit-scrollbar-thumb:hover { background: rgba(255, 215, 0, 0.5); }
 
-.dropdown-menu::-webkit-scrollbar-track {
-    background: rgba(255, 215, 0, 0.1);
-}
-
-.dropdown-menu::-webkit-scrollbar-thumb {
-    background: rgba(255, 215, 0, 0.3);
-    border-radius: 3px;
-}
-
-.dropdown-menu::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 215, 0, 0.5);
-}
-
+/* Dropdown items */
 .dropdown-item {
     display: block;
     padding: 0.8rem 1.2rem;
@@ -743,151 +738,26 @@
     border-bottom: 1px solid rgba(255, 215, 0, 0.1);
     transition: all 0.25s ease;
 }
-
-/* Keep borders consistent for ALL items */
 .dropdown-item:last-child {
     border-bottom: 1px solid rgba(255, 215, 0, 0.1);
 }
-
-/* Perfect hover behavior for every language (including Русский + 中文) */
 .dropdown-item:hover {
     background: rgba(255, 215, 0, 0.15);
     color: var(--gold);
     padding-left: 1.6rem;
 }
 
-.dropdown-item i {
-    margin-right: 0.5rem;
-    width: 16px;
-    text-align: center;
-}
-
-     /* Make absolutely sure the downloads section sits on top */
-#downloads { position: relative; z-index: 50; }
-#downloads .download-dropdown { position: relative; z-index: 100; }
-#downloads .dropdown-menu { position: absolute; z-index: 9999; pointer-events: auto; }
-
-/* Some decorative layers tend to sit above and swallow clicks. Turn them off. */
-.circuit-lines,
-.section-divider,
-.section-border,
-.product-card::before,
-.product-card::after,
-#downloads::before,
-#downloads::after {
-  pointer-events: none !important;
-}
-
-/* Keep the menu itself clickable */
+/* Ensure dropdown items always stay clickable */
 #downloads .dropdown-item { pointer-events: auto; }
 
-/* Give the scrolling list a tiny bottom padding so the last items aren't flush against an overlay */
-#downloads .dropdown-menu.scrollable { padding-bottom: 8px; }
-
-/* Optional: visual safety net so the menu never gets clipped by parents */
-#downloads, .downloads-grid, .product-card { overflow: visible !important; }
-
-     /* FIX: Ensure dropdown floats ABOVE the Overview card in mobile view */
-#downloads .download-dropdown {
-    position: relative;
-    z-index: 5000; /* higher than cards */
-}
-
-#downloads .dropdown-menu {
-    position: absolute;
-    z-index: 9999 !important; /* ensure top layer */
-    overflow: visible !important;
-}
-
-/* Override product cards that are clipping the dropdown */
-#downloads .product-card {
-    position: relative;
-    overflow: visible !important;
-    z-index: 1;
-}
-
-/* Ensure the grid does not clip either */
-#downloads .downloads-grid {
+/* Ensure section and cards never clip or swallow dropdown */
+#downloads, #downloads .downloads-grid, #downloads .product-card {
     overflow: visible !important;
     position: relative;
-    z-index: 1;
 }
 
-/* Some themes add a mask/gradient overlay on sections — disable pointer interference */
-#downloads::before,
-#downloads::after,
-.product-card::before,
-.product-card::after {
-    pointer-events: none !important;
-}
-
-/* Mobile: float the menu above everything when shown */
-@media (max-width: 768px) {
-  .dropdown-menu {
-    /* default still hidden; position is set by JS when opened */
-    z-index: 99999;
-    pointer-events: auto;
-    max-height: 60vh;
-  }
-}
-
-/* CRITICAL FIX — Remove stacking context that traps the dropdown */
-#downloads * {
-    transform: none !important;
-}
-
-     #downloads {
-    position: relative;
-    z-index: 100;
-}
-
-#downloads .product-card {
-    position: relative;
-    z-index: 200;
-    overflow: visible !important;
-}
-
-#downloads .download-dropdown {
-    position: relative;
-    z-index: 5000;
-}
-
-#downloads .dropdown-menu {
-    position: absolute;
-    top: calc(100% + 4px) !important; /* small clean gap under button */
-    left: 50%;
-    transform: translateX(-50%) !important; /* remove downward drift */
-    z-index: 99999 !important;
-    pointer-events: auto;
-}
-
-     /* === Downloads dropdown: final, scoped overrides === */
-#downloads .download-dropdown { position: relative; z-index: 30; }
-
-/* Always anchor the menu to its own button */
-#downloads .download-dropdown .dropdown-menu{
-  position: absolute;
-  top: calc(100% + 8px);        /* exactly under the button */
-  left: 50%;
-  transform: translateX(-50%);  /* centered on the button */
-  margin: 0;
-  z-index: 99999;               /* above the Overview card */
-  opacity: 0; visibility: hidden; /* keep your show/hide model */
-}
-
-/* Show state (kept from your code) */
-#downloads .download-dropdown .dropdown-menu.show{
-  opacity: 1; visibility: visible;
-}
-
-/* When any dropdown is open, freeze card hover transforms so nothing shifts */
-body.dropdown-open #downloads .product-card:hover { transform: none !important; }
-
-/* Make sure nothing nearby clips or swallows clicks */
-#downloads, #downloads .downloads-grid, #downloads .product-card { overflow: visible !important; }
-#downloads .dropdown-item { pointer-events: auto; }
-
-     body.dropdown-open .product-card {
+/* When ANY dropdown is open, freeze card hover transform stack context */
+body.dropdown-open #downloads .product-card {
     transform: none !important;
     z-index: 1 !important;
 }
@@ -6079,6 +5949,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
