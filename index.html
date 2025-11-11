@@ -4340,58 +4340,65 @@ function closeAllDropdowns() {
     drop.classList.remove('open-menu');
   });
 
+  document.documentElement.style.removeProperty('--dropdown-open-top');
   document.body.classList.remove('dropdown-open');
 }
 
 
-// Toggle dropdown (correct placement tied to the clicked button)
 function toggleDropdown(dropdownId, event) {
   const menu = document.getElementById(dropdownId);
-  const wasOpen = menu.classList.contains('show');
-
-  // Close all menus first
-  closeAllDropdowns();
-  if (wasOpen) return; // if clicking same dropdown again, simply close
-
   const btn = event.currentTarget;
   const wrapper = btn.closest('.download-dropdown');
 
-  // Ensure the dropdown card rises above neighbors
+  const wasOpen = menu.classList.contains('show');
+  closeAllDropdowns();
+  if (wasOpen) return;
+
   wrapper.classList.add('open-menu');
   document.body.classList.add('dropdown-open');
 
-  // ✅ Correct positioning logic (works while scrolling)
-  const rect = btn.getBoundingClientRect();
-  const scrollY = window.scrollY || window.pageYOffset;
+  /* ===== DESKTOP & TABLET POSITIONING ===== */
+  if (window.innerWidth > 768) {
+    menu.style.position = 'absolute';
+    menu.style.left = '50%';
+    menu.style.transform = 'translateX(-50%)';
+    menu.style.top = (btn.offsetHeight + 8) + 'px';
+  }
 
-  menu.style.position = 'absolute';
-  menu.style.top = `${rect.bottom + scrollY + 8}px`;  // anchor under the button
-  menu.style.left = `${rect.left + rect.width / 2}px`; // center align
-  menu.style.transform = 'translateX(-50%)';
+  /* ===== MOBILE FLOATING PER-CARD POSITIONING ===== */
+  else {
+    const rect = btn.getBoundingClientRect();
+    const absoluteTop = rect.bottom + window.scrollY + 8;
 
-  // Show dropdown + rotate arrow
+    menu.style.position = 'fixed';
+    menu.style.left = '50%';
+    menu.style.transform = 'translateX(-50%)';
+    menu.style.top = absoluteTop + 'px';
+  }
+
   menu.classList.add('show');
   btn.classList.add('open');
 }
 
 
-// Prevent premature collapse on click inside
+/* Prevent collapse before click registers */
 document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
   item.addEventListener('click', e => e.stopPropagation());
 });
 
 
-// Click outside closes dropdown
+/* Close when clicking outside */
 document.addEventListener('click', e => {
-  if (!e.target.closest('#downloads .download-dropdown')) closeAllDropdowns();
+  if (!e.target.closest('#downloads .download-dropdown')) {
+    closeAllDropdowns();
+  }
 });
 
 
-// Auto-close on scroll/resize (stability on mobile & desktop)
+/* Close on scroll/resize */
 window.addEventListener('scroll', closeAllDropdowns, { passive: true });
 window.addEventListener('resize', closeAllDropdowns);
 
-     
 
         // Enhanced scroll animations with throttling for better performance
         let ticking = false;
@@ -5973,6 +5980,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
