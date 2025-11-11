@@ -601,8 +601,8 @@
             color: var(--neon-teal);
         }
 
- /* ===============================
-   DOWNLOADS SECTION — CLEAN + FIXED
+/* ===============================
+   DOWNLOADS SECTION — CLEAN + MERGED FIX
    =============================== */
 
 /* Layout */
@@ -624,10 +624,18 @@
   position: relative;
   filter: brightness(0.95);
 }
+
 .product-card.visible { filter: brightness(1); }
+
 .product-card:hover {
   box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
   filter: brightness(1.15);
+}
+
+/* Freeze card hover lifting when dropdown is open (Nutrition fix) */
+body.dropdown-open #downloads .product-card,
+body.dropdown-open #downloads .product-card:hover {
+  box-shadow: none !important;
 }
 
 /* Icon + Text */
@@ -663,11 +671,13 @@
   text-align: center;
   transition: all 0.3s ease;
 }
+
 .dropdown-toggle:hover {
   background: var(--gold);
   color: var(--deep-navy);
   box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
+
 .dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
 .dropdown-toggle.open i { transform: rotate(180deg); }
 
@@ -5954,6 +5964,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
