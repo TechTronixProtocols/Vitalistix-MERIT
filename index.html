@@ -744,20 +744,6 @@
     z-index: 9999999 !important;
   }
 }
-
-     /* Prevent cards from stacking above open dropdowns */
-body.dropdown-open #downloads .product-card,
-body.dropdown-open #downloads .product-card:hover {
-  z-index: 1 !important;      /* Force cards to stay behind */
-  box-shadow: none !important; /* Prevent hover shadow from stacking */
-  filter: brightness(1) !important;
-}
-
-/* Ensure whichever dropdown is open sits above everything */
-#downloads .download-dropdown.open-menu .dropdown-menu.show {
-  z-index: 999999 !important;
-  position: absolute !important;
-}
      
         /* Questionnaire Section */
         .questionnaire-container {
@@ -5968,6 +5954,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
