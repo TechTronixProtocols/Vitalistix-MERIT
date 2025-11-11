@@ -761,6 +761,23 @@ body.dropdown-open #downloads .product-card {
     transform: none !important;
     z-index: 1 !important;
 }
+
+     /* When a dropdown is open, disable transforms that create stacking context */
+body.dropdown-open #downloads .product-card {
+    transform: none !important;
+}
+
+/* Also stop hover from re-triggering transform during dropdown open */
+body.dropdown-open #downloads .product-card:hover {
+    transform: none !important;
+}
+
+/* Ensure dropdown is guaranteed to overlay */
+body.dropdown-open #downloads .dropdown-menu {
+    z-index: 999999 !important;
+    position: absolute !important;
+    pointer-events: auto !important;
+}
      
         /* Questionnaire Section */
         .questionnaire-container {
@@ -5949,6 +5966,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
