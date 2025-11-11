@@ -4323,21 +4323,6 @@ function updateLanguage(lang) {
    DROPDOWN CONTROL (DESKTOP + MOBILE SAFE)
    ========================================= */
 
-function closeAllDropdowns() {
-  document.querySelectorAll('#downloads .dropdown-menu').forEach(menu => {
-    menu.classList.remove('show');
-    menu.style.position = '';
-    menu.style.top = '';
-    menu.style.left = '';
-    menu.style.transform = '';
-  });
-
-  document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
-  document.querySelectorAll('#downloads .download-dropdown').forEach(w => w.classList.remove('open-menu'));
-
-  document.body.classList.remove('dropdown-open');
-}
-
 function toggleDropdown(dropdownId, event) {
   const menu = document.getElementById(dropdownId);
   const wasOpen = menu.classList.contains('show');
@@ -4355,19 +4340,23 @@ function toggleDropdown(dropdownId, event) {
   document.body.classList.add('dropdown-open');
 
   const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+  // Key bounding box references
   const rect = btn.getBoundingClientRect();
+  const wrapperRect = wrapper.getBoundingClientRect(); // <-- THIS IS THE FIX
 
   if (isMobile) {
-    // ✅ Mobile: fixed to viewport position
+    // ✅ Mobile: fixed & viewport-based
     menu.style.position = 'fixed';
     menu.style.left = (rect.left + rect.width / 2) + 'px';
-    menu.style.top = Math.round(rect.bottom + 8) + 'px';
+    menu.style.top  = (rect.bottom + 8) + 'px';
     menu.style.transform = 'translateX(-50%)';
+
   } else {
-    // ✅ Desktop: absolute at true page position (scroll-aware)
+    // ✅ Desktop: Position relative to THIS card's wrapper, not the page
     menu.style.position = 'absolute';
     menu.style.left = '50%';
-    menu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
+    menu.style.top = (rect.bottom - wrapperRect.top + 8) + 'px';  // <-- CORRECTED
     menu.style.transform = 'translateX(-50%)';
   }
 
@@ -5968,6 +5957,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
