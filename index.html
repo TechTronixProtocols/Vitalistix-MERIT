@@ -787,6 +787,39 @@
 /* Optional: visual safety net so the menu never gets clipped by parents */
 #downloads, .downloads-grid, .product-card { overflow: visible !important; }
 
+     /* FIX: Ensure dropdown floats ABOVE the Overview card in mobile view */
+#downloads .download-dropdown {
+    position: relative;
+    z-index: 5000; /* higher than cards */
+}
+
+#downloads .dropdown-menu {
+    position: absolute;
+    z-index: 9999 !important; /* ensure top layer */
+    overflow: visible !important;
+}
+
+/* Override product cards that are clipping the dropdown */
+#downloads .product-card {
+    position: relative;
+    overflow: visible !important;
+    z-index: 1;
+}
+
+/* Ensure the grid does not clip either */
+#downloads .downloads-grid {
+    overflow: visible !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Some themes add a mask/gradient overlay on sections — disable pointer interference */
+#downloads::before,
+#downloads::after,
+.product-card::before,
+.product-card::after {
+    pointer-events: none !important;
+}
 
         /* Questionnaire Section */
         .questionnaire-container {
@@ -5955,6 +5988,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
