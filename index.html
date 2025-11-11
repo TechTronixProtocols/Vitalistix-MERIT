@@ -2597,7 +2597,31 @@ body.modal-open {
   font-size: 1rem;
   color: #d4e2ef;
   line-height: 1.6;
-}         
+}
+
+     /* Ensure dropdown displays ABOVE surrounding containers */
+.download-dropdown {
+    position: relative;
+    z-index: 20;
+}
+
+.dropdown-menu {
+    position: absolute;
+    z-index: 9999; /* Force on top */
+    max-height: 220px; /* Allow scrolling */
+    overflow-y: auto;
+    background: rgba(20, 24, 44, 0.98);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+}
+
+/* Ensure nothing clips the dropdown */
+.product-card,
+.downloads-grid,
+#downloads {
+    overflow: visible !important;
+}
+     
     </style>
 </head>
 <body>
@@ -5924,6 +5948,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
