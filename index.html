@@ -762,6 +762,32 @@
     text-align: center;
 }
 
+     /* Make absolutely sure the downloads section sits on top */
+#downloads { position: relative; z-index: 50; }
+#downloads .download-dropdown { position: relative; z-index: 100; }
+#downloads .dropdown-menu { position: absolute; z-index: 9999; pointer-events: auto; }
+
+/* Some decorative layers tend to sit above and swallow clicks. Turn them off. */
+.circuit-lines,
+.section-divider,
+.section-border,
+.product-card::before,
+.product-card::after,
+#downloads::before,
+#downloads::after {
+  pointer-events: none !important;
+}
+
+/* Keep the menu itself clickable */
+#downloads .dropdown-item { pointer-events: auto; }
+
+/* Give the scrolling list a tiny bottom padding so the last items aren't flush against an overlay */
+#downloads .dropdown-menu.scrollable { padding-bottom: 8px; }
+
+/* Optional: visual safety net so the menu never gets clipped by parents */
+#downloads, .downloads-grid, .product-card { overflow: visible !important; }
+
+
         /* Questionnaire Section */
         .questionnaire-container {
             max-width: 900px;
@@ -4319,11 +4345,11 @@ function updateLanguage(lang) {
             }
         });
 
-        // Dropdown functionality for downloads
+       // Dropdown functionality for downloads
 function toggleDropdown(dropdownId, event) {
     const dropdown = document.getElementById(dropdownId);
     const isOpen = dropdown.classList.contains('show');
-    
+
     // Close all dropdowns first
     document.querySelectorAll('.dropdown-menu').forEach(menu => {
         menu.classList.remove('show');
@@ -4332,14 +4358,16 @@ function toggleDropdown(dropdownId, event) {
         toggle.classList.remove('open');
     });
 
-    // Open the clicked dropdown if it was closed
+    // Safely handle missing event (prevents silent break)
     if (!isOpen) {
         dropdown.classList.add('show');
-        event.currentTarget.classList.add('open');
+        if (event && event.currentTarget) {
+            event.currentTarget.classList.add('open');
+        }
     }
 }
 
-     // Prevent dropdown link clicks from closing menu before download triggers
+// Keep this — it prevents menu from collapsing before click is registered
 document.querySelectorAll('.dropdown-item').forEach(item => {
     item.addEventListener('click', function(e) {
         e.stopPropagation();
@@ -5927,6 +5955,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
