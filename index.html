@@ -4326,76 +4326,66 @@ function updateLanguage(lang) {
 function closeAllDropdowns() {
   document.querySelectorAll('#downloads .dropdown-menu').forEach(menu => {
     menu.classList.remove('show');
+    // reset any inline positioning
     menu.style.position = '';
     menu.style.top = '';
     menu.style.left = '';
     menu.style.transform = '';
   });
 
-  document.querySelectorAll('#downloads .dropdown-toggle').forEach(toggle => {
-    toggle.classList.remove('open');
-  });
+  document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
+  document.querySelectorAll('#downloads .download-dropdown').forEach(w => w.classList.remove('open-menu'));
 
-  document.querySelectorAll('#downloads .download-dropdown').forEach(drop => {
-    drop.classList.remove('open-menu');
-  });
-
-  document.documentElement.style.removeProperty('--dropdown-open-top');
   document.body.classList.remove('dropdown-open');
 }
 
-
 function toggleDropdown(dropdownId, event) {
   const menu = document.getElementById(dropdownId);
-  const btn = event.currentTarget;
-  const wrapper = btn.closest('.download-dropdown');
-
   const wasOpen = menu.classList.contains('show');
+
+  // Close others
   closeAllDropdowns();
   if (wasOpen) return;
 
-  wrapper.classList.add('open-menu');
+  const btn = event && event.currentTarget ? event.currentTarget : null;
+  if (!btn) return;
+  const wrapper = btn.closest('.download-dropdown');
+
+  // stacking + state
+  if (wrapper) wrapper.classList.add('open-menu');
   document.body.classList.add('dropdown-open');
 
-  /* ===== DESKTOP & TABLET POSITIONING ===== */
-  if (window.innerWidth > 768) {
-    menu.style.position = 'absolute';
-    menu.style.left = '50%';
-    menu.style.transform = 'translateX(-50%)';
-    menu.style.top = (btn.offsetHeight + 8) + 'px';
-  }
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
-  /* ===== MOBILE FLOATING PER-CARD POSITIONING ===== */
-  else {
-    const rect = btn.getBoundingClientRect();
-    const absoluteTop = rect.bottom + window.scrollY + 8;
+  if (isMobile) {
+    // Position this menu as a viewport overlay directly under THIS button
+    const r = btn.getBoundingClientRect();
 
     menu.style.position = 'fixed';
-    menu.style.left = '50%';
+    menu.style.left = (r.left + r.width / 2) + 'px';
+    menu.style.top  = Math.round(r.bottom + 8) + 'px';
     menu.style.transform = 'translateX(-50%)';
-    menu.style.top = absoluteTop + 'px';
+  } else {
+    // Desktop: anchor to the button inside its card
+    menu.style.position = 'absolute';
+    menu.style.left = '50%';
+    menu.style.top  = (btn.offsetHeight + 8) + 'px';
+    menu.style.transform = 'translateX(-50%)';
   }
 
   menu.classList.add('show');
   btn.classList.add('open');
 }
 
-
-/* Prevent collapse before click registers */
+// Keep click-through stable
 document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
   item.addEventListener('click', e => e.stopPropagation());
 });
 
-
-/* Close when clicking outside */
+// Close when clicking outside / scrolling / resizing
 document.addEventListener('click', e => {
-  if (!e.target.closest('#downloads .download-dropdown')) {
-    closeAllDropdowns();
-  }
+  if (!e.target.closest('#downloads .download-dropdown')) closeAllDropdowns();
 });
-
-
-/* Close on scroll/resize */
 window.addEventListener('scroll', closeAllDropdowns, { passive: true });
 window.addEventListener('resize', closeAllDropdowns);
 
@@ -5980,6 +5970,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
