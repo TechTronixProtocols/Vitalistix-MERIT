@@ -854,9 +854,9 @@
 
 #downloads .dropdown-menu {
     position: absolute;
-    top: 100% !important;
+    top: calc(100% + 4px) !important; /* small clean gap under button */
     left: 50%;
-    transform: translateX(-50%) translateY(8px) !important;
+    transform: translateX(-50%) !important; /* remove downward drift */
     z-index: 99999 !important;
     pointer-events: auto;
 }
@@ -6057,6 +6057,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
