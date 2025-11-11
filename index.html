@@ -4301,14 +4301,7 @@ function updateLanguage(lang) {
             }
         });
 
-    // Close all dropdowns
-function closeAllDropdowns() {
-  document.querySelectorAll('#downloads .dropdown-menu').forEach(m => m.classList.remove('show'));
-  document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
-  document.body.classList.remove('dropdown-open');
-}
-
-// Toggle dropdown (mobile + desktop safe)
+   // Toggle dropdown (mobile + desktop safe)
 function toggleDropdown(dropdownId, event) {
   const menu = document.getElementById(dropdownId);
   const wasOpen = menu.classList.contains('show');
@@ -4349,6 +4342,7 @@ window.addEventListener('scroll', closeAllDropdowns, { passive: true });
 
 // Close menus when resizing / orientation changes
 window.addEventListener('resize', closeAllDropdowns);
+
 
 
         // Enhanced scroll animations with throttling for better performance
@@ -5931,6 +5925,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
