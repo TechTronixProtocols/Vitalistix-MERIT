@@ -731,6 +731,13 @@ body.dropdown-open #downloads .product-card,
 body.dropdown-open #downloads .product-card:hover {
   box-shadow: none !important;
 }
+
+     /* When any dropdown is open, disable transform on ALL cards */
+body.dropdown-open #downloads .product-card,
+body.dropdown-open #downloads .product-card:hover {
+    transform: none !important;
+    z-index: 1 !important;
+}
      
         /* Questionnaire Section */
         .questionnaire-container {
@@ -5919,6 +5926,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
