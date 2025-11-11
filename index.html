@@ -744,14 +744,21 @@ body.dropdown-open #downloads .product-card:hover {
   z-index: auto !important;
 }
 
-/* Mobile Floating Dropdown */
+/* ===================================
+   MOBILE — FLOAT EACH DROPDOWN WHERE IT WAS CLICKED
+   =================================== */
 @media (max-width: 768px) {
+
   #downloads .download-dropdown .dropdown-menu.show {
     position: fixed !important;
     left: 50% !important;
     transform: translateX(-50%) !important;
+
+    /* NEW: read dynamic top position set by JS */
     top: var(--dropdown-open-top, 200px) !important;
+
     z-index: 9999999 !important;
+    pointer-events: auto !important;
   }
 }
      
@@ -4312,14 +4319,14 @@ function updateLanguage(lang) {
             }
         });
 
-  /* =========================================
+/* =========================================
    DROPDOWN CONTROL (DESKTOP + MOBILE SAFE)
    ========================================= */
 
 function closeAllDropdowns() {
   document.querySelectorAll('#downloads .dropdown-menu').forEach(menu => {
     menu.classList.remove('show');
-    menu.style.position = '';  // reset any fixed/mobile override
+    menu.style.position = ''; 
     menu.style.top = '';
     menu.style.left = '';
     menu.style.transform = '';
@@ -4333,18 +4340,21 @@ function closeAllDropdowns() {
     drop.classList.remove('open-menu');
   });
 
+  // Remove mobile float state
+  document.documentElement.style.removeProperty('--dropdown-open-top');
+
   document.body.classList.remove('dropdown-open');
 }
 
 
-// Toggle dropdown (handles desktop & mobile)
+// Toggle dropdown (handles desktop & mobile positioning independently)
 function toggleDropdown(dropdownId, event) {
   const menu = document.getElementById(dropdownId);
   const wasOpen = menu.classList.contains('show');
 
   // Close all menus first
   closeAllDropdowns();
-  if (wasOpen) return; // If user clicked same menu twice, just close
+  if (wasOpen) return;
 
   const btn = event?.currentTarget;
   const wrapper = btn.closest('.download-dropdown');
@@ -4353,19 +4363,23 @@ function toggleDropdown(dropdownId, event) {
   wrapper.classList.add('open-menu');
   document.body.classList.add('dropdown-open');
 
-  // Default placement (desktop)
+  // Desktop default positioning
   menu.style.position = 'absolute';
   menu.style.top = (btn.offsetHeight + 8) + 'px';
   menu.style.left = '50%';
   menu.style.transform = 'translateX(-50%)';
 
-  // Activate menu & indicator
+  // ✅ NEW: Mobile floating position (per-card, not global)
+  const rect = btn.getBoundingClientRect();
+  document.documentElement.style.setProperty('--dropdown-open-top', (rect.bottom + 8) + 'px');
+
+  // Show menu & indicator
   menu.classList.add('show');
   btn.classList.add('open');
 }
 
 
-// Prevent menu from collapsing before download fires
+// Prevent menu from collapsing before item click registers
 document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
   item.addEventListener('click', e => e.stopPropagation());
 });
@@ -4379,7 +4393,7 @@ document.addEventListener('click', e => {
 });
 
 
-// Close menus on scroll & window resize (mobile stability)
+// Close menus on scroll & resize (keeps UI stable)
 window.addEventListener('scroll', closeAllDropdowns, { passive: true });
 window.addEventListener('resize', closeAllDropdowns);
      
@@ -5964,6 +5978,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
