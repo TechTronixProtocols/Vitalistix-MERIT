@@ -4313,23 +4313,20 @@ function toggleDropdown(dropdownId, event) {
   const wrapper = button.closest('.download-dropdown');
   const wasOpen = menu.classList.contains('show');
 
-  // Close all first
+  // Close any open dropdowns first
   closeAllDropdowns();
   if (wasOpen) return;
 
-  // Mark this card as active (raises z-index safely)
+  // Raise ONLY this card to ensure dropdown is above others
   wrapper.classList.add('open-menu');
   document.body.classList.add('dropdown-open');
 
-  // ✅ Absolute positioning *inside the card wrapper*, unaffected by scroll/transform
-  const wrapperHeight = wrapper.offsetHeight; // height of toggle + spacing
-
+  // ✅ Position dropdown RELATIVE TO ITS OWN CARD (not screen)
   menu.style.position = 'absolute';
-  menu.style.top = wrapperHeight + 8 + 'px';
+  menu.style.top = (button.offsetHeight + 8) + 'px';
   menu.style.left = '50%';
   menu.style.transform = 'translateX(-50%)';
 
-  // Show
   menu.classList.add('show');
   button.classList.add('open');
 }
@@ -5927,6 +5924,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
