@@ -4320,7 +4320,7 @@ function updateLanguage(lang) {
         });
 
 /* =========================================
-   DROPDOWN CONTROL (DESKTOP + MOBILE SAFE)
+   DROPDOWN CONTROL — JS-ONLY, PER-CARD POSITION
    ========================================= */
 
 function closeAllDropdowns() {
@@ -4331,61 +4331,64 @@ function closeAllDropdowns() {
     menu.style.left = '';
     menu.style.transform = '';
   });
-
   document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
   document.querySelectorAll('#downloads .download-dropdown').forEach(w => w.classList.remove('open-menu'));
-
-  document.body.classList.remove('dropdown-open');
 }
 
+/**
+ * Place menu directly under the clicked button, inside its own .download-dropdown
+ * Works for desktop and mobile because we use DOM-relative math (not globals).
+ */
 function toggleDropdown(dropdownId, event) {
   const menu = document.getElementById(dropdownId);
   const wasOpen = menu.classList.contains('show');
 
-  // Close others
+  // close others first
   closeAllDropdowns();
   if (wasOpen) return;
 
-  const btn = event?.currentTarget;
+  const btn = event && event.currentTarget ? event.currentTarget : null;
   if (!btn) return;
 
   const wrapper = btn.closest('.download-dropdown');
+  if (!wrapper) return;
 
-  if (wrapper) wrapper.classList.add('open-menu');
-  document.body.classList.add('dropdown-open');
+  // raise only this wrapper (so it can overlay the sibling card)
+  wrapper.classList.add('open-menu');
+  btn.classList.add('open');
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const rect = btn.getBoundingClientRect();
+  // ---- Precise per-card positioning (no globals) ----
+  // Use bounding rect differences to be robust against any transforms.
+  const btnRect   = btn.getBoundingClientRect();
+  const wrapRect  = wrapper.getBoundingClientRect();
 
-  if (isMobile) {
-    // ✅ Mobile: fixed to viewport position
-    menu.style.position = 'fixed';
-    menu.style.left = (rect.left + rect.width / 2) + 'px';
-    menu.style.top = Math.round(rect.bottom + 8) + 'px';
-    menu.style.transform = 'translateX(-50%)';
-  } else {
-    // ✅ Desktop: absolute at true page position (scroll-aware)
-    menu.style.position = 'absolute';
-    menu.style.left = '50%';
-    menu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
-    menu.style.transform = 'translateX(-50%)';
-  }
+  // Position the menu absolutely INSIDE its wrapper
+  menu.style.position = 'absolute';
+  // Distance from top of wrapper to bottom of button + small gap
+  menu.style.top  = (btnRect.bottom - wrapRect.top + 8) + 'px';
+  // Center horizontally under the button within the wrapper
+  menu.style.left = (btnRect.left - wrapRect.left + (btnRect.width / 2)) + 'px';
+  menu.style.transform = 'translateX(-50%)';
 
   menu.classList.add('show');
-  btn.classList.add('open');
 }
 
-// Keep click-through stable
+// Keep item clicks from bubbling and instantly closing
 document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
   item.addEventListener('click', e => e.stopPropagation());
 });
 
-// Close when clicking outside / scroll / resize
-document.addEventListener('click', e => {
-  if (!e.target.closest('#downloads .download-dropdown')) closeAllDropdowns();
+// Button click should not propagate to document (prevents flicker)
+document.querySelectorAll('#downloads .dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', e => e.stopPropagation(), { passive: true });
 });
-window.addEventListener('scroll', closeAllDropdowns, { passive: true });
-window.addEventListener('resize', closeAllDropdowns);
+
+// Click anywhere outside to close
+document.addEventListener('click', () => closeAllDropdowns());
+
+// Also close on resize/scroll to avoid stale placement (optional, safe)
+window.addEventListener('resize', closeAllDropdowns, { passive: true });
+window.addEventListener('scroll',  closeAllDropdowns, { passive: true });
 
 
         // Enhanced scroll animations with throttling for better performance
@@ -5968,6 +5971,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
