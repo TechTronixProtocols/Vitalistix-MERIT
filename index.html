@@ -4323,56 +4323,33 @@ function updateLanguage(lang) {
    DROPDOWN CONTROL (DESKTOP + MOBILE SAFE)
    ========================================= */
 
-function closeAllDropdowns() {
-  document.querySelectorAll('#downloads .dropdown-menu').forEach(menu => {
-    menu.classList.remove('show');
-    menu.style.position = '';
-    menu.style.top = '';
-    menu.style.left = '';
-    menu.style.transform = '';
-  });
-
-  document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
-  document.querySelectorAll('#downloads .download-dropdown').forEach(w => w.classList.remove('open-menu'));
-
-  document.body.classList.remove('dropdown-open');
-}
-
 function toggleDropdown(dropdownId, event) {
   const menu = document.getElementById(dropdownId);
+  const button = event?.currentTarget;
+  if (!button) return;
+
+  const wrapper = button.closest('.download-dropdown');
   const wasOpen = menu.classList.contains('show');
 
-  // Close others
+  // Close all first
   closeAllDropdowns();
   if (wasOpen) return;
 
-  const btn = event?.currentTarget;
-  if (!btn) return;
-
-  const wrapper = btn.closest('.download-dropdown');
-
-  if (wrapper) wrapper.classList.add('open-menu');
+  // Mark this card as active (raises z-index safely)
+  wrapper.classList.add('open-menu');
   document.body.classList.add('dropdown-open');
 
-  const isMobile = window.matchMedia('(max-width: 768px)').matches;
-  const rect = btn.getBoundingClientRect();
+  // ✅ Absolute positioning *inside the card wrapper*, unaffected by scroll/transform
+  const wrapperHeight = wrapper.offsetHeight; // height of toggle + spacing
 
-  if (isMobile) {
-    // ✅ Mobile: fixed to viewport position
-    menu.style.position = 'fixed';
-    menu.style.left = (rect.left + rect.width / 2) + 'px';
-    menu.style.top = Math.round(rect.bottom + 8) + 'px';
-    menu.style.transform = 'translateX(-50%)';
-  } else {
-    // ✅ Desktop: absolute at true page position (scroll-aware)
-    menu.style.position = 'absolute';
-    menu.style.left = '50%';
-    menu.style.top = (rect.bottom + window.scrollY + 8) + 'px';
-    menu.style.transform = 'translateX(-50%)';
-  }
+  menu.style.position = 'absolute';
+  menu.style.top = wrapperHeight + 8 + 'px';
+  menu.style.left = '50%';
+  menu.style.transform = 'translateX(-50%)';
 
+  // Show
   menu.classList.add('show');
-  btn.classList.add('open');
+  button.classList.add('open');
 }
 
 // Keep click-through stable
@@ -5968,6 +5945,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
