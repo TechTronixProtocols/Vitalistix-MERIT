@@ -743,24 +743,6 @@ body.dropdown-open #downloads .product-card:hover {
   transform: none !important;
   z-index: auto !important;
 }
-
-/* ===================================
-   MOBILE — FLOAT EACH DROPDOWN WHERE IT WAS CLICKED
-   =================================== */
-@media (max-width: 768px) {
-
-  #downloads .download-dropdown .dropdown-menu.show {
-    position: fixed !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-
-    /* NEW: read dynamic top position set by JS */
-    top: var(--dropdown-open-top, 200px) !important;
-
-    z-index: 9999999 !important;
-    pointer-events: auto !important;
-  }
-}
      
         /* Questionnaire Section */
         .questionnaire-container {
@@ -5945,6 +5927,7 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
 
 
 
