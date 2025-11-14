@@ -601,165 +601,225 @@
             color: var(--neon-teal);
         }
 
-/* ===============================
-   DOWNLOADS SECTION — CLEAN + MERGED FIX
-   =============================== */
+  /* ===============================
+           DOWNLOADS SECTION — CLEAN + MERGED FIX
+           =============================== */
 
-/* Layout */
-.downloads-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
-  width: 100%;
-}
+        #downloads {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-/* Product Cards (NO stacking context) */
-.product-card {
-  background: rgba(26, 31, 58, 0.5);
-  border-radius: 15px;
-  padding: 2rem;
-  text-align: center;
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  transition: box-shadow 0.3s ease;
-  position: relative;
-  /* REMOVE stacking contexts */
-  filter: none !important;
-  transform: none !important;
-  will-change: auto !important;
-}
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--gold);
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-.product-card:hover {
-  box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
-}
+        /* Layout */
+        .downloads-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            width: 100%;
+            overflow: visible;
+            position: relative;
+        }
 
-/* Freeze hover lift while dropdown open */
-body.dropdown-open #downloads .product-card,
-body.dropdown-open #downloads .product-card:hover {
-  box-shadow: none !important;
-}
+        /* Product Cards (NO stacking context) */
+        .product-card {
+            background: rgba(26, 31, 58, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            transition: box-shadow 0.3s ease;
+            position: relative;
+            /* REMOVE stacking contexts */
+            filter: none !important;
+            transform: none !important;
+            will-change: auto !important;
+            overflow: visible;
+        }
 
-/* Icon + Text */
-.product-icon { font-size: 3rem; color: var(--gold); margin-bottom: 1rem; }
-.product-card h3 { color: var(--text-light); font-size: 1.3rem; margin-bottom: 1rem; }
-.product-card p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 0.95rem; }
+        .product-card:hover {
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
 
-/* ===============================
-   DROPDOWN
-   =============================== */
+        /* Freeze hover lift while dropdown open */
+        body.dropdown-open #downloads .product-card,
+        body.dropdown-open #downloads .product-card:hover {
+            box-shadow: none !important;
+        }
 
-.download-dropdown {
-  position: relative;
-  margin-top: 1rem;
-  z-index: 50; /* small, card positions are now safe */
-}
+        /* Icon + Text */
+        .product-icon {
+            font-size: 3rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
 
-.download-dropdown.open-menu {
-  z-index: 100000 !important;
-}
+        .product-card h3 {
+            color: var(--text-light);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+        }
 
-.dropdown-toggle {
-  display: inline-block;
-  padding: 0.8rem 2rem;
-  background: transparent;
-  color: var(--gold);
-  border: 2px solid var(--gold);
-  border-radius: 25px;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  cursor: pointer;
-  min-width: 200px;
-  text-align: center;
-  transition: all 0.3s ease;
-}
+        .product-card p {
+            color: var(--text-dim);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
 
-.dropdown-toggle:hover {
-  background: var(--gold);
-  color: var(--deep-navy);
-  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-}
+        /* ===============================
+           DROPDOWN
+           =============================== */
 
-.dropdown-toggle i { margin-left: 0.5rem; transition: transform 0.3s ease; }
-.dropdown-toggle.open i { transform: rotate(180deg); }
+        .download-dropdown {
+            position: relative;
+            margin-top: 1rem;
+            z-index: 50;
+            overflow: visible;
+        }
 
-/* Dropdown Menu */
-#downloads .download-dropdown .dropdown-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  min-width: 250px;
-  max-width: 300px;
-  max-height: 250px;
-  overflow-y: auto;
-  background: rgba(26, 31, 58, 0.97);
-  border: 1px solid rgba(255, 215, 0, 0.3);
-  border-radius: 10px;
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-  transition: opacity .25s ease, visibility .25s ease;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-  z-index: 999999 !important; /* VERY IMPORTANT */
-}
+        .download-dropdown.open-menu {
+            z-index: 100000 !important;
+        }
 
-/* Show State */
-#downloads .download-dropdown .dropdown-menu.show {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
+        .dropdown-toggle {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background: transparent;
+            color: var(--gold);
+            border: 2px solid var(--gold);
+            border-radius: 25px;
+            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            min-width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
 
-/* Dropdown Items */
-.dropdown-item {
-  display: block;
-  padding: 0.8rem 1.2rem;
-  color: var(--text-light);
-  font-family: 'Exo 2', sans-serif;
-  font-size: 0.9rem;
-  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-  transition: all 0.25s ease;
-}
-.dropdown-item:last-child { border-bottom: 1px solid rgba(255, 215, 0, 0.1); }
-.dropdown-item:hover {
-  background: rgba(255, 215, 0, 0.15);
-  color: var(--gold);
-  padding-left: 1.6rem;
-}
+        .dropdown-toggle:hover {
+            background: var(--gold);
+            color: var(--deep-navy);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
 
-/* Scrollbar */
-#downloads .dropdown-menu::-webkit-scrollbar { width: 6px; }
-#downloads .dropdown-menu::-webkit-scrollbar-thumb { background: rgba(255,215,0,0.3); border-radius: 3px; }
+        .dropdown-toggle i {
+            margin-left: 0.5rem;
+            transition: transform 0.3s ease;
+        }
 
-/* Never clip dropdown */
-#downloads,
-#downloads .downloads-grid,
-#downloads .product-card {
-  overflow: visible !important;
-  position: relative;
-}
+        .dropdown-toggle.open i {
+            transform: rotate(180deg);
+        }
 
-/* Remove stacking context in donate/support section */
-#donate, #donate * {
-  transform: none !important;
-  z-index: auto !important;
-}
+        /* Dropdown Menu */
+        #downloads .download-dropdown .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            min-width: 250px;
+            max-width: 300px;
+            max-height: 250px;
+            overflow-y: auto;
+            background: rgba(26, 31, 58, 0.97);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 10px;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            z-index: 999999 !important;
+        }
 
-/* ===================================
-   MOBILE — FLOAT EACH DROPDOWN WHERE IT WAS CLICKED
-   =================================== */
-@media (max-width: 768px) {
+        /* Show State */
+        #downloads .download-dropdown .dropdown-menu.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
 
-  #downloads .download-dropdown .dropdown-menu.show {
-    position: fixed !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
+        /* Dropdown Items */
+        .dropdown-item {
+            display: block;
+            padding: 0.8rem 1.2rem;
+            color: var(--text-light);
+            font-family: 'Exo 2', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 0.9rem;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            transition: all 0.25s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
 
-    /* NEW: read dynamic top position set by JS */
-    top: var(--dropdown-open-top, 200px) !important;
+        .dropdown-item:last-child {
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+        }
 
-    z-index: 9999999 !important;
-    pointer-events: auto !important;
-  }
+        .dropdown-item:hover {
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--gold);
+            padding-left: 1.6rem;
+        }
+
+        /* Scrollbar */
+        #downloads .dropdown-menu::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #downloads .dropdown-menu::-webkit-scrollbar-thumb {
+            background: rgba(255, 215, 0, 0.3);
+            border-radius: 3px;
+        }
+
+        /* Never clip dropdown */
+        #downloads,
+        #downloads .downloads-grid,
+        #downloads .product-card {
+            overflow: visible !important;
+            position: relative;
+        }
+
+        /* ===================================
+           MOBILE — FLOAT EACH DROPDOWN WHERE IT WAS CLICKED
+           =================================== */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .downloads-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+            }
+
+            #downloads .download-dropdown .dropdown-menu.show {
+                position: fixed !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                top: var(--dropdown-open-top, 200px) !important;
+                z-index: 9999999 !important;
+                pointer-events: auto !important;
+            }
 }
      
         /* Questionnaire Section */
@@ -2939,90 +2999,82 @@ body.modal-open {
     </section>
 
    <!-- DOWNLOADS SECTION -->
-<section id="downloads">
+    <section id="downloads">
+        <h2 class="section-title">Downloads</h2>
 
-    <!-- Correct hreflang: Direct users to main download section -->
-    <link rel="alternate" hreflang="x-default" href="https://techtronixprotocols.github.io/Vitalistix-MERIT/#downloads" />
+        <!-- Hidden SEO crawlable links -->
+        <div style="display:none;" aria-hidden="true">
+            <!-- Nutrition Guides -->
+            <a href="downloads/nutrition-guide-en.pdf">Nutrition Guide (English)</a>
+            <a href="downloads/nutrition-guide-es.pdf">Guía Nutricional (Español)</a>
+            <a href="downloads/nutrition-guide-fr.pdf">Guide Nutrition (Français)</a>
+            <a href="downloads/nutrition-guide-de.pdf">Ernährungsführer (Deutsch)</a>
+            <a href="downloads/nutrition-guide-it.pdf">Guida Nutrizionale (Italiano)</a>
+            <a href="downloads/nutrition-guide-pt.pdf">Guia de Nutrição (Português)</a>
+            <a href="downloads/nutrition-guide-ru.pdf">Руководство по питанию (Русский)</a>
+            <a href="downloads/nutrition-guide-zh.pdf">营养指南 (中文)</a>
 
-    <h2 class="section-title" data-translate="store_title">Downloads</h2>
+            <!-- Metabolic Epilepsy Overview -->
+            <a href="downloads/metabolic-overview-en.pdf">Overview (English)</a>
+            <a href="downloads/metabolic-overview-es.pdf">Resumen (Español)</a>
+            <a href="downloads/metabolic-overview-fr.pdf">Aperçu (Français)</a>
+            <a href="downloads/metabolic-overview-de.pdf">Übersicht (Deutsch)</a>
+            <a href="downloads/metabolic-overview-it.pdf">Panoramica (Italiano)</a>
+            <a href="downloads/metabolic-overview-pt.pdf">Visão Geral (Português)</a>
+            <a href="downloads/metabolic-overview-ru.pdf">Обзор (Русский)</a>
+            <a href="downloads/metabolic-overview-zh.pdf">代谢性癫痫概述 (中文)</a>
+        </div>
 
-    <!-- Hidden SEO crawlable links (Google will index PDFs as YOUR domain content) -->
-    <div style="display:none;" aria-hidden="true">
-        <!-- Nutrition Guides -->
-        <a href="downloads/nutrition-guide-en.pdf">Nutrition Guide (English)</a>
-        <a href="downloads/nutrition-guide-es.pdf">Guía Nutricional (Español)</a>
-        <a href="downloads/nutrition-guide-fr.pdf">Guide Nutrition (Français)</a>
-        <a href="downloads/nutrition-guide-de.pdf">Ernährungsführer (Deutsch)</a>
-        <a href="downloads/nutrition-guide-it.pdf">Guida Nutrizionale (Italiano)</a>
-        <a href="downloads/nutrition-guide-pt.pdf">Guia de Nutrição (Português)</a>
-        <a href="downloads/nutrition-guide-ru.pdf">Руководство по питанию (Русский)</a>
-        <a href="downloads/nutrition-guide-zh.pdf">营养指南 (中文)</a>
+        <div class="downloads-grid">
 
-        <!-- Metabolic Epilepsy Overview -->
-        <a href="downloads/metabolic-overview-en.pdf">Overview (English)</a>
-        <a href="downloads/metabolic-overview-es.pdf">Resumen (Español)</a>
-        <a href="downloads/metabolic-overview-fr.pdf">Aperçu (Français)</a>
-        <a href="downloads/metabolic-overview-de.pdf">Übersicht (Deutsch)</a>
-        <a href="downloads/metabolic-overview-it.pdf">Panoramica (Italiano)</a>
-        <a href="downloads/metabolic-overview-pt.pdf">Visão Geral (Português)</a>
-        <a href="downloads/metabolic-overview-ru.pdf">Обзор (Русский)</a>
-        <a href="downloads/metabolic-overview-zh.pdf">代谢性癫痫概述 (中文)</a>
-    </div>
+            <!-- NUTRITION GUIDE CARD -->
+            <div class="product-card">
+                <div class="product-icon"><i class="fas fa-book"></i></div>
+                <h3>Nutrition Guides</h3>
+                <p>Comprehensive guide to metabolic nutrition for epilepsy management</p>
 
-    <div class="downloads-grid">
+                <div class="download-dropdown">
+                    <button class="dropdown-toggle" onclick="toggleDropdown('nutritionDropdown', event)">
+                        Select Language <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="nutritionDropdown">
+                        <a class="dropdown-item" href="downloads/nutrition-guide-en.pdf" download>English</a>
+                        <a class="dropdown-item" href="downloads/nutrition-guide-es.pdf" download>Español</a>
+                        <a class="dropdown-item" href="downloads/nutrition-guide-fr.pdf" download>Français</a>
+                        <a class="dropdown-item" href="downloads/nutrition-guide-de.pdf" download>Deutsch</a>
+                        <a class="dropdown-item" href="downloads/nutrition-guide-it.pdf" download>Italiano</a>
+                        <a class="dropdown-item" href="downloads/nutrition-guide-pt.pdf" download>Português</a>
+                        <a class="dropdown-item" href="downloads/nutrition-guide-ru.pdf" download>Русский</a>
+                        <a class="dropdown-item" href="downloads/nutrition-guide-zh.pdf" download>中文</a>
+                    </div>
+                </div>
+            </div>
 
-        <!-- NUTRITION GUIDE CARD -->
-        <div class="product-card">
-            <div class="product-icon"><i class="fas fa-book"></i></div>
-            <h3 data-translate="store_nutrition_title">Nutrition Guides</h3>
-            <p data-translate="store_nutrition_text">
-                Comprehensive guide to metabolic nutrition for epilepsy management
-            </p>
+            <!-- METABOLIC EPILEPSY OVERVIEW CARD -->
+            <div class="product-card">
+                <div class="product-icon"><i class="fas fa-file-medical"></i></div>
+                <h3>Metabolic Epilepsy Overview</h3>
+                <p>Comprehensive clinical overview of metabolic epilepsy with research-backed sources</p>
 
-            <div class="download-dropdown">
-                <button class="dropdown-toggle" onclick="toggleDropdown('nutritionDropdown', event)">
-                    Select Language <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="dropdown-menu scrollable" id="nutritionDropdown">
-                    <a class="dropdown-item" href="downloads/nutrition-guide-en.pdf" download>English</a>
-                    <a class="dropdown-item" href="downloads/nutrition-guide-es.pdf" download>Español</a>
-                    <a class="dropdown-item" href="downloads/nutrition-guide-fr.pdf" download>Français</a>
-                    <a class="dropdown-item" href="downloads/nutrition-guide-de.pdf" download>Deutsch</a>
-                    <a class="dropdown-item" href="downloads/nutrition-guide-it.pdf" download>Italiano</a>
-                    <a class="dropdown-item" href="downloads/nutrition-guide-pt.pdf" download>Português</a>
-                    <a class="dropdown-item" href="downloads/nutrition-guide-ru.pdf" download>Русский</a>
-                    <a class="dropdown-item" href="downloads/nutrition-guide-zh.pdf" download>中文</a>
+                <div class="download-dropdown">
+                    <button class="dropdown-toggle" onclick="toggleDropdown('overviewDropdown', event)">
+                        Select Language <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-menu" id="overviewDropdown">
+                        <a class="dropdown-item" href="downloads/metabolic-overview-en.pdf" download>English</a>
+                        <a class="dropdown-item" href="downloads/metabolic-overview-es.pdf" download>Español</a>
+                        <a class="dropdown-item" href="downloads/metabolic-overview-fr.pdf" download>Français</a>
+                        <a class="dropdown-item" href="downloads/metabolic-overview-de.pdf" download>Deutsch</a>
+                        <a class="dropdown-item" href="downloads/metabolic-overview-it.pdf" download>Italiano</a>
+                        <a class="dropdown-item" href="downloads/metabolic-overview-pt.pdf" download>Português</a>
+                        <a class="dropdown-item" href="downloads/metabolic-overview-ru.pdf" download>Русский</a>
+                        <a class="dropdown-item" href="downloads/metabolic-overview-zh.pdf" download>中文</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- METABOLIC EPILEPSY OVERVIEW CARD -->
-        <div class="product-card">
-            <div class="product-icon"><i class="fas fa-file-medical"></i></div>
-            <h3 data-translate="store_overview_title">Metabolic Epilepsy Overview</h3>
-            <p data-translate="store_overview_text">
-                Comprehensive clinical overview of metabolic epilepsy with research-backed sources
-            </p>
-
-            <div class="download-dropdown">
-                <button class="dropdown-toggle" onclick="toggleDropdown('overviewDropdown', event)">
-                    Select Language <i class="fas fa-chevron-down"></i>
-                </button>
-                <div class="dropdown-menu scrollable" id="overviewDropdown">
-                    <a class="dropdown-item" href="downloads/metabolic-overview-en.pdf" download>English</a>
-                    <a class="dropdown-item" href="downloads/metabolic-overview-es.pdf" download>Español</a>
-                    <a class="dropdown-item" href="downloads/metabolic-overview-fr.pdf" download>Français</a>
-                    <a class="dropdown-item" href="downloads/metabolic-overview-de.pdf" download>Deutsch</a>
-                    <a class="dropdown-item" href="downloads/metabolic-overview-it.pdf" download>Italiano</a>
-                    <a class="dropdown-item" href="downloads/metabolic-overview-pt.pdf" download>Português</a>
-                    <a class="dropdown-item" href="downloads/metabolic-overview-ru.pdf" download>Русский</a>
-                    <a class="dropdown-item" href="downloads/metabolic-overview-zh.pdf" download>中文</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</section>
+    </section>
  
 
     <!-- Donate / Support Section -->
@@ -4319,76 +4371,88 @@ function updateLanguage(lang) {
             }
         });
 
-/* =========================================
-   DROPDOWN CONTROL — JS-ONLY, PER-CARD POSITION
-   ========================================= */
+           /* =========================================
+           DROPDOWN CONTROL — JS-ONLY, PER-CARD POSITION
+           ========================================= */
 
-function closeAllDropdowns() {
-  document.querySelectorAll('#downloads .dropdown-menu').forEach(menu => {
-    menu.classList.remove('show');
-    menu.style.position = '';
-    menu.style.top = '';
-    menu.style.left = '';
-    menu.style.transform = '';
-  });
-  document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
-  document.querySelectorAll('#downloads .download-dropdown').forEach(w => w.classList.remove('open-menu'));
-}
+        function closeAllDropdowns() {
+            document.querySelectorAll('#downloads .dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+                menu.style.position = '';
+                menu.style.top = '';
+                menu.style.left = '';
+                menu.style.transform = '';
+            });
+            document.querySelectorAll('#downloads .dropdown-toggle').forEach(t => t.classList.remove('open'));
+            document.querySelectorAll('#downloads .download-dropdown').forEach(w => w.classList.remove('open-menu'));
+        }
 
-/**
- * Place menu directly under the clicked button, inside its own .download-dropdown
- * Works for desktop and mobile because we use DOM-relative math (not globals).
- */
-function toggleDropdown(dropdownId, event) {
-  const menu = document.getElementById(dropdownId);
-  const wasOpen = menu.classList.contains('show');
+        /**
+         * Place menu directly under the clicked button, inside its own .download-dropdown
+         * Works for desktop and mobile because we use DOM-relative math (not globals).
+         */
+        function toggleDropdown(dropdownId, event) {
+            const menu = document.getElementById(dropdownId);
+            const wasOpen = menu.classList.contains('show');
 
-  // close others first
-  closeAllDropdowns();
-  if (wasOpen) return;
+            // close others first
+            closeAllDropdowns();
+            if (wasOpen) return;
 
-  const btn = event && event.currentTarget ? event.currentTarget : null;
-  if (!btn) return;
+            const btn = event && event.currentTarget ? event.currentTarget : null;
+            if (!btn) return;
 
-  const wrapper = btn.closest('.download-dropdown');
-  if (!wrapper) return;
+            const wrapper = btn.closest('.download-dropdown');
+            if (!wrapper) return;
 
-  // raise only this wrapper (so it can overlay the sibling card)
-  wrapper.classList.add('open-menu');
-  btn.classList.add('open');
+            // raise only this wrapper (so it can overlay the sibling card)
+            wrapper.classList.add('open-menu');
+            btn.classList.add('open');
 
-  // ---- Precise per-card positioning (no globals) ----
-  // Use bounding rect differences to be robust against any transforms.
-  const btnRect   = btn.getBoundingClientRect();
-  const wrapRect  = wrapper.getBoundingClientRect();
+            // ---- Precise per-card positioning (no globals) ----
+            // Use bounding rect differences to be robust against any transforms.
+            const btnRect = btn.getBoundingClientRect();
+            const wrapRect = wrapper.getBoundingClientRect();
 
-  // Position the menu absolutely INSIDE its wrapper
-  menu.style.position = 'absolute';
-  // Distance from top of wrapper to bottom of button + small gap
-  menu.style.top  = (btnRect.bottom - wrapRect.top + 8) + 'px';
-  // Center horizontally under the button within the wrapper
-  menu.style.left = (btnRect.left - wrapRect.left + (btnRect.width / 2)) + 'px';
-  menu.style.transform = 'translateX(-50%)';
+            // Position the menu absolutely INSIDE its wrapper
+            menu.style.position = 'absolute';
+            // Distance from top of wrapper to bottom of button + small gap
+            menu.style.top = (btnRect.bottom - wrapRect.top + 8) + 'px';
+            // Center horizontally under the button within the wrapper
+            menu.style.left = (btnRect.left - wrapRect.left + (btnRect.width / 2)) + 'px';
+            menu.style.transform = 'translateX(-50%)';
 
-  menu.classList.add('show');
-}
+            // On mobile, use fixed positioning with CSS variable
+            if (window.innerWidth <= 768) {
+                menu.style.position = 'fixed';
+                menu.style.top = (btnRect.bottom + 8) + 'px';
+                menu.style.left = '50%';
+                menu.style.transform = 'translateX(-50%)';
+                document.documentElement.style.setProperty('--dropdown-open-top', (btnRect.bottom + 8) + 'px');
+            }
 
-// Keep item clicks from bubbling and instantly closing
-document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
-  item.addEventListener('click', e => e.stopPropagation());
-});
+            menu.classList.add('show');
+        }
 
-// Button click should not propagate to document (prevents flicker)
-document.querySelectorAll('#downloads .dropdown-toggle').forEach(btn => {
-  btn.addEventListener('click', e => e.stopPropagation(), { passive: true });
-});
+        // Keep item clicks from bubbling and instantly closing
+        document.querySelectorAll('#downloads .dropdown-item').forEach(item => {
+            item.addEventListener('click', e => {
+                e.stopPropagation();
+                closeAllDropdowns();
+            });
+        });
 
-// Click anywhere outside to close
-document.addEventListener('click', () => closeAllDropdowns());
+        // Button click should not propagate to document (prevents flicker)
+        document.querySelectorAll('#downloads .dropdown-toggle').forEach(btn => {
+            btn.addEventListener('click', e => e.stopPropagation(), { passive: true });
+        });
 
-// Also close on resize/scroll to avoid stale placement (optional, safe)
-window.addEventListener('resize', closeAllDropdowns, { passive: true });
-window.addEventListener('scroll',  closeAllDropdowns, { passive: true });
+        // Click anywhere outside to close
+        document.addEventListener('click', () => closeAllDropdowns());
+
+        // Also close on resize/scroll to avoid stale placement (optional, safe)
+        window.addEventListener('resize', closeAllDropdowns, { passive: true });
+        window.addEventListener('scroll', closeAllDropdowns, { passive: true });
 
 
         // Enhanced scroll animations with throttling for better performance
@@ -5971,6 +6035,73 @@ document.addEventListener('click', function(e) {
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
