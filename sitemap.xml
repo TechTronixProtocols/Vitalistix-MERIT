@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Main Site Pages -->
+  <!-- ======================
+       Main Site Pages
+  ======================= -->
   <url>
     <loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/</loc>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
   </url>
 
-  <url>
-    <loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/#downloads</loc>
-    <priority>0.9</priority>
-  </url>
+  <!-- Anchor Sections (Single-page site structure) -->
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/#about</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/#mission</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/#downloads</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/#community-loop</loc></url>
+  <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/#contact</loc></url>
 
-  <!-- Nutrition Guides -->
+  <!-- ======================
+       Nutrition Guides
+  ======================= -->
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-en.pdf</loc></url>
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-es.pdf</loc></url>
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-fr.pdf</loc></url>
@@ -23,7 +29,9 @@
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-ru.pdf</loc></url>
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/nutrition-guide-zh.pdf</loc></url>
 
-  <!-- Metabolic Overview Guides -->
+  <!-- ======================
+       Metabolic Overview Guides
+  ======================= -->
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-en.pdf</loc></url>
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-es.pdf</loc></url>
   <url><loc>https://techtronixprotocols.github.io/Vitalistix-MERIT/downloads/metabolic-overview-fr.pdf</loc></url>
