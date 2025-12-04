@@ -2652,6 +2652,127 @@ body.modal-open {
   color: #d4e2ef;
   line-height: 1.6;
 }
+
+/* ================================
+   COMMUNITY LOOP – HORIZONTAL SCROLL MODE
+================================ */
+
+.community-scroll-wrapper {
+  overflow-x: auto;
+  overflow-y: visible;
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.community-scroll-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+
+.community-scroll-wrapper::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.community-scroll-wrapper::-webkit-scrollbar-thumb {
+  background: var(--neon-teal);
+  border-radius: 10px;
+}
+
+.community-card {
+  min-width: 380px;
+  max-width: 420px;
+  scroll-snap-align: center;
+  background-color: var(--light-navy);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.15);
+  transition: 0.3s ease;
+}
+
+.community-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+}
+
+/* Horizontal scroll arrows */
+.scroll-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.scroll-btn {
+  background: var(--light-navy);
+  border: 1px solid var(--neon-teal);
+  color: var(--neon-teal);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background: var(--neon-teal);
+  color: #000;
+  transform: scale(1.1);
+}
+
+.view-source,
+.join-discussion {
+  color: #00E1FF !important;
+  text-decoration: none;
+}
+
+.view-source:hover,
+.join-discussion:hover {
+  color: #7af2ff !important;
+}
+
+/* Make "View Source" and "Join the Discussion" use the teal used by the slide bar */
+:root {
+  --merit-teal: #00FFFF;   /* or use slightly darker teal for contrast: #00E6E6 */
+}
+
+/* Normal / visited / hover / focus states */
+#community-loop .view-source a,
+#community-loop .join-discussion a,
+#community-loop .seo-footer a {
+  color: var(--merit-teal);
+  text-decoration: none; /* keep existing style — change if you want underline */
+  transition: color 0.18s ease;
+}
+
+#community-loop .view-source a:visited,
+#community-loop .join-discussion a:visited,
+#community-loop .seo-footer a:visited {
+  color: var(--merit-teal); /* keep visited same color so it doesn't become dark blue */
+}
+
+#community-loop .view-source a:hover,
+#community-loop .join-discussion a:hover,
+#community-loop .seo-footer a:hover,
+#community-loop .view-source a:focus,
+#community-loop .join-discussion a:focus {
+  color: #FFD700;         /* gold on hover (optional) */
+  text-decoration: underline;
+}
+
+/* If links are stubbornly inheriting a color from a more specific rule,
+   this will force them (use sparingly): */
+#community-loop .view-source a,
+#community-loop .join-discussion a {
+  color: var(--merit-teal) !important;
+}
      
     </style>
 </head>
@@ -3092,6 +3213,7 @@ body.modal-open {
         </div>
     </section>
 
+<!-- F.A.Q. Section -->
 <section id="faq" class="section">
   <div class="faq-wrapper">
     <h2 class="section-title" data-translate="faq_title">Frequently Asked Questions</h2>
@@ -3101,6 +3223,205 @@ body.modal-open {
     </div>
   </div>
 </section>
+ 
+<!-- ===============================
+     COMMUNITY DISCUSSION SECTION
+================================== -->
+<section id="community-loop" class="community-loop-section">
+  <h2 class="section-title gold-glow">COMMUNITY INSIGHTS & RESEARCH LOOPS</h2>
+
+  <p class="section-subtitle">
+    Real discussions and published updates from MERIT across Reddit and X — each post links back to our research downloads.
+  </p>
+
+  <!-- 🔥 Horizontal Scroll Wrapper -->
+  <div class="community-scroll-wrapper" id="communityScroll">
+
+    <!-- ===========================
+         Reddit Card 1
+    ============================ -->
+    <div class="community-card">
+      <blockquote class="reddit-embed-bq" data-embed-height="316">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1ls4i0h/the_merit_project_help_support_the_site_launch/">
+          🧠 The MERIT Project — Help Support the Site Launch
+        </a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1ls4i0h/the_merit_project_help_support_the_site_launch/" target="_blank">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+
+<!-- ===========================
+         Reddit Card 2
+    ============================ -->	
+	<div class="community-card">
+      <blockquote class="reddit-embed-bq" data-embed-height="316">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1lub9p1/epilepsy_overview_metabolicbased_seizure_awareness/">
+          Epilepsy Overview | Metabolic-Based Seizure Awareness
+        </a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1lub9p1/epilepsy_overview_metabolicbased_seizure_awareness/">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+
+<!-- ===========================
+         Reddit Card 3
+    ============================ -->	
+	<div class="community-card">
+      <blockquote class="reddit-embed-bq" data-embed-height="316">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1ls480g/how_playing_video_games_helped_me_realize_i_had/">
+          How Playing Video Games Helped Me Realize I Had Epilepsy
+        </a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1ls480g/how_playing_video_games_helped_me_realize_i_had/" target="_blank">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+	
+<!-- ===========================
+         Reddit Card 4
+    ============================ -->		
+	<div class="community-card">
+      <blockquote class="reddit-embed-bq" data-embed-height="316">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1ls4ctt/what_foods_or_nutrients_have_affected_your/">
+          What Foods or Nutrients Have Affected Your Seizures?
+        </a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://www.reddit.com/r/MetabolicEpilepsy/comments/1ls4ctt/what_foods_or_nutrients_have_affected_your/">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+
+    <!-- ===========================
+         X / Twitter Card 1
+    ============================ -->
+    <div class="community-card">
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">
+          A bus driver had a seizure while driving — chaos in seconds.<br>
+          Metabolic or dietary imbalances can sometimes trigger seizures, even without prior history.<br>
+          Vitalistix raises awareness of Metabolic Epilepsy — early testing can save lives. 💙
+          <a href="https://twitter.com/hashtag/EpilepsyAwareness?src=hash">#EpilepsyAwareness</a>
+          <a href="https://twitter.com/hashtag/MetabolicEpilepsy?src=hash">#MetabolicEpilepsy</a>
+          <a href="https://t.co/quKoqjqxD3">pic.twitter.com/quKoqjqxD3</a>
+        </p>
+        — Vitalistix Healthcare (@fakefueloutlawz)
+        <a href="https://twitter.com/fakefueloutlawz/status/1976981103643611193">October 11, 2025</a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://x.com/fakefueloutlawz/status/1976981103643611193" target="_blank">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+	
+	<!-- ===========================
+         X / Twitter Card 2
+    ============================ -->
+	  <div class="community-card">
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">
+          We’re changing how the world understands epilepsy — from symptoms to systems.<br>Metabolic literacy is the new medicine.
+          <a href="https://twitter.com/hashtag/MERIT?src=hash&amp;ref_src=twsrc%5Etfw">#MERIT</a>
+          <a href="https://twitter.com/hashtag/MetabolicHealth?src=hash&amp;ref_src=twsrc%5Etfw">#MetabolicHealth</a>
+          <a href="https://twitter.com/hashtag/EpilepsyAwareness?src=hash&amp;ref_src=twsrc%5Etfw">#EpilepsyAwareness</a>
+		  <a href="https://t.co/lfbp5vAROG">pic.twitter.com/lfbp5vAROG</a></p>&mdash; Vitalistix Healthcare (@fakefueloutlawz)
+        </p>
+        — Vitalistix Healthcare (@fakefueloutlawz)
+        <a href="https://twitter.com/fakefueloutlawz/status/1995921163541770581?ref_src=twsrc%5Etfw">December 2, 2025</a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://x.com/fakefueloutlawz/status/1995921163541770581" target="_blank">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+	
+	<!-- ===========================
+         X / Twitter Card 3
+    ============================ -->
+	  <div class="community-card">
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">
+          Epilepsy isn’t just neurological — it’s metabolic.<br>
+          MERIT exists to make that truth visible, understandable, and actionable.
+          <a href="https://twitter.com/hashtag/MetabolicEpilepsy?src=hash&amp;ref_src=twsrc%5Etfw">#MetabolicEpilepsy</a> 
+          <a href="https://twitter.com/hashtag/MERIT?src=hash&amp;ref_src=twsrc%5Etfw">#MERIT</a> 
+          <a href="https://twitter.com/hashtag/NeuroHealth?src=hash&amp;ref_src=twsrc%5Etfw">#NeuroHealth</a> 
+		  <a href="https://t.co/9jg5McpEjW">pic.twitter.com/9jg5McpEjW</a></p>&mdash; Vitalistix Healthcare (@fakefueloutlawz)
+        </p>
+        — Vitalistix Healthcare (@fakefueloutlawz)
+        <a href="https://twitter.com/fakefueloutlawz/status/1996256880599974362?ref_src=twsrc%5Etfw">December 3, 2025</a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://x.com/fakefueloutlawz/status/1996256880599974362" target="_blank">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+	
+	<!-- ===========================
+         X / Twitter Card 4
+    ============================ -->
+	  <div class="community-card">
+      <blockquote class="twitter-tweet">
+        <p lang="en" dir="ltr">
+          Metabolism matters. Watch for these seizure-triggering foods:<br>• High-fructose corn syrup<br>• Ultra-processed snacks<br>• Industrial seed oils<br>• Artificial sweeteners<br>Your brain feels what you fuel it with. 
+          <a href="https://twitter.com/hashtag/MERIT?src=hash&amp;ref_src=twsrc%5Etfw">#MERIT</a> 
+          <a href="https://t.co/8CEiCQkzBN">pic.twitter.com/8CEiCQkzBN</a></p>&mdash; Vitalistix Healthcare (@fakefueloutlawz)
+        </p>
+        — Vitalistix Healthcare (@fakefueloutlawz)
+        <a href="https://twitter.com/fakefueloutlawz/status/1996719026731372684?ref_src=twsrc%5Etfw">December 4, 2025</a>
+      </blockquote>
+
+      <p class="view-source">
+        <a href="https://x.com/fakefueloutlawz/status/1996719026731372684" target="_blank">
+          ↩ View Source
+        </a>
+      </p>
+    </div>
+
+    <!-- You can paste additional Reddit or X embeds here, each inside a .community-card -->
+
+  </div><!-- END scroll wrapper -->
+
+  <!-- Scroll Buttons -->
+  <div class="scroll-arrows">
+    <button class="scroll-btn" id="scrollLeft">⟵</button>
+    <button class="scroll-btn" id="scrollRight">⟶</button>
+  </div>
+
+  <div class="join-discussion">
+    <a href="https://www.reddit.com/r/MetabolicEpilepsy/" target="_blank" class="join-btn">
+      Join the Discussion
+    </a>
+  </div>
+
+  <p class="seo-footer">
+    These discussions are part of MERIT’s public reference network that connects research summaries → community dialogue → official downloads.
+  </p>
+</section>
+
+<!-- REQUIRED SCRIPTS -->
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<script async src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
+
  
 <!-- Footer -->
 <footer>
@@ -6027,12 +6348,92 @@ document.addEventListener('click', function(e) {
 });
 
 document.addEventListener('click', function(e) {
-    if (e.target.classList.contains('cookie-modal')) {
+      if (e.target.classList.contains('cookie-modal')) {
         e.target.classList.remove('show');
         document.body.style.overflow = '';
-    }
+      }
+    });
+
+    // Initialize Reddit embeds
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.reddit) {
+        window.reddit.init();
+      }
+      
+      // Initialize Twitter embeds
+      if (window.twttr) {
+        window.twttr.widgets.load();
+      }
+    });
+
+    // FIXED: Intersection Observer for scroll animations
+    document.addEventListener("DOMContentLoaded", () => {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      // Observe all elements that need fade-in animation
+      document.querySelectorAll('.community-card, .join-discussion, .seo-footer').forEach(el => {
+        observer.observe(el);
+      });
+    });
+  </script>
+
+  <!-- FIXED: Added Twitter/X widget script -->
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+  
+  <!-- Reddit embed script -->
+  <script async src="https://embed.reddit.com/widgets.js" charset="UTF-8"></script>
+  
+  <script>
+const scrollContainer = document.getElementById("communityScroll");
+const btnLeft = document.getElementById("scrollLeft");
+const btnRight = document.getElementById("scrollRight");
+
+// Scroll amount per click
+const scrollAmount = 420;
+
+btnLeft.addEventListener("click", () => {
+  scrollContainer.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+});
+
+btnRight.addEventListener("click", () => {
+  scrollContainer.scrollBy({ left: scrollAmount, behavior: "smooth" });
+});
+
+// Mouse drag support
+let isDown = false;
+let startX;
+let scrollLeftStart;
+
+scrollContainer.addEventListener("mousedown", (e) => {
+  isDown = true;
+  startX = e.pageX - scrollContainer.offsetLeft;
+  scrollLeftStart = scrollContainer.scrollLeft;
+});
+
+scrollContainer.addEventListener("mouseleave", () => (isDown = false));
+scrollContainer.addEventListener("mouseup", () => (isDown = false));
+
+scrollContainer.addEventListener("mousemove", (e) => {
+  if (!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - scrollContainer.offsetLeft;
+  const walk = (x - startX) * 1.5;
+  scrollContainer.scrollLeft = scrollLeftStart - walk;
 });
 </script>
+
 </body>
 </html>
 
